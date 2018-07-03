@@ -1,0 +1,203 @@
+{% from "macros.html" import nav_link, gen_title, render_field with context %}
+
+<!DOCTYPE html>
+<html>
+    
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="shortcut icon" href="{{ url_for('static', filename='pics/favicon.ico') }}">
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/jquery-ui.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.css') }}">
+       <!-- <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" />-->
+        <!--<link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />-->
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/nav.css') }}">
+        <!--<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='tricky_nav_styles.css') }}">-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<!--Generates title if passed in (defined in macros.html)-->
+    </head>
+    <body style="background-color: #E4EAEC;">
+    
+    
+        <div style=""></div>
+        <nav class="navbar fixed-top navbar-expand-md navbar-dark mb-3 col-md-12">
+        
+            <div class=" d-flex flex-row">
+                <a class="navbar-brand " id="denso-brand" href="#" title="Crafting the Core"><strong>DENSO</strong></a>
+                <!--<a class="navbar-brand " id="denso-brand" href="#" title="Free Bootstrap 4 Admin Template"><img src="{{ url_for('static', filename='images/brand5.png') }}" width="200" height="100" />DENSO</a>-->
+            </div>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsingNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a href="#" data-target="#sidebar" data-toggle="collapse" id="toggle-sidebar"><i class="fa fa-navicon fa-2x " style="position:relative; right:1.1rem; z-index:1;"></i></a>
+            <div class="navbar-collapse collapse" id="collapsingNavbar">
+                <ul class="navbar-nav">
+                    <li class="nav-item ">
+                        <a class="nav-link" href="#" > <span class="sr-only"></span></a>
+                    </li>
+                    <li class="nav-item">
+                       {{ nav_link('home', 'Initialization') }}
+                    </li>
+                    <li class="nav-item ">
+                        {{ nav_link('home', 'ThisTest') }}
+                    </li>
+                </ul>
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#myAlert" data-toggle="collapse">Alert</a>
+                    </li>
+                </ul>
+                <div class="navbar-nav ">
+                {{ nav_link('home', 'Measurements') }}
+                {{ nav_link('home', 'Tricky') }}
+
+    
+                </div>
+            </div>
+        </nav>
+        
+        
+        <div class="container-fluid" style="background-color: #E4EAEC; overflow:hidden; min-height:80%;">
+
+            <div class="row d-flex d-md-block flex-nowrap wrapper mt-5" style="background-color: #E4EAEC; min-height:80%;">
+                <div class="col-md-1 float-left col-1 pl-0 pr-0 collapse width show mt-1" id="sidebar">
+                        <div class="list-group border-0 card text-center text-md-left sticky-top">
+                        <a href="#menu1" class="list-group-item d-inline-block collapsed" data-toggle="collapse" aria-expanded="false"><i class="fa fa-dashboard"></i> <span class="d-none d-md-inline">Queries</span> </a>
+                        <div class="collapse" id="menu1" data-parent="#sidebar">
+                            <a href="#menu1sub1" class="list-group-item" data-toggle="collapse" aria-expanded="false">Form Ideas </a>
+                            <div class="collapse" id="menu1sub1" data-parent="#menu1">
+                                <a href="{{url_for('home')}}" class="list-group-item" data-parent="#menu1sub1">Query Map</a>
+                                <a href="{{url_for('home')}}" class="list-group-item" data-parent="#menu1sub1">Drag-Drop</a>
+                                <a href="{{url_for('home')}}" class="list-group-item" data-parent="#menu1sub1">Off Site</a>
+                                <a href="#menu1sub1sub1" class="list-group-item" data-toggle="collapse" aria-expanded="false">Archived </a>
+                                <div class="collapse" id="menu1sub1sub1">
+                                    <a href="#" class="list-group-item" data-parent="#menu1sub1sub1">etc.</a>
+                                    <a href="#" class="list-group-item" data-parent="#menu1sub1sub1">etc.</a>
+                                </div>
+                            </div>
+                            <a href="#menu1sub2" class="list-group-item" data-toggle="collapse" aria-expanded="false">Subitem 2</a>
+                            <div class="collapse" id="menu1sub2" data-parent="#menu1">
+                                <a href="#" class="list-group-item" data-parent="#menu1sub1">Subitem 1 a</a>
+                                <a href="#" class="list-group-item" data-parent="#menu1sub1">Subitem 2 b</a>
+                                <a href="#menu1sub1sub1" class="list-group-item" data-toggle="collapse" aria-expanded="false">Subitem 3 c </a>
+                                <div class="collapse" id="menu1sub1sub1">
+                                    <a href="#" class="list-group-item" data-parent="#menu1sub1sub1">Subitem 3 c.1</a>
+                                    <a href="#" class="list-group-item" data-parent="#menu1sub1sub1">Subitem 3 c.2</a>
+                                </div>
+                                <a href="#" class="list-group-item" data-parent="#menu1sub1">Subitem 4 d</a>
+                                <a href="#menu1sub1sub2" class="list-group-item" data-toggle="collapse" aria-expanded="false">Subitem 5 e </a>
+                                <div class="collapse" id="menu1sub1sub2">
+                                    <a href="#" class="list-group-item" data-parent="#menu1sub1sub2">Subitem 5 e.1</a>
+                                    <a href="#" class="list-group-item" data-parent="#menu1sub1sub2">Subitem 5 e.2</a>
+                                </div>
+                            </div>
+                            <a href="#" class="list-group-item">Subitem 3</a>
+                        </div>
+                        <a href="#" class="list-group-item d-inline-block collapsed"><i class="fa fa-code-fork"></i> <span class="d-none d-md-inline">Item 2</span></a>
+                        <a href="#menu3" class="list-group-item d-inline-block collapsed" data-toggle="collapse" aria-expanded="false"><i class="fa fa-book"></i> <span class="d-none d-md-inline">Item 3 </span></a>
+                        <div class="collapse" id="menu3" data-parent="#sidebar">
+                            <a href="#" class="list-group-item" data-parent="#menu3">3.1</a>
+                            <a href="#menu3sub2" class="list-group-item" data-toggle="collapse" aria-expanded="false">3.2 </a>
+                            <div class="collapse" id="menu3sub2">
+                                <a href="#" class="list-group-item" data-parent="#menu3sub2">3.2 a</a>
+                                <a href="#" class="list-group-item" data-parent="#menu3sub2">3.2 b</a>
+                                <a href="#" class="list-group-item" data-parent="#menu3sub2">3.2 c</a>
+                            </div>
+                            <a href="#" class="list-group-item" data-parent="#menu3">3.3</a>
+                        </div>
+                        <a href="#" class="list-group-item d-inline-block collapsed" data-parent="#sidebar"><i class="fa fa-gg"></i> <span class="d-none d-md-inline">Link</span></a>
+                        <a href="#" class="list-group-item d-inline-block collapsed" data-parent="#sidebar"><i class="fa fa-server"></i> <span class="d-none d-md-inline">Link</span></a>
+                        <a href="#" class="list-group-item d-inline-block collapsed" data-parent="#sidebar"><i class="fa fa-print"></i> <span class="d-none d-md-inline">Link</span></a>
+                        <a href="#" class="list-group-item d-inline-block collapsed" data-parent="#sidebar"><i class="fa fa-database"></i> <span class="d-none d-md-inline">Link</span></a>
+                        <a href="#" class="list-group-item d-inline-block collapsed" data-parent="#sidebar"><i class="fa fa-file-excel-o"></i> <span class="d-none d-md-inline">Link</span></a>
+                        <a href="#" class="list-group-item d-inline-block collapsed" data-parent="#sidebar"><i class="fa fa-calendar"></i> <span class="d-none d-md-inline">Link</span></a>
+                        <a href="#" class="list-group-item d-inline-block collapsed" data-parent="#sidebar"><i class="fa fa-folder-open"></i> <span class="d-none d-md-inline">Link</span></a>
+                        <a href="#" class="list-group-item d-inline-block collapsed" data-parent="#sidebar"><i class="fa fa-bar-chart-o"></i> <span class="d-none d-md-inline">Link</span></a>
+                        <a href="#" class="list-group-item d-inline-block collapsed" data-parent="#sidebar"><i class="fa fa-question"></i> <span class="d-none d-md-inline">Link</span></a>
+                        <a href="#" class="list-group-item d-inline-block collapsed" data-parent="#sidebar"><i class="fa fa-file-code-o"></i> <span class="d-none d-md-inline">Item 4</span></a>
+                        <a href="#" class="list-group-item d-inline-block collapsed" data-parent="#sidebar"><i class="fa fa-sitemap"></i> <span class="d-none d-md-inline">Item 5</span></a>
+                        <a href="#" class="list-group-item d-inline-block collapsed" data-parent="#sidebar"><i class="fa fa-exchange"></i> <span class="d-none d-md-inline">Link</span></a>
+                        <a href="#" class="list-group-item d-inline-block collapsed" data-parent="#sidebar"><i class="fa fa-cloud-upload"></i> <span class="d-none d-md-inline">Link</span></a>
+                        <a href="#" class="list-group-item d-inline-block collapsed" data-parent="#sidebar"><i class="fa fa-cloud-download"></i> <span class="d-none d-md-inline">Link</span></a>
+                        <a href="#" class="list-group-item d-inline-block collapsed" data-parent="#sidebar"><i class="fa fa-calendar"></i> <span class="d-none d-md-inline">Link</span></a>
+                        <!-- Any additional items would be off the page. If more sidebar items are desired in the future, the sticky-top class must be replaced. A more practical solution would be to add more submenu items as necassary -->
+                    </div>
+                </div><!-- <div class="col-md-1 float-left col-1 pl-0 pr-0 collapse width show" id="sidebar"> -->
+                
+                <div>
+                
+                
+                    <!--This div serves a largely aesthetic purpose-->
+                
+                
+                </div>
+            
+<div class="container">
+
+<div class="row mb-5">
+    <div class="invisible mb-5">Hidden Content</div>
+</div>
+<div class="row mt-5">
+
+
+                <main class="col-md-12 float-left col px-5 pl-md-2 pt-2 main ml-5" style="background: #F3F7F9; border: thin solid #CCD5DB;">
+                    <!--<a href="#" data-target="#sidebar" data-toggle="collapse"><i class="fa fa-navicon fa-2x py-2 p-1" style=""></i></a>-->
+                    
+                    <div class="page-header">
+                        
+                        {% if title %}
+                        <h2>{{ title }}</h2>
+                        {% else %}
+                        <h2>Interface</h2>
+                        {% endif %}
+                    </div>
+                    {% if description %}
+                    <p class="lead">{{ description }}</p>
+                    {% else %}
+                    <br>
+                    {% endif %}
+                    <hr>
+                    
+                    <!--This block allows flashed messages within the template. These messages are defined in the view function corresponding to the selected endpoint-->
+                      {% with messages = get_flashed_messages(with_categories=true) %}
+                        {% if messages %}
+                          {% for category, message in messages %}
+                            <div class="alert alert-{{ category }}"">
+                              {{ message }}
+                            </div>
+                          {% endfor %}
+                          <hr>
+                        {% endif %}
+                      {% endwith %}
+                      
+                    {% block content %}{% endblock %}
+        
+                    <div class="invisible mt-5">Hidden Content</div>
+                    </div>
+                </main>
+</div>                
+</div> 
+            </div><!-- <div class="row d-flex d-md-block flex-nowrap wrapper"> -->
+        </div><!-- <div class="container-fluid"> -->
+    
+    
+    
+        <!--JavaScript-->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script type="text/javascript" src="{{ url_for('static', filename='js/jquery.js') }}"></script><!--required for bootstrap-->
+        <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-ui.js') }}"></script><!--required for bootstrap-->
+        <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>popper.js was useful for another datepicker function, but is unused at the moment-->
+        <script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script><!--script required when using bootstrap-->
+        <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.js') }}"></script><!--required for bootstrap(v4.1.1)-->
+        <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>script required when using bootstrap-->
+        <script type="text/javascript" src="{{ url_for('static', filename='js/scripts.js') }}"></script><!--user-defined script required when using datepicker-->
+        <!--<script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>script required when using datepicker-->
+        <script type="text/javascript" src="{{ url_for('static', filename='js/daterangepicker.js') }}"></script><!--generate pretty calender, yo-->
+        <!--<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />stylesheet required when using datepicker-->
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/daterangepicker.css') }}">
+    </body>
+</html>
+

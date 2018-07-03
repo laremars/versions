@@ -1,0 +1,55 @@
+{% extends "layouts/dashboard.html" %}
+{% block content %}
+
+<div class="container">
+    <h2>Welcome the User! </h2>
+    <p>Please make a selection: </p>
+    <div class="btn-group">
+  <button type="button" class="btn btn-success btn-lg" value="Login"><i class="fa fa-sign-in"></i> Login</button>
+  <button type="button" class="btn btn-success btn-lg" value="Register"><i class="fa fa-user-plus"></i> Register</button>
+  <div class="btn-group">
+    <button type="button" class="btn btn-success btn-lg dropdown-toggle" data-toggle="dropdown">
+    <i class="fa fa-user-secret mr-1"></i>Admin <span class="caret"></span></button>
+    <ul class="dropdown-menu super_secure_dropdown_menu font-weight-bold pl-2" role="menu">
+      <li><a class="super_secure_dropdown_text" href="#">Super</a></li>
+      <li><a class="super_secure_dropdown_text" href="#">Secure</a></li>
+      <li><a class="super_secure_dropdown_text" href="#">Dropdown</a></li>
+    </ul>
+  </div>
+</div>
+
+<form class="form1 invisible" method="POST" action="/">
+
+    {{ form1.hidden_tag() }}
+    {{ form1.name.label }} {{ form1.name(size=20) }}
+    {{ form1.submit1 }}
+</form>
+
+<form class="form2 invisible" method="POST" action="/">
+    {{ form2.hidden_tag() }}
+    {{ form2.name.label }} {{ form2.name(size=20) }}
+    {{ form2.submit2 }}
+    
+   
+    
+</form>
+</div> 
+<!-- BOKEH STUFF -->    
+<link
+    href="http://cdn.pydata.org/bokeh/release/bokeh-0.13.0.min.css"
+    rel="stylesheet" type="text/css">
+<link
+    href="http://cdn.pydata.org/bokeh/release/bokeh-widgets-0.13.0.min.css"
+    rel="stylesheet" type="text/css">
+
+<script src="http://cdn.pydata.org/bokeh/release/bokeh-0.13.0.min.js"></script>
+<script src="http://cdn.pydata.org/bokeh/release/bokeh-widgets-0.13.0.min.js"></script>
+
+<div>
+    {{ script|safe }}
+    {{ div|safe }}    
+</div>
+
+    {% endblock content %}
+    
+    

@@ -1,0 +1,25 @@
+.form1 {
+    
+}
+
+.form2 {
+    
+}
+
+.super_secure_dropdown_menu {
+    //color: #ff8080;
+    background: #263238;
+    //background: green;
+    font-size:150%;
+    font-family: serif;
+}
+
+.super_secure_dropdown_text {
+    color: #e6e6e6;
+}
+
+.fa-user-secret {
+    color: gray;
+    background: black;
+    border-radius: 5px
+}
