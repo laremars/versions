@@ -3,9 +3,15 @@
 
     {% if not name %}
         <div class="container m-5 p-5">
-                <h2 id="" class="">Welcome, The User! </h2>
+        
+        
+        
+        
+        
+        
+                <h2 id="" class="text-monospace my-5">Welcome, The User! </h2>
             
-                <p>Please make a selection: </p>
+                <p class="text-monospace my-5">Please make a selection: </p>
                 <!--<a href="javascript:void(0);" onclick="$('#tog').slideToggle('fast');"> Login</a>--><!--Intresting way to use scripts-->
                 <div class="btn-group">
                   <button type="button" class="btn btn-success btn-lg" value="Login"><i class="fa fa-sign-in"></i>Login</button>
@@ -36,7 +42,44 @@
 
     {% else %}
         <!-- BOKEH STUFF -->  
-        <h2 id="" class="">Welcome, {{ name }}! </h2>
+        <div id="new-or-archive" style="position: relative;">
+            <h2 id="login-welcome" class="text-success text-monospace my-5" style="position: absolute;">Welcome, {{ name }}! </h2>
+            <h3 id="login-second" class="text-primary text-monospace my-5" style="opacity:0; "> Create new query or see archives?</h3> 
+            <div class="btn-group m-3" id="login-second-btn-clk" style="opacity:0;">
+                <button type="button" class="btn btn-outline-primary btn-lg text-monospace my-5" value="New"><i class="fa fa-sign-in"></i>Create New</button>
+                <button type="button" class="btn btn-outline-primary btn-lg text-monospace my-5" value="Archives"><i class="fa fa-user-plus"></i>See Archives</button>
+            </div>
+        </div>
+        
+        <div class="my-5 ml-3 pr-5" id="new-query-cycle" style="opacity:0;">
+        
+            <blockquote class="blockquote">
+              <p class="mb-0">Please select all that apply:</p>
+              <footer class="blockquote-footer">Your form will be generated accordingly
+              </footer>
+            </blockquote>
+        
+            <ul class="list-group shadow-lg">
+                <li class="list-group-item list-group-item-action text-monospace sel1" value="first">A</li>
+                <li class="list-group-item list-group-item-action text-monospace sel1" value="second">Really</li>
+                <li class="list-group-item list-group-item-action text-monospace sel1" value="third">Big</li>
+                <li class="list-group-item list-group-item-action text-monospace sel1" value="fourth">List</li>
+                <li class="list-group-item list-group-item-action text-monospace sel1" value="fifth">Of</li>
+                <li class="list-group-item list-group-item-action text-monospace sel1" value="sixth">Potential</li>
+                <li class="list-group-item list-group-item-action text-monospace sel1" value="seventh">Query</li>
+                <li class="list-group-item list-group-item-action text-monospace sel1" value="eighth">Parameters</li>
+                <li class="list-group-item list-group-item-action text-monospace sel1" value="all">All of the above</li>
+                <li class="list-group-item text-monospace p-1">
+                    <div class="btn-group btn-group-lg d-flex justify-content-end my-0" role="group" aria-label="Buried button group">
+                        <button id="render-form-button" type="button" class="btn btn-primary text-monospace disabled" value="Begin">Render Form</button>
+                        <button type="button" class="btn btn-danger text-monospace" value="Reset">Reset</button>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        
+        
+        
     {% endif %}
     
 <!-- BOKEH STUFF -->    

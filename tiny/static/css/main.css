@@ -24,4 +24,9 @@
     border-radius: 5px
 }
 
+.cust-sel1 {
+    font-size:120%;
+    text-shadow: 1.5px 1px blue;
+}
+
 //Next we will have a look at adding more bootstrap button fields to guide user on a grand adventure

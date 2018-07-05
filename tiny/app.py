@@ -25,7 +25,7 @@ def home():
     if form1.validate_on_submit() and form1.submit1.data:
         name=form1.name1.data
         if name_exists:#simulates querying the db
-            flash("Welcome back,  "+name, 'success')
+            flash("Login Successful:  "+name, 'success')
             return render_template('index.html', form1=form1, form2=form2, name=name)
         else:
             flash("The name, "+name+", is not reflected in the database. Please Do Better. ", 'warning')
