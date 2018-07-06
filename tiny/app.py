@@ -7,11 +7,11 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'super_secret_unbreakable_key_yo'
 
 class Login(FlaskForm):
-    name1 = StringField('Enter Name', validators=[DataRequired()], render_kw={'autofocus': True})
+    name1 = StringField('Username', validators=[DataRequired()], render_kw={'autofocus': True})
     submit1 = SubmitField('Login')
     
 class Register(FlaskForm):
-    name2 = StringField('Enter Name', validators=[DataRequired()], render_kw={'autofocus': True})
+    name2 = StringField('Username', validators=[DataRequired()], render_kw={'autofocus': True})
     submit2 = SubmitField('Register')
 
 @app.route("/", methods=['GET', 'POST'])

@@ -56,19 +56,44 @@ $("document").ready(function() {
         }  else if (val == "Reset") {
             $("li.sel1").removeClass( "list-group-item-primary text-right font-weight-bold text-success shadow-lg cust-sel1" );
             $("#render-form-button").addClass("disabled");
+            $("#render-icon").removeClass("fa-check");
             console.log("Value: "+val);
         } else if (val == "New") {
             $("#new-or-archive").animate({// Good working example of multiple effects
                 opacity: 0,
-                left: "+=350",//Note the element cannot be moved if static
+                bottom: "+=500",//Note the element cannot be moved if static
                 //width: [ "toggle", "swing" ],
                 height: [ "toggle", "swing" ]
               }, 750, function() {
+                    $("#new-query-cycle").removeClass("invisible")
                     $("#new-query-cycle").animate({
                     opacity: 1
                  }, 500
                      );
               });
+        } else if (val == "Archives") {
+            $("#new-or-archive").animate({// Good working example of multiple effects
+                opacity: 0,
+                bottom: "+=200",//Note the element cannot be moved if static
+                //width: [ "toggle", "swing" ],
+                height: [ "toggle", "swing" ]
+            }, 750, function() {
+                    $("#archived-query-request").animate({
+                        opacity: 1
+                    }, 500, function() { 
+                     $("#archived-query-request").delay(3000).animate({
+                         opacity: 0
+                     }, 500, function() { 
+                         $("#new-or-archive").delay(1000).animate({
+                            opacity: 1,
+                            top: "+=200",//Note the element cannot be moved if static
+                            //width: [ "toggle", "swing" ],
+                            height: [ "toggle", "swing" ]
+                         }, 750
+                         );
+                            });
+                 });
+            });
         } else {
             console.log("Button value undefined");
         }
@@ -91,8 +116,10 @@ $("document").ready(function() {
         
         if ($("li.cust-sel1").size() >= 3) {
             $("#render-form-button").removeClass("disabled");
+            $("#render-icon").addClass("fa-check");
         } else {
             $("#render-form-button").addClass("disabled");
+            $("#render-icon").removeClass("fa-check");
         }
         //console.log(typeof val);
         //$(".append").append(" "+step1 +"<br><b>Selection Criterea:</b> ");

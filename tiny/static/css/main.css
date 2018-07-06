@@ -29,4 +29,95 @@
     text-shadow: 1.5px 1px blue;
 }
 
+.warning-left {
+    position: relative;
+}
+ 
+/*replace the content value with the
+corresponding value from the list below*/
+ 
+.warning-left:before {
+    content: "\f071";
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+/*--adjust as necessary--*/
+    color: red;
+    font-size: 18px;
+    padding-right: 0.5em;
+    position: absolute;
+    top: 10px;
+    left: 0;
+}
+
+ 
+.warning-right {
+    position: relative;
+}
+ 
+/*replace the content value with the
+corresponding value from the list below*/
+ 
+.warning-right:after {
+    content: "\f071";
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+/*--adjust as necessary--*/
+    color: red;
+    font-size: 18px;
+    padding-right: 0.5em;
+    position: relative;
+    top: 10px;
+    left: 0;
+}
+
+.cog-left {
+    position: relative;
+}
+ 
+/*replace the content value with the
+corresponding value from the list below*/
+ 
+.cog-left:before {
+    content: "\f013";
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+/*--adjust as necessary--*/
+    color: black;
+    font-size: 18px;
+    padding-right: .5em;
+    position: relative;
+    right: 30px;
+    top: 4px;
+    left: 0;
+}
+
+.cog-right {
+    position: relative;
+}
+ 
+/*replace the content value with the
+corresponding value from the list below*/
+ 
+.cog-right:after {
+    content: "\f013";
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+/*--adjust as necessary--*/
+    color: black;
+    font-size: 18px;
+    padding-right: .5em;
+    position: relative;
+    right: 30px;
+    top: 2px;
+    left: 0;
+}
+
 //Next we will have a look at adding more bootstrap button fields to guide user on a grand adventure
