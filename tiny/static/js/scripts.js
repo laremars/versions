@@ -1,5 +1,14 @@
 $("document").ready(function() {
 
+    var viewportWidth = $(window).width();
+    var viewportHeight = $(window).height();
+    
+    console.log("Viewport Width: "+viewportWidth+", Viewport Height: "+viewportHeight);
+    
+    $( "#name1" ).autocomplete({
+      source: [ "Joshua", "Gene", "Larry", "Mo", "Cameron", "Mitch", "Robert", "Larry", "Brad", "Jerry", "Jeff", "Curly", "Glenn", "Matt" ]
+    });
+
     /*$( function() {//Test JQuery-UI functioning
         $( "#draggable" ).draggable();
     } );*/
@@ -11,7 +20,7 @@ $("document").ready(function() {
     
     $("#login-welcome").delay( 1000 ).animate({// Good working example of multiple effects
         opacity: 0,
-        left: "+=1000",//Note the element cannot be moved if static
+        right: "+=1000",//Note the element cannot be moved if static
         height: "toggle"
       }, 1500, function() {
             $("#login-second").animate({
