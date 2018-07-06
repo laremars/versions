@@ -1,5 +1,34 @@
 $("document").ready(function() {
 
+    //Not used current as datepicker
+    //var today = new Date(2000, new Date().getMonth(), new Date().getDate());
+    //$('#startDate').datepicker({
+    //    uiLibrary: 'bootstrap4',
+    //    iconsLibrary: 'fontawesome',
+    //    minDate: today,
+    //    maxDate: function () {
+    //        return $('#endDate').val();
+    //    }
+    //});
+    //  $('#endDate').datepicker({
+    //      uiLibrary: 'bootstrap4',
+    //      iconsLibrary: 'fontawesome',
+    //      minDate: function () {
+    //          return $('#startDate').val();
+    //      }
+    //  });
+
+    $(function() {
+        $('input[name="daterange"]').daterangepicker({
+            timePicker: true,
+            timePickerIncrement: 30,
+            locale: {
+                format: 'MM/DD/YYYY'
+                //format: 'MM/DD/YYYY h:mm A'
+            }
+        });
+    });
+
     var viewportWidth = $(window).width();
     var viewportHeight = $(window).height();
     
@@ -12,24 +41,9 @@ $("document").ready(function() {
     /*$( function() {//Test JQuery-UI functioning
         $( "#draggable" ).draggable();
     } );*/
-    //$(".form1").slideToggle();
     
-
     $(".flashed-message").delay(5000).slideToggle();
-    
-    /*$(".fa-eye-slash").on("click", (function(){
-        $("#denied").delay( 1000 ).animate({// Good working example of multiple effects
-                opacity: 1,
-                bottom: "+=250"
-             }, 75, function() {
-                    $("#denied").delay( 1000 ).animate({// Good working example of multiple effects
-                    opacity: 0,
-                    top: "+=250"
-                 }, 500, function() {}
-                    );
-        });
-    }));*/
-
+ 
     $(".super_secure_dropdown_text").on("click", (function(){//For future secure paths
         $("#denied").delay( 200 ).animate({
                 opacity: 1,
@@ -167,33 +181,7 @@ $("document").ready(function() {
     
 });//$("document").ready(function() {
 
-/*$("#login-welcome").animate({// Good working example of multiple effects
-    opacity: 0,
-    left: "+=150",//Note the element cannot be moved if static
-    height: "toggle"
-  }, 2000, function() {
-        $("#login-welcome").animate({
-        opacity: 0.25,
-        left: "+=50",
-        height: "toggle"
-      }, 1000, function() {
-        // Animation complete.
-      });
-  });
-  $("#login-welcome").animate({// Good working example of multiple effects
-        opacity: 0,
-        left: "+=150",//Note the element cannot be moved if static
-        height: "toggle"
-      }, 2000, function() {
-            $(this).animate({
-            opacity: 0.25,
-            left: "+=50",
-            height: "toggle"
-          }, 1000, function() {
-            $( this ).after( "<div>Animation complete.</div>" );
-          });
-      });
-  $( function() {//Good example of going back and forth between animations
+  /*$( function() {//Good example of going back and forth between animations
     var state = true;
     $( "#button" ).on( "click", function() {
       if ( state ) {

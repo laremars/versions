@@ -194,10 +194,12 @@
         <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.js') }}"></script><!--required for bootstrap(v4.1.1)-->
         <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>script required when using bootstrap-->
         <script type="text/javascript" src="{{ url_for('static', filename='js/scripts.js') }}"></script><!--user-defined script required when using datepicker-->
-        <!--<script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>script required when using datepicker-->
-        <script type="text/javascript" src="{{ url_for('static', filename='js/daterangepicker.js') }}"></script><!--generate pretty calender, yo-->
-        <!--<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />stylesheet required when using datepicker-->
-        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/daterangepicker.css') }}">
+        <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"><!--</script>script required when using datepicker-->
+        <!--<script type="text/javascript" src="{{ url_for('static', filename='js/daterangepicker.js') }}"></script>not properly functioning: use cdn's for now-->
+        <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" /><!--stylesheet required when using datepicker-->
+        <!--<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/daterangepicker.css') }}">not properly functioning: use cdn's for now-->
+        
+
     </body>
 </html>
 

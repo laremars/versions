@@ -23,6 +23,7 @@ class QueryParams(FlaskForm):
     Potential = StringField('Potential')
     Query = StringField('Query')
     Parameters = StringField('Parameters')
+    daterange = StringField('Date Range', validators=[DataRequired()])
     submit3 = SubmitField('Register')
 
 @app.route("/", methods=['GET', 'POST'])
@@ -50,7 +51,7 @@ def home():
         if name_not_taken:#simulates querying the db to check against existing names
             flash("Registration Successful", 'success')
             flash("This username, "+name+", will henceforth persist allowing cached historical queries to be more conveniently rendered.", 'info')
-            return render_template('index.html', name=name, first_time=True)
+            return render_template('index.html', name=name, first_time=True, form3=form3)
         else:
             flash("Name Taken: Please Do Better", 'warning')
             return render_template('index.html', form1=form1, form2=form2, pleb=pleb)
