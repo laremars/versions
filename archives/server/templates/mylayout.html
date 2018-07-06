@@ -1,0 +1,288 @@
+{% from "macros.html" import nav_link with context %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    
+        <!-- Bootstrap CSS -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        
+        <!-- Populates title if passed in from file origin -->
+        {% if title %}
+            <title>Interface - {{title}}</title>
+        {% else %}
+                <title>Interface</title>
+        {% endif %}
+        
+        <!-- datepicker function definition depends on jquery-ui framework, as called in the bottom of body -->
+    
+        <script type="text/javascript" src="{{ url_for('static', filename='scripts.js') }}"></script>
+
+
+    </head>
+    <body>
+       <header class="site-header"> 
+          <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top"> 
+            <div class="container"> 
+              <a class="navbar-brand mr-4" href="/">Data Interface</a> 
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation"> 
+                <span class="navbar-toggler-icon"></span> 
+              </button> 
+              <div class="collapse navbar-collapse" id="navbarToggle"> 
+                <div class="navbar-nav mr-auto"> 
+                  <a class="nav-item nav-link" href="/">Home</a> 
+                  <a class="nav-item nav-link" href="/charts">Charts</a> 
+                  <a class="nav-item nav-link" href="/about">About</a> 
+                  <a class="nav-item nav-link" href="/detailed">Detailed</a> 
+                  <a class="nav-item nav-link" href="/help">Help</a> 
+                </div> 
+                <!-- Navbar Right Side --> 
+                <div class="navbar-nav"> 
+                  <a class="nav-item nav-link" href="/login">Login</a> <!-- No referenced form yet -->
+                  <a class="nav-item nav-link" href="/register">Register</a><!-- No referenced form yet -->
+                </div> 
+              </div> 
+            </div> 
+          </nav> 
+        </header> 
+    
+        <main role="main" class="container"> 
+         <div class="row"> 
+          <div class="col-md-4"> 
+              <button data-toggle="collapse" data-target="#demo7">Show Main Content</button><!-- Collapsible Button 1 -->
+              <div id="demo7" class="collapse">                                        <!-- Collapsible target 1 -->
+                  {% with messages = get_flashed_messages(with_categories=true) %}
+                      {% if messages %}
+                          {% for category, message in messages %}
+                              <div class="alert alert-{{ category }}">
+                                  {{ message }}
+                              </div>
+                          {% endfor %}
+                      {%endif%}
+                  {% endwith %}
+
+                  {% block content %}{% endblock %} 
+                  
+             </div>
+          </div> 
+          <div class="col-md-6"> 
+              <button data-toggle="collapse" data-target="#demo8">Make Query</button><!-- Collapsible Button 1 -->
+              <div id="demo8" class="collapse">                                        <!-- Collapsible target 1 -->
+               <div class="content-section"> 
+                  <h3>Query Criteria Specification</h3> 
+                  <p class='text-muted'>Filter by:</p>
+                      <button data-toggle="collapse" data-target="#demo0">Specific Query</button><!-- Collapsible Buttone 1 -->
+                      <div id="demo0" class="collapse">  <!-- Collapsible target 1 -->
+    
+                        <form>
+                        	                    
+                        	<div class="form-group"> <!-- Full Name -->
+                        		<label for="part_num" class="control-label">Tester ID</label>
+                        		<input type="text" class="form-control" id="part_num" name="part_num" placeholder="Example: 307/00/001">
+                        	</div>	
+                        	
+                        	<div class="form-group"> <!-- Full Name -->
+                        		<label for="part_num" class="control-label">Line</label>
+                        		<input type="text" class="form-control" id="part_num" name="part_num" placeholder="Example: Main Body">
+                        	</div>	
+                        	
+                        	<div class="form-group"> <!-- Street 1 -->
+                        		<label for="vehicle_code" class="control-label">Product</label>
+                        		<input type="text" class="form-control" id="vehicle_code" name="vehicle" placeholder="Example: Smart 370B">
+                        	</div>	
+                        	
+                        	<div class="form-group"> <!-- Full Name -->
+                        		<label for="part_num" class="control-label">Part Number</label>
+                        		<input type="text" class="form-control" id="part_num" name="part_num" placeholder="Example: TN232900-6142">
+                        	</div>	
+    
+                        	<div class="form-group"> <!-- City-->
+                        		<label for="test_type" class="control-label">Process</label>
+                        		<input type="text" class="form-control" id="test_type" name="test_type" placeholder="Example: ICC">
+                        	</div>									
+                        	
+                        	<div class="form-group"> <!-- Street 2 -->
+                        		<label for="step_number" class="control-label">Step Number</label>
+                        		<input type="text" class="form-control" id="step_number" name="step_number" placeholder="Example: 4080-10-6">
+                        	</div>	
+                        
+                        	<div class="form-group"> <!-- City-->
+                        		<label for="step_name" class="control-label">Step Name</label>
+                        		<input type="text" class="form-control" id="step_name" name="step" placeholder="Example: RAM10">
+                        	</div>				
+                        						
+                        	<div class="form-group"> <!-- Zip Code-->
+                        		<label for="unique_id" class="control-label">Unique ID</label>
+                        		<input type="text" class="form-control" id="unique_id" name="unique_id" placeholder="Example: 3FC535FC">
+                        	</div>		
+                        	
+                        	<div class="form-group">  <!-- Terms Checkbox !-->
+                        		<div class="checkbox">
+                        		  <label>
+                        			<input type="checkbox" name="allDates" value="allDates" checked="checked">
+                        			Select All Dates
+                        		  </label>
+                        		</div><!-- checkbox -->
+                        	</div><!-- form-group -->
+                        	
+                        <label for="from">From</label>
+                        <input type="text" id="from" name="from">
+                        <label for="to">to</label>
+                        <input type="text" id="to" name="to"><br><br><br><br><br><br><br><br><br><br>
+                                            	
+                        	<div class="form-group"> <!-- Submit Button -->
+                        		<button type="submit" class="btn btn-primary">Submit</button><!-- Mandatory Entries Submit Button -->
+                        	</div>     
+                        	
+                        </form>	
+                      </div>        
+                      <br><br>
+                                                                                               <!-- Collapsible target 1 -->
+                      <button data-toggle="collapse" data-target="#demo1">Time-Based Query</button><!-- Collapsible Buttone 1 -->
+                      <div id="demo1" class="collapse">                                        <!-- Collapsible target 1 -->
+                            <form>
+                              	<div class="form-group"><!-- If there are a finite number of options !-->
+                                		<label class="control-label " for="region_id">Which phrase best describes Mo?</label>
+                                		<select class="form-control" id="region_id" name="region">
+                                			<option value="North">His intelligence has no equal.</option>
+                                			<option value="West">His rivals can only know failure.</option>
+                                			<option value="East">His determination is such that mountains will move at his command.</option>
+                                			<option value="South">He likes cake.</option>
+                                		</select>
+                               	</div>
+                               	<div class="form-group"> <!-- Submit button !-->
+                               		<button class="btn btn-primary " name="submit1" type="submit1">Submit Selection</button>
+                               	</div>
+                            </form>
+                      </div>  
+                      <br><br>
+            
+                      <button data-toggle="collapse" data-target="#demo2">Value-Based Query</button><!-- Collapsible Button 3 -->
+                      <div id="demo2" class="collapse">    <!-- Collapsible target 3 -->
+                                                                       
+                        <form>
+                        	<div class="form-group">  <!-- Terms Checkbox !-->
+                        		<div class="checkbox">
+                        		  <label>
+                        			<input type="checkbox" name="allDates" value="allDates" checked="checked">
+                        			Select All
+                        		  </label>
+                        		</div><!-- checkbox -->
+                        	</div><!-- form-group -->
+                        	
+                        <label for="from">From</label>
+                        <input type="text" id="from" name="from">
+                        <label for="to">to</label>
+                        <input type="text" id="to" name="to"><br><br><br><br><br><br><br><br><br><br>
+                        <div class="form-group"> <!-- Submit button !-->
+                             <button class="btn btn-primary " name="submit4" type="submit4">Submit Selection</button>
+                        </div><!-- Submit Button -->
+                        	
+                        </form>
+                      
+                      </div><br><br>                                                                         <!-- Collapsible target 3 -->
+                      <button data-toggle="collapse" data-target="#demo3">General Query</button><!-- Collapsible Buttone 1 -->
+                      <div id="demo3" class="collapse">                                        <!-- Collapsible target 1 -->
+                            <form>
+                              	<div class="form-group"><!-- If there are a finite number of options !-->
+                                		<label class="control-label " for="region_id">Which phrase best describes Mo?</label>
+                                		<select class="form-control" id="region_id" name="region">
+                                			<option value="North">His intelligence has no equal.</option>
+                                			<option value="West">His rivals can only know failure.</option>
+                                			<option value="East">His determination is such that mountains will move at his command.</option>
+                                			<option value="South">He likes cake.</option>
+                                		</select>
+                               	</div>
+                               	<div class="form-group"> <!-- Submit button !-->
+                               		<button class="btn btn-primary " name="submit1" type="submit1">Submit Selection</button>
+                               	</div>
+                            </form>
+                      </div>  
+                      <br><br>
+                      <button data-toggle="collapse" data-target="#demo4">Document-Generating Query</button><!-- Collapsible Buttone 1 -->
+                      <div id="demo4" class="collapse">                                        <!-- Collapsible target 1 -->
+                            <form>
+                              	<div class="form-group"><!-- If there are a finite number of options !-->
+                                		<label class="control-label " for="region_id">Which phrase best describes Mo?</label>
+                                		<select class="form-control" id="region_id" name="region">
+                                			<option value="North">His intelligence has no equal.</option>
+                                			<option value="West">His rivals can only know failure.</option>
+                                			<option value="East">His determination is such that mountains will move at his command.</option>
+                                			<option value="South">He likes cake.</option>
+                                		</select>
+                               	</div>
+                               	<div class="form-group"> <!-- Submit button !-->
+                               		<button class="btn btn-primary " name="submit1" type="submit1">Submit Selection</button>
+                               	</div>
+                            </form>
+                      </div>  
+                      <br><br>
+                      <button data-toggle="collapse" data-target="#demo5">ID-Based Query</button><!-- Collapsible Buttone 1 -->
+                      <div id="demo5" class="collapse">                                        <!-- Collapsible target 1 -->
+                            <form>
+                              	<div class="form-group"><!-- If there are a finite number of options !-->
+                                		<label class="control-label " for="region_id">Which phrase best describes Mo?</label>
+                                		<select class="form-control" id="region_id" name="region">
+                                			<option value="North">His intelligence has no equal.</option>
+                                			<option value="West">His rivals can only know failure.</option>
+                                			<option value="East">His determination is such that mountains will move at his command.</option>
+                                			<option value="South">He likes cake.</option>
+                                		</select>
+                               	</div>
+                               	<div class="form-group"> <!-- Submit button !-->
+                               		<button class="btn btn-primary " name="submit1" type="submit1">Submit Selection</button>
+                               	</div>
+                            </form>
+                      </div>  
+                      <br><br>
+                      <button data-toggle="collapse" data-target="#demo6">Success or Failure-Based Query</button><!-- Collapsible Buttone 1 -->
+                      <div id="demo6" class="collapse">                                        <!-- Collapsible target 1 -->
+                            <form>
+                              	<div class="form-group"><!-- If there are a finite number of options !-->
+                                		<label class="control-label " for="region_id">Which phrase best describes Mo?</label>
+                                		<select class="form-control" id="region_id" name="region">
+                                			<option value="North">His intelligence has no equal.</option>
+                                			<option value="West">His rivals can only know failure.</option>
+                                			<option value="East">His determination is such that mountains will move at his command.</option>
+                                			<option value="South">He likes cake.</option>
+                                		</select>
+                               	</div>
+                               	<div class="form-group"> <!-- Submit button !-->
+                               		<button class="btn btn-primary " name="submit1" type="submit1">Submit Selection</button>
+                               	</div>
+                            </form>
+                      </div>  
+                      <br><br>
+                </div> 
+              </div> 
+              </div>
+              <div class="col-md-2"> 
+                  <form>
+                   	<div class="form-group"> <!-- Submit button !-->
+                   		<button class="btn btn-basic " name="submit7" type="submit7" value="closeResults">Close Query Field</button>
+                   	</div>
+               	</form>
+              </div>
+            
+         </div> <!-- row -->
+        </main> 
+    
+        
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    </body>
+</html>

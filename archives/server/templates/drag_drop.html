@@ -1,0 +1,123 @@
+{% extends "layouts/dashboard.html" %}
+{% block content %}
+<div class="row" style="min-height: 30rem; padding:2rem;">
+    <div class="row" style=" padding-right:30rem;">
+    
+        <div><h1 class="change">Constructed Query</h1></div>
+        
+    </div><hr>
+    <div class="row" style="min-height: 10rem; padding:2rem;">
+    
+        <div class="theDiv">
+        
+            <h2 class="drag-drop">SELECT</h2>
+            <p>ALL</p>
+            
+        </div>
+        
+    
+        <div class="theDiv">
+        
+            <h2 class="drag-drop">SELECT</h2>
+            <p>this</p>
+            
+        </div>
+        
+    
+        <div class="theDiv">
+        
+            <h2 class="drag-drop">SELECT</h2>
+            <p>that</p>
+            
+        </div>
+        <div class="theDiv">
+        
+            <h2 class="drag-drop">SELECT</h2>
+            <p>another</p>
+            
+        </div>
+        
+    
+    
+        <div class="target theDrop">
+        
+            <h2 class="drag-drop">SELECT</h2>
+            
+        </div>
+        
+    </div>
+</div>
+<hr>
+<div class="row" style="min-height: 30rem; padding:2rem;">
+    <div id="draggable" class="ui-widget-content">
+      <p class="drag-drop">Drag me to my target</p>
+    </div>
+     
+    <div id="droppable" class="ui-widget-header">
+      <p class="drag-drop">Outer droppable</p>
+      <div id="droppable-inner" class="ui-widget-header">
+        <p class="drag-drop">Inner droppable (not greedy)</p>
+      </div>
+    </div>
+     
+    <div id="droppable2" class="ui-widget-header">
+      <p class="drag-drop">Outer droppable</p>
+      <div id="droppable2-inner" class="ui-widget-header">
+        <p class="drag-drop">Inner droppable (greedy)</p>
+      </div>
+    </div>
+</div>
+
+<hr>
+
+<div id="products">
+
+<h1 class="ui-widget-header">Products</h1>
+
+<div id="catalog">
+    
+<h2><a href="#">T-Shirts</a></h2>
+
+    <div>
+        <ul>
+            <li>Lolcat Shirt</li>
+            <li>Cheezeburger Shirt</li>
+            <li>Buckit Shirt</li>
+        </ul>
+    </div>
+    
+<h2><a href="#">Bags</a></h2>
+
+    <div>
+        <ul>
+            <li>Zebra Striped</li>
+            <li>Black Leather</li>
+            <li>Alligator Leather</li>
+        </ul>
+    </div>
+    
+<h2><a href="#">Gadgets</a></h2>
+
+    <div>
+        <ul>
+            <li>iPhone</li>
+            <li>iPod</li>
+            <li>iPad</li>
+        </ul>
+    </div>
+</div>
+</div>
+<div id="cart">
+    
+<h1 class="ui-widget-header">Shopping Cart</h1>
+
+    <div class="ui-widget-content">
+        <ol>
+            <li class="placeholder">Add your items here</li>
+        </ol>
+    </div>
+</div>
+
+
+
+{% endblock content %}

@@ -1,0 +1,77 @@
+{% extends "layouts/dashboard.html" %}
+{% block content %}
+
+
+            <div class="row">
+                <div class="col-lg-6">
+                    <button role="button" class="btn btn-danger" data-toggle="collapse" data-target="#demo" aria-expanded="true">
+                        Form Style 1
+                    </button><br><br>
+                    <div id="demo" class="width collapse show" aria-expanded="true">
+                        <div class="list-group" style="width:400px">
+                                <div class="content-section">
+                                    <form method="POST" action="">
+                                        {{ form1.hidden_tag() }}
+                                        <fieldset class="form-group">
+                                            <legend class="border-bottom mb-4">User Selection</legend>
+                            				
+                            <!-- ***** ADDS FIELDS VIA render_template FUNCTION ***** -->
+                            				{{ render_field(form1.daterange) }}
+                            				{{ render_field(form1.report_type) }}
+                            				{{ render_field(form1.output) }}
+                            				{{ render_field(form1.product) }}
+                            				{{ render_field(form1.step_name, 'Required') }}
+                            				{{ render_field(form1.part_number) }}
+                            				{{ render_field(form1.line) }}
+                            				{{ render_field(form1.process_type) }}
+                            				{{ render_field(form1.tester) }}
+                            <!-- ***** ADDS FIELDS VIA render_template FUNCTION ***** -->
+                            
+                            <!-- ***** MANUALLY RENDERED FORM FIELDS DEPRECATED PENDING LIVE DATA TESTING ***** -->
+                            
+                                        <div class="form-group">
+                                            {{ form1.submit1( id="target", class="btn btn-outline-info") }}
+                                        </div>
+                                    </form>
+                                </div><!--<div class="content-section">-->
+                        </div><!--<div class="list-group" style="width:400px">-->
+                    </div><!--<div id="demo" class="width collapse show" aria-expanded="true">-->
+                </div><!--<div class="col-lg-6">-->
+                <div class="col-lg-6">
+                    <button role="button" class="btn btn-danger" data-toggle="collapse" data-target="#demo2" aria-expanded="true">
+                       Form Style 2
+                    </button><br><br>
+                    <div id="demo2" class="height collapse show" aria-expanded="true">
+                        <div style="width:400px">
+                            <div class="content-section">
+                                <form method="POST" action="">
+                                    {{ form1.hidden_tag() }}
+                                    <fieldset class="form-group">
+                                        <legend class="border-bottom mb-4">User Selection</legend>
+                        				
+                        <!-- ***** ADDS FIELDS VIA render_template FUNCTION ***** -->
+                        				{{ render_field(form1.daterange) }}
+                        				{{ render_field(form1.report_type) }}
+                        				{{ render_field(form1.output) }}
+                        				{{ render_field(form1.product) }}
+                        				{{ render_field(form1.step_name, 'Required') }}
+                        				{{ render_field(form1.part_number) }}
+                        				{{ render_field(form1.line) }}
+                        				{{ render_field(form1.process_type) }}
+                        				{{ render_field(form1.tester) }}
+                        <!-- ***** ADDS FIELDS VIA render_template FUNCTION ***** -->
+                        
+                        <!-- ***** MANUALLY RENDERED FORM FIELDS DEPRECATED PENDING LIVE DATA TESTING ***** -->
+                        
+                                    <div class="form-group">
+                                        {{ form1.submit1( id="target", class="btn btn-outline-info") }}
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+    
+{% endblock content %}

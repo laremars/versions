@@ -14,6 +14,17 @@ class Register(FlaskForm):
     name2 = StringField('Username', validators=[DataRequired()], render_kw={'autofocus': True})
     submit2 = SubmitField('Register')
 
+class QueryParams(FlaskForm):
+    A = StringField('A')
+    Really = StringField('Really')
+    Big = StringField('Big')
+    List = StringField('List')
+    Of = StringField('Of')
+    Potential = StringField('Potential')
+    Query = StringField('Query')
+    Parameters = StringField('Parameters')
+    submit3 = SubmitField('Register')
+
 @app.route("/", methods=['GET', 'POST'])
 @app.route("/home", methods=['GET', 'POST'])
 @app.route("/index", methods=['GET', 'POST'])
@@ -22,15 +33,16 @@ def home():
     pleb = True #future secure access implementations
     form1 = Login()
     form2 = Register()
+    form3 = QueryParams()
     #if request.method == "POST":
     if form1.validate_on_submit() and form1.submit1.data:
         name=form1.name1.data
         if name_exists:#simulates querying the db
             flash("Login Successful:  "+name, 'success')
-            return render_template('index.html', name=name)
+            return render_template('index.html', name=name, form3=form3)
         else:
             flash("The name, "+name+", is not reflected in the database. Please Do Better. ", 'warning')
-            return render_template('index.html')
+            return render_template('index.html', form1=form1, form2=form2)
     if form2.validate_on_submit() and form2.submit2.data:
         #Register user in db
         name=form2.name2.data
@@ -39,7 +51,10 @@ def home():
             flash("Registration Successful", 'success')
             flash("This username, "+name+", will henceforth persist allowing cached historical queries to be more conveniently rendered.", 'info')
             return render_template('index.html', name=name, first_time=True)
-    
+        else:
+            flash("Name Taken: Please Do Better", 'warning')
+            return render_template('index.html', form1=form1, form2=form2, pleb=pleb)
+        
     return render_template('index.html', form1=form1, form2=form2, pleb=pleb)
 
 @app.route("/logged_in", methods=['GET', 'POST'])

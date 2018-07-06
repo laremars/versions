@@ -1,0 +1,54 @@
+{% extends "layouts/dashboard.html" %}
+{% block content %}
+<div class="row" style="min-height: 40rem;">
+    <div class="row ">
+    <div class="col">    
+    <p id="date-range" class="" style="width:20rem; padding:1rem; font-size:150%;">Specify Date Range:</p>
+    </div>
+        <div class="col">
+
+    <p id="desired-output" class="invisible ">Specify Desired Output:</p>
+    </div>
+        <div class="col">
+
+    <p id="visualization" class="invisible ">Specify Visualization Type(s):</p>
+    </div>
+    </div>
+    <hr>
+    <header>
+        <button class="toggle1" style="">Date Range<i class="fa fa-navicon" style="position:relative; left:.2rem; z-index:1;"></i></button>
+    </header>
+    
+    <div id="off_site_menu3">
+        <form method="POST" action="">
+            {{ form1.hidden_tag() }}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Selection Criterea</legend>
+        {{ render_field(form1.daterange) }}
+       
+    <div class="form-group">
+ {{ render_field(form1.submit1) }}
+ </div>
+ </fieldset>
+ </form>
+ </div>
+
+    <header>
+        <button class="toggle2 invisible">Tester<i class="fa fa-navicon" style="position:relative; left:.2rem; z-index:1;"></i></button>
+    </header>
+    
+<div id="off_site_menu2">    
+        <h3>Tester Criterea</h3>
+        {{ render_field(form1.tester) }}
+        <button class="ui-corner-all">Update</button>
+    </div>
+
+
+
+
+</div>
+
+
+
+
+{% endblock content %}

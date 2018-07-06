@@ -1,0 +1,66 @@
+De{% extends "layout.html" %}
+{% block content %}
+    <div class="content-section">
+        <form method="POST" action="">
+            {{ form1.hidden_tag() }}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">User Selection</legend>
+				
+<!-- ***** ADDS FIELDS VIA render_template FUNCTION ***** -->
+				{{ render_field(form1.daterange) }}
+				{{ render_field(form1.report_type) }}
+				{{ render_field(form1.output) }}
+				{{ render_field(form1.product) }}
+				{{ render_field(form1.step_name, 'Required') }}
+				{{ render_field(form1.part_number) }}
+				{{ render_field(form1.line) }}
+				{{ render_field(form1.process_type) }}
+				{{ render_field(form1.tester) }}
+<!-- ***** ADDS FIELDS VIA render_template FUNCTION ***** -->
+
+<!-- ***** MANUALLY RENDERED FORM FIELDS DEPRECATED PENDING LIVE DATA TESTING ***** -->
+
+            <div class="form-group">
+                {{ form1.submit( id="target", class="btn btn-outline-info") }}
+            </div>
+        </form>
+    </div>
+
+
+    <div class="content-section">
+        <form method="POST" action="">
+            {{ form2.hidden_tag() }}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Update</legend>
+				
+<!-- ***** ADDS FIELDS VIA render_template FUNCTION ***** -->
+				{{ render_field(form2.groupby) }}
+<!-- ***** ADDS FIELDS VIA render_template FUNCTION ***** -->
+
+<!-- ***** MANUALLY RENDERED FORM FIELDS DEPRECATED PENDING LIVE DATA TESTING ***** -->
+
+            <div class="form-group">
+                {{ form2.submit( id="target", class="btn btn-outline-info") }}
+            </div>
+        </form>
+    </div>
+
+<!-- BOKEH STUFF -->    
+<link
+    href="http://cdn.pydata.org/bokeh/release/bokeh-0.13.0.min.css"
+    rel="stylesheet" type="text/css">
+<link
+    href="http://cdn.pydata.org/bokeh/release/bokeh-widgets-0.13.0.min.css"
+    rel="stylesheet" type="text/css">
+
+<script src="http://cdn.pydata.org/bokeh/release/bokeh-0.13.0.min.js"></script>
+<script src="http://cdn.pydata.org/bokeh/release/bokeh-widgets-0.13.0.min.js"></script>
+
+<div>
+    {{ script|safe }}
+    {{ div|safe }}    
+</div>
+
+    {% endblock content %}
+    
+    

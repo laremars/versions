@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="content-section">
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">User Selection</legend>
+				
+<!-- ***** ADDS FIELDS VIA render_template FUNCTION INHERITED FROM layout.html ***** -->
+					{{ render_field(form.daterange) }}
+					{{ render_field(form.report_type) }}
+					{{ render_field(form.by_fields) }}
+					{{ render_field(form.output) }}
+					{{ render_field(form.product) }}
+					{{ render_field(form.part_number) }}
+					{{ render_field(form.line) }}
+					{{ render_field(form.process_type) }}
+					{{ render_field(form.tester) }}
+<!-- ***** ADDS FIELDS VIA render_template FUNCTION INHERITED FROM layout.html ***** -->
+
+            <div class="form-group">
+                {{ form.submit( id="target", class="btn btn-outline-info") }}
+            </div>
+        </form>
+    </div>
+{% endblock content %}

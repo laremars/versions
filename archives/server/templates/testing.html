@@ -1,0 +1,115 @@
+{% extends "layouts/dashboard.html" %}
+{% block content %}
+<div class="row">
+    <div class="col-lg-6">
+        <button role="button" class="btn btn-danger" data-toggle="collapse" data-target="#demo1" aria-expanded="true">
+           Build Query
+        </button><br><br>
+        <div id="demo1" class="height collapse hide" aria-expanded="true">
+            <div style="width:400px">
+                <div class="content-section">
+                    <form method="POST" action="">
+                        {{ form1.hidden_tag() }}
+                        <fieldset class="form-group">
+                            <legend class="border-bottom mb-4">User Selection</legend>
+            				
+            <!-- ***** ADDS FIELDS VIA render_template FUNCTION ***** -->
+            				{{ render_field(form1.daterange) }}
+            				{{ render_field(form1.report_type) }}
+            				{{ render_field(form1.output) }}
+            				{{ render_field(form1.product) }}
+            				{{ render_field(form1.step_name, 'Required') }}
+            				{{ render_field(form1.part_number) }}
+            				{{ render_field(form1.line) }}
+            				{{ render_field(form1.process_type) }}
+            				{{ render_field(form1.tester) }}
+            <!-- ***** ADDS FIELDS VIA render_template FUNCTION ***** -->
+            
+            <!-- ***** MANUALLY RENDERED FORM FIELDS DEPRECATED PENDING LIVE DATA TESTING ***** -->
+            
+                        <div class="form-group">
+                            {{ form1.submit1( id="target1", class="btn btn-outline-info") }}
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    {% if form1.submit1.data %}
+    
+        <h1 id="form-2-detect">Detected change in form 1</h1>
+    
+    {% endif %}
+
+    <div class="col-lg-6 inline">
+        <button role="button" class="btn btn-danger" data-toggle="collapse" data-target="#demo2" aria-expanded="true">
+           Group By
+        </button><br><br>
+        <div id="demo2" class="height collapse hide" aria-expanded="true">
+            <div style="width:400px">
+                <div class="content-section">
+                    <form method="POST" action="">
+                        {{ form2.hidden_tag() }}
+                        <fieldset class="form-group">
+                            <legend class="border-bottom mb-4">User Selection</legend>
+            				
+            <!-- ***** ADDS FIELDS VIA render_template FUNCTION ***** -->
+            				{{ render_field(form2.groupby) }}
+            <!-- ***** ADDS FIELDS VIA render_template FUNCTION ***** -->
+            
+            <!-- ***** MANUALLY RENDERED FORM FIELDS DEPRECATED PENDING LIVE DATA TESTING ***** -->
+            
+                        <div class="form-group">
+                            {{ form2.submit2( id="target2", class="btn btn-outline-info") }}
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    {% if form2.submit2.data %}
+    
+        <h1 id="form-2-detect">Detected change in form 2</h1>
+    
+    {% endif %}
+    
+</div>
+
+<div class="row">
+    <div class="col-lg-6">
+        <h1 id="clickHere">Query Results: </h1>
+        <ul>
+            {% for val in doc %}
+                <li>{{ val['LINE'] }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="col-lg-6">
+        <h1 class="effectThis">Fail Count: </h1>
+        <ul>
+            {% for val in doc %}
+                <li class="effectThis">{{ val['FAIL_COUNT'] }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+{% endblock content %}

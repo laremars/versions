@@ -1,0 +1,147 @@
+ body { 
+   /*background: #fafafa; *//*Standard*/
+  /* background: #F7F5E6;*/ /*Corporate and sleek*/
+   background: #F7F5E6; /*Corporate and sleek*/
+   color: #333333; 
+   margin-top: 5rem; 
+ } 
+ 
+
+ h1, h2, h4, h5, h6 { /*Standard*/
+   color: #444444; 
+ } 
+ /*
+ h3 {
+    color: #333A56;/*Corporate and sleek*/
+ }
+ */
+ h3 {
+    color: #333A56;/*Corporate and sleek*/
+ }
+
+ .bg-steel { /*navbar bg-color*/
+   /*background-color: #5f788a; *//*Standard*/
+   /*background-color: #333A56; *//*Corporate and sleek*/
+   background-color: #333A56; /*Corporate and sleek*/
+ } 
+ 
+ .site-header .navbar-nav .nav-link { 
+   color: #cbd5db; 
+ } 
+ 
+ .site-header .navbar-nav .nav-link:hover { 
+   background: #52658F;
+   color: #ffffff; 
+   border-radius: 3px; 
+ } 
+ 
+ 
+ .site-header .navbar-nav .nav-link.active { 
+   font-weight: 500; 
+   background: #52658F;
+   color: #ffffff; 
+   border-radius: 3px; 
+ } 
+ 
+ 
+ .content-section { 
+   /*background: #ffffff; *//*Standard*/
+   background: #E8E8E8; 
+   padding: 10px 20px; 
+   /*border: 1px solid #dddddd;*/ /*Standard*/
+   border: 1px solid #333A56; /*Corporate and sleek*/
+   border-radius: 3px; 
+   margin-bottom: 20px; 
+ } 
+ 
+ 
+ .article-title { 
+   color: #444444; 
+ } 
+ 
+ 
+ a.article-title:hover { 
+   color: #428bca; 
+   text-decoration: none; 
+ } 
+ 
+ 
+ .article-content { 
+   white-space: pre-line; 
+ } 
+ 
+ 
+ .article-img { 
+   height: 65px; 
+   width: 65px; 
+   margin-right: 16px; 
+ } 
+ 
+ 
+ .article-metadata { 
+   padding-bottom: 1px; 
+   margin-bottom: 4px; 
+   border-bottom: 1px solid #e3e3e3 
+ } 
+ 
+ 
+ .article-metadata a:hover { 
+   color: #333; 
+   text-decoration: none; 
+ } 
+ 
+ 
+ .article-svg { 
+   width: 25px; 
+   height: 25px; 
+   vertical-align: middle; 
+ } 
+ 
+ 
+ .account-img { 
+   height: 125px; 
+   width: 125px; 
+   margin-right: 20px; 
+   margin-bottom: 16px; 
+ } 
+ 
+ 
+ .account-heading { 
+   font-size: 2.5rem; 
+ } 
+ 
+  .ui-autocomplete {
+    background: #0099FF;
+    max-height: 100px;
+    max-width: 290px;
+    overflow-y: auto;
+    /* prevent horizontal scrollbar */
+    overflow-x: hidden;
+      }
+      /* IE 6 doesn't support max-height
+       * we use height instead, but this forces the menu to always be this tall
+       */
+      * html .ui-autocomplete {
+    height: 100px;
+    width: 100px;
+  }
+  
+  #range {
+      width: 100%;
+  }
+  
+input::-webkit-input-placeholder {
+color: #cccccc !important;
+}
+
+input:-moz-placeholder {
+color: #cccccc !important;
+}
+
+input::-moz-placeholder {  /* Firefox 19+ */
+color: #cccccc !important;
+}
+
+input:-ms-input-placeholder {  
+color: #cccccc !important;
+}

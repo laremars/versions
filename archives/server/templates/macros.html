@@ -1,0 +1,35 @@
+{% macro nav_link(endpoint, text) %}
+	{% if request.endpoint.endswith(endpoint) %}
+		<a class="nav-item nav-link active" href="{{ url_for(endpoint) }}">{{text}}</a>
+	{% else %}
+		<a class="nav-item nav-link" href="{{ url_for(endpoint) }}">{{text}}</a>
+	{% endif %}
+{% endmacro %}
+
+
+{% macro gen_title(title) %}
+	{% if title %}
+		<title>Interface - {{ title }}</title>
+	{% else %}
+		<title>Interface</title>
+	{% endif %}
+{% endmacro %}
+
+
+{% macro render_field(field, place_holder) %}
+	<div class="form-group">
+		{{ field.label(class="form-control-label") }}
+		{% if field.errors %}
+			{{ field(class="form-control form-control-lg is-invalid") }}
+			<div class="invalid-feedback">
+				{% for error in field.errors %}
+					<span>{{ error }}</span>
+				{% endfor %}
+			</div>
+		{% elif place_holder %}
+			{{ field(class="form-control form-control-lg", placeholder=place_holder) }}
+		{% else %}
+			{{ field(class="form-control form-control-lg") }}
+		{% endif %}
+	</div><!-- form-group -->
+{% endmacro %}
