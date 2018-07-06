@@ -19,6 +19,7 @@ class Register(FlaskForm):
 @app.route("/index", methods=['GET', 'POST'])
 def home():
     name_exists = True
+    pleb = True #future secure access implementations
     form1 = Login()
     form2 = Register()
     #if request.method == "POST":
@@ -26,10 +27,10 @@ def home():
         name=form1.name1.data
         if name_exists:#simulates querying the db
             flash("Login Successful:  "+name, 'success')
-            return render_template('index.html', form1=form1, form2=form2, name=name)
+            return render_template('index.html', name=name)
         else:
             flash("The name, "+name+", is not reflected in the database. Please Do Better. ", 'warning')
-            return render_template('index.html', form1=form1, form2=form2)
+            return render_template('index.html')
     if form2.validate_on_submit() and form2.submit2.data:
         #Register user in db
         name=form2.name2.data
@@ -37,9 +38,9 @@ def home():
         if name_not_taken:#simulates querying the db to check against existing names
             flash("Registration Successful", 'success')
             flash("This username, "+name+", will henceforth persist allowing cached historical queries to be more conveniently rendered.", 'info')
-            return render_template('index.html', form1=form1, form2=form2, name=name, first_time=True)
+            return render_template('index.html', name=name, first_time=True)
     
-    return render_template('index.html', form1=form1, form2=form2)
+    return render_template('index.html', form1=form1, form2=form2, pleb=pleb)
 
 @app.route("/logged_in", methods=['GET', 'POST'])
 def logged_in():

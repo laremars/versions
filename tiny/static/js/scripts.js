@@ -12,11 +12,36 @@ $("document").ready(function() {
     /*$( function() {//Test JQuery-UI functioning
         $( "#draggable" ).draggable();
     } );*/
-    $(".form1").slideToggle();
+    //$(".form1").slideToggle();
     
-    $(".form2").slideToggle();
 
     $(".flashed-message").delay(5000).slideToggle();
+    
+    /*$(".fa-eye-slash").on("click", (function(){
+        $("#denied").delay( 1000 ).animate({// Good working example of multiple effects
+                opacity: 1,
+                bottom: "+=250"
+             }, 75, function() {
+                    $("#denied").delay( 1000 ).animate({// Good working example of multiple effects
+                    opacity: 0,
+                    top: "+=250"
+                 }, 500, function() {}
+                    );
+        });
+    }));*/
+
+    $(".super_secure_dropdown_text").on("click", (function(){//For future secure paths
+        $("#denied").delay( 200 ).animate({
+                opacity: 1,
+                bottom: "+=320"
+             }, 75, function() {
+                    $("#denied").delay( 2000 ).animate({
+                    opacity: 0,
+                    bottom: "0"
+                 }, 300, function() {}
+                    );
+        });
+    }));
     
     $("#login-welcome").delay( 1000 ).animate({// Good working example of multiple effects
         opacity: 0,
@@ -36,12 +61,13 @@ $("document").ready(function() {
                 
     $("button").on("click", (function(){
         val = $(this).attr("value");
+        var custSel1Arr = [];
         if (val == "Login") {
-            $(".form1").removeClass("invisible").slideToggle("fast");
+            $(".form1").toggleClass("invisible");
             $("#name1").focus();
             console.log("Value: "+val);            
         } else if (val == "Register") {
-            $(".form2").slideToggle("fast").removeClass("invisible");
+            $(".form2")/*.slideToggle("fast")*/.toggleClass("invisible");
             $("#name2").focus();
             console.log("Value: "+val);
         } else if (val == "Begin") {
@@ -51,7 +77,21 @@ $("document").ready(function() {
                   event.preventDefault();
                 });
             } else {
-                console.log("Value: "+val);
+                
+                $("div#new-query-cycle").find("li.cust-sel1").each(function(){
+                    if(($.trim($(this).val()).length>0)){
+                     custSel1Arr.push($(this).text());
+                    }
+                    
+                });
+                
+                /*console.log("Text item: " + custSel1Arr[0] + ", " + custSel1Arr[1] + ", " + custSel1Arr[2] + ", " + custSel1Arr[3] + ", "  );
+                var i;
+                for (i = 0; i < 8; i++) { 
+                    if (custSel1Arr[i] == undefined) {
+                        console.log("In");
+                    }
+                }*/
             }
         }  else if (val == "Reset") {
             $("li.sel1").removeClass( "list-group-item-primary text-right font-weight-bold text-success shadow-lg cust-sel1" );
@@ -103,21 +143,21 @@ $("document").ready(function() {
     
     $("li.sel1").on("click", (function(){
         val = $(this).attr("value");
-        console.log("About to change class: "+$("li.cust-sel1").size());
-        console.log("Value: "+val);
+        //console.log("About to change class: "+$("li.cust-sel1").size());
+        //console.log("Value: "+val);
         
-        if (val == "all") {
-            $("li.sel1").addClass( "list-group-item-primary text-right font-weight-bold text-success shadow-lg cust-sel1" );
+        if (val == "all") {//Dynamically changes list visuals to indicate selection
+            $("li.sel1").addClass( "list-group-item-primary font-weight-bold text-success shadow-lg cust-sel1" );
             console.log("About to change class: "+typeof $("li.cust-sel1").size());
-        } else {
-            $(this).toggleClass( "list-group-item-primary text-right font-weight-bold text-success shadow-lg cust-sel1" );
+        } else {//Dynamically changes list visuals to indicate selection
+            $(this).toggleClass( "list-group-item-primary font-weight-bold text-success shadow-lg cust-sel1" );
             console.log("About to change classes: " + $("li.cust-sel1").length);
         } 
         
-        if ($("li.cust-sel1").size() >= 3) {
+        if ($("li.cust-sel1").size() >= 3) {//Dynamically changes Render Form buttin according to specification
             $("#render-form-button").removeClass("disabled");
             $("#render-icon").addClass("fa-check");
-        } else {
+        } else {//Dynamically changes Render Form buttin according to specification
             $("#render-form-button").addClass("disabled");
             $("#render-icon").removeClass("fa-check");
         }

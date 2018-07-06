@@ -120,4 +120,20 @@ corresponding value from the list below*/
     left: 0;
 }
 
+.fa-eye-slash {
+    color:#263238;
+}
+
+.fa-eye-slash:hover, .super_secure_dropdown_text:hover {
+    color:red;
+}
+
+.super_secure_dropdown_text:hover {
+    color:#263238;
+}
+
+
+
+
+
 //Next we will have a look at adding more bootstrap button fields to guide user on a grand adventure

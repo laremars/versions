@@ -20,9 +20,9 @@
                     <button type="button" class="btn btn-success btn-lg dropdown-toggle" data-toggle="dropdown">
                     <i class="fa fa-user-secret mr-1"></i>Admin <span class="caret"></span></button>
                     <ul class="dropdown-menu super_secure_dropdown_menu font-weight-bold pl-2" role="menu">
-                      <li><a class="super_secure_dropdown_text" href="#">Super</a></li>
-                      <li><a class="super_secure_dropdown_text" href="#">Secure</a></li>
-                      <li><a class="super_secure_dropdown_text" href="#">Dropdown</a></li>
+                      <li><a class="super_secure_dropdown_text" href="#"><i class="fa fa-eye-slash mr-1"></i>Super</a></li>
+                      <li><a class="super_secure_dropdown_text" href="#"><i class="fa fa-eye-slash mr-1"></i>Secure</a></li>
+                      <li><a class="super_secure_dropdown_text" href="#"><i class="fa fa-eye-slash mr-1"></i>Dropdown</a></li>
                     </ul>
                   </div>
                 </div>
@@ -30,22 +30,30 @@
             <form class="form1 invisible my-3 form-inline" method="POST" action="/">
                 <div class="form-group row">
                     {{ form1.hidden_tag() }}
-                    {{ form1.name1.label( class_="my-3 mx-5 text-monospace col-sm-2 col-form-label" ) }} {{ form1.name1( autofocus=true, class_="form-control mx-5 px-5") }}
+                    {{ form1.name1.label( class_="my-1 mx-4 pl-5 text-monospace col-sm-2 col-form-label" ) }} {{ form1.name1( autofocus=true, class_="form-control ml-2 mr-0 pl-2 pr-0") }}
                 </div>
                 <div class="form-group row">
-                    {{ form1.submit1( class_="btn btn-primary my-3 mx-5 px-5" ) }}
+                    {{ form1.submit1( class_="btn btn-primary my-3 ml-0 px-4 py-2" ) }}
                 </div>
             </form>
             
             <form class="form2 invisible my-3 form-inline" method="POST" action="/">
                 <div class="form-group row">
                     {{ form2.hidden_tag() }}
-                    {{ form2.name2.label( class_="my-3 mx-5 text-monospace col-sm-2 col-form-label" ) }} {{ form2.name2( autofocus=true, class_="form-control mx-5 px-5") }}
+                    {{ form2.name2.label( class_="my-1 mx-4 pl-5 text-monospace col-sm-2 col-form-label" ) }} {{ form2.name2( autofocus=true, class_="form-control ml-2 mr-0 pl-2 pr-0") }}
                 </div>
                 <div class="form-group row">
-                    {{ form2.submit2( class_="btn btn-primary my-3 mx-5 px-5") }}
+                    {{ form2.submit2( class_="btn btn-primary my-3 ml-0 px-3 py-2" ) }}
                 </div>
             </form>
+            {% if pleb %}
+                <div id="denied" class="jumbotron jumbotron-fluid shadow-lg bg-white rounded pt-0 pl-5" style="position: relative; opacity:0;">
+                  <div class="container-fluid pt-0 pl-5 ml-5">
+                    <h1 class="display-2 text-danger pt-0 pl-5 pb-3">Nope</h1>
+                    <p class="display-4 lead text-info pl-3 pt-0 mt-0">Authorization Needed</p>
+                  </div>
+                </div>
+            {% endif %}
 
     {% else %}
         <!-- BOKEH STUFF -->  
@@ -62,10 +70,10 @@
         <div class="my-5 ml-3 pr-5 mx-5 d-flex justify-content-center" id="archived-query-request" style="opacity:0; position: absolute;">
             <div class="alert alert-info d-flex justify-content-center" role="alert">
                   <h3 class="alert-heading mx-5 text-danger pl-5 warning-left">Attention:</h3>
-                  <h5 class="text-monospace my-5 mx-5 text-dark d-flex justify-content-center cog-left cog-right">Query features are currently unavailable.</h5>
+                  <h5 class="text-monospace my-5 mx-5 text-dark d-flex justify-content-center cog-left">Archived query features are currently under maintenance. Please don't cry.</h5>
             </div>
         </div>
-        <div class="my-5 ml-3 pr-5" id="new-query-cycle" style="opacity:0; poisition: relative;">
+        <div class="my-5 ml-3 pl-3" id="new-query-cycle" style="opacity:0; poisition: relative;">
         
             <blockquote class="blockquote">
               <p class="mb-0">Please select all that apply:</p>
