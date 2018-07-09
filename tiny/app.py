@@ -1,8 +1,5 @@
 from flask import render_template, url_for, flash, redirect, request, abort, Response, Flask
-from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField
-from wtforms.validators import DataRequired
-from forms import Login, Register, QueryParams
+from forms import Login, Register, QueryParams, bokeh_form, main_form
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '880072237bb449637a697256a0e95a41'
@@ -16,7 +13,7 @@ def home():
     pleb = True #future secure access implementations
     form1 = Login()
     form2 = Register()
-    form3 = QueryParams()
+    form3 = main_form()
     #if request.method == "POST":
     if form1.validate_on_submit() and form1.submit1.data:
         name=form1.name1.data

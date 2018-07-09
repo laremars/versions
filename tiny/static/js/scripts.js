@@ -20,6 +20,17 @@ $("document").ready(function() {
     $( "#name1" ).autocomplete({
       source: [ "Joshua", "Gene", "Larry", "Mo", "Cameron", "Mitch", "Robert", "Larry", "Brad", "Jerry", "Jeff", "Curly", "Glenn", "Matt" ]
     });
+    
+    $( "#name1" ).val("Larry");
+    $( "#mee" ).click( function() {
+        $( "#submit1" ).submit();
+    });
+    
+    $( "#rep-type" ).click( function() {
+        $( "#report_type" ).val("histogram");
+        console.log( $( "#report_type" ).val() );
+    });
+    
 
     /*$( function() {//Test JQuery-UI functioning
         $( "#draggable" ).draggable();
@@ -40,14 +51,14 @@ $("document").ready(function() {
         });
     }));
     
-    $("#login-welcome").delay( 1000 ).animate({
+    $("#login-welcome").delay( 300 ).animate({
         opacity: 0,
         right: "+=1000",
         height: "toggle"
-      }, 1500, function() {
+      }, 500, function() {
             $("#login-second").animate({
             opacity: 1
-         }, 750, function() {
+         }, 300, function() {
              $("#login-second-btn-clk").animate({
              opacity: 1
              }, 300, function() {
@@ -62,6 +73,7 @@ $("document").ready(function() {
         if (val == "Login") {
             $(".form1").toggleClass("invisible");
             $("#name1").focus();
+            $( "#submit1" ).submit();
             console.log("Value: "+val);            
         } else if (val == "Register") {
             $(".form2")/*.slideToggle("fast")*/.toggleClass("invisible");
@@ -138,16 +150,26 @@ $("document").ready(function() {
         //$(".append").append(" "+step1 +"<br><b>Selection Criterea:</b> ");
     }));
     
+    $( "li.sel1" ).hover(
+      function() {
+        $( this ).append( $( '<span class="text-success"> <<<</span>' ) );
+        $( this ).addClass("bg-light");
+      }, function() {
+        $( this ).find( "span:last" ).remove();
+        $( this ).removeClass("bg-light");
+      }
+    );
+    
     $("li.sel1").on("click", (function(){
         val = $(this).attr("value");
         //console.log("About to change class: "+$("li.cust-sel1").size());
         //console.log("Value: "+val);
         
         if (val == "all") {//Dynamically changes list visuals to indicate selection
-            $("li.sel1").addClass( "list-group-item-primary font-weight-bold text-success shadow-lg cust-sel1" );
+            $("li.sel1").addClass( "list-group-item-primary font-weight-bold text-success shadow-lg cust-sel1 " );
             console.log("About to change class: "+typeof $("li.cust-sel1").size());
         } else {//Dynamically changes list visuals to indicate selection
-            $(this).toggleClass( "list-group-item-primary font-weight-bold text-success shadow-lg cust-sel1" );
+            $(this).toggleClass( "list-group-item-primary font-weight-bold text-success shadow-lg cust-sel1 " );
             console.log("About to change classes: " + $("li.cust-sel1").length);
         } 
         

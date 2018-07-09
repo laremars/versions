@@ -21,11 +21,26 @@
 .fa-user-secret {
     color: gray;
     background: black;
-    border-radius: 5px
+    border-radius: 5px;
+}
+
+.sel1 {
+    margin-left: .5rem;
+    background: #F5F5F5;
+    margin-bottom:.1rem;
+}
+
+.nested {
+    margin-left:1rem;
+    text-shadow: 1.5px 1px blue;
+}
+
+.nested.sel1 {
+    margin-left:1.5rem;
 }
 
 .cust-sel1 {
-    font-size:120%;
+    font-size:110%;
     text-shadow: 1.5px 1px blue;
 }
 
