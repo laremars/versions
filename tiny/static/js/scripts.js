@@ -1,23 +1,8 @@
 $("document").ready(function() {
-
-    //Not used current as datepicker
-    //var today = new Date(2000, new Date().getMonth(), new Date().getDate());
-    //$('#startDate').datepicker({
-    //    uiLibrary: 'bootstrap4',
-    //    iconsLibrary: 'fontawesome',
-    //    minDate: today,
-    //    maxDate: function () {
-    //        return $('#endDate').val();
-    //    }
-    //});
-    //  $('#endDate').datepicker({
-    //      uiLibrary: 'bootstrap4',
-    //      iconsLibrary: 'fontawesome',
-    //      minDate: function () {
-    //          return $('#startDate').val();
-    //      }
-    //  });
-
+    
+    
+    //if ($(window).height() < 768) {
+    //}
     $(function() {
         $('input[name="daterange"]').daterangepicker({
             timePicker: true,
@@ -29,10 +14,8 @@ $("document").ready(function() {
         });
     });
 
-    var viewportWidth = $(window).width();
-    var viewportHeight = $(window).height();
     
-    console.log("Viewport Width: "+viewportWidth+", Viewport Height: "+viewportHeight);
+    console.log("Viewport Width: "+$(window).width()+", Viewport Height: "+$(window).height());
     
     $( "#name1" ).autocomplete({
       source: [ "Joshua", "Gene", "Larry", "Mo", "Cameron", "Mitch", "Robert", "Larry", "Brad", "Jerry", "Jeff", "Curly", "Glenn", "Matt" ]
@@ -44,12 +27,12 @@ $("document").ready(function() {
     
     $(".flashed-message").delay(5000).slideToggle();
  
-    $(".super_secure_dropdown_text").on("click", (function(){//For future secure paths
-        $("#denied").delay( 200 ).animate({
+    $(".super_secure_dropdown_text").on("click", (function(){// For future secure paths
+        $("#denied").delay( 50 ).animate({// Good working example of multiple effects
                 opacity: 1,
-                bottom: "+=320"
-             }, 75, function() {
-                    $("#denied").delay( 2000 ).animate({
+                bottom: "+=320"//Note the element cannot be moved if static
+             }, 75, function() {// Effect lasts 75ms, then the next function kicks off afer a 2s delay
+                    $("#denied").delay( 2000 ).animate({// delay twwo seconds
                     opacity: 0,
                     bottom: "0"
                  }, 300, function() {}
@@ -57,9 +40,9 @@ $("document").ready(function() {
         });
     }));
     
-    $("#login-welcome").delay( 1000 ).animate({// Good working example of multiple effects
+    $("#login-welcome").delay( 1000 ).animate({
         opacity: 0,
-        right: "+=1000",//Note the element cannot be moved if static
+        right: "+=1000",
         height: "toggle"
       }, 1500, function() {
             $("#login-second").animate({

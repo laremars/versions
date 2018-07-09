@@ -2,29 +2,11 @@ from flask import render_template, url_for, flash, redirect, request, abort, Res
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired
+from forms import Login, Register, QueryParams
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'super_secret_unbreakable_key_yo'
+app.config['SECRET_KEY'] = '880072237bb449637a697256a0e95a41'
 
-class Login(FlaskForm):
-    name1 = StringField('Username', validators=[DataRequired()], render_kw={'autofocus': True})
-    submit1 = SubmitField('Login')
-    
-class Register(FlaskForm):
-    name2 = StringField('Username', validators=[DataRequired()], render_kw={'autofocus': True})
-    submit2 = SubmitField('Register')
-
-class QueryParams(FlaskForm):
-    A = StringField('A')
-    Really = StringField('Really')
-    Big = StringField('Big')
-    List = StringField('List')
-    Of = StringField('Of')
-    Potential = StringField('Potential')
-    Query = StringField('Query')
-    Parameters = StringField('Parameters')
-    daterange = StringField('Date Range', validators=[DataRequired()])
-    submit3 = SubmitField('Register')
 
 @app.route("/", methods=['GET', 'POST'])
 @app.route("/home", methods=['GET', 'POST'])
@@ -49,8 +31,8 @@ def home():
         name=form2.name2.data
         name_not_taken = True
         if name_not_taken:#simulates querying the db to check against existing names
-            flash("Registration Successful", 'success')
-            flash("This username, "+name+", will henceforth persist allowing cached historical queries to be more conveniently rendered.", 'info')
+            flash("Registration Successful: "+name, 'success')
+            #flash("This username, "+name+", will henceforth persist allowing cached historical queries to be more conveniently rendered.", 'info')
             return render_template('index.html', name=name, first_time=True, form3=form3)
         else:
             flash("Name Taken: Please Do Better", 'warning')
@@ -67,6 +49,10 @@ def logged_in():
 @app.route("/macros")
 def macros():
     return render_template('macros.html')
+
+@app.route("/footer")
+def footer():
+    return render_template('footer.html')
 
 	
 if __name__ == '__main__':

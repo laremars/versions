@@ -135,15 +135,15 @@
                 
                 </div>
             
-<div class="container">
+<div class="container-fluid">
 
-<div class="row mb-5">
+<div class="row mb-2">
     <div class="invisible mb-2">Hidden Content</div>
 </div>
-<div class="row mt-2">
+<div class="row mt-4">
 
 
-                <main class="col-md-12 float-left col px-5 pl-md-2 pt-2 main ml-5 shadow-lg mb-5" style="background: #F3F7F9; border: thin solid #CCD5DB;">
+                <main class="col col-md-9 offset-md-2 main shadow-lg" style="background: #F3F7F9; border: thin solid #CCD5DB;">
                     <!--<a href="#" data-target="#sidebar" data-toggle="collapse"><i class="fa fa-navicon fa-2x py-2 p-1" style=""></i></a>-->
                     
                     <div class="page-header mx-5 pt-2 pl-3">
@@ -151,7 +151,7 @@
                         {% if title %}
                         <h2>{{ title }}</h2>
                         {% else %}
-                        <h2>Interface</h2>
+                        <h2>Interface  </h2>
                         {% endif %}
                     </div>
                     {% if description %}
@@ -184,7 +184,7 @@
         </div><!-- <div class="container-fluid"> -->
     
     
-    
+        
         <!--JavaScript-->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
         <script type="text/javascript" src="{{ url_for('static', filename='js/jquery.js') }}"></script><!--required for bootstrap-->
@@ -194,7 +194,7 @@
         <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.js') }}"></script><!--required for bootstrap(v4.1.1)-->
         <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>script required when using bootstrap-->
         <script type="text/javascript" src="{{ url_for('static', filename='js/scripts.js') }}"></script><!--user-defined script required when using datepicker-->
-        <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"><!--</script>script required when using datepicker-->
+        <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script><!--script required when using datepicker-->
         <!--<script type="text/javascript" src="{{ url_for('static', filename='js/daterangepicker.js') }}"></script>not properly functioning: use cdn's for now-->
         <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" /><!--stylesheet required when using datepicker-->
         <!--<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/daterangepicker.css') }}">not properly functioning: use cdn's for now-->
