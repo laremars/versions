@@ -24,7 +24,7 @@
     border-radius: 5px;
 }
 
-.sel1 {
+.sel1, .sel-mult {
     margin-left: .5rem;
     background: #F5F5F5;
     margin-bottom:.1rem;
@@ -35,11 +35,11 @@
     text-shadow: 1.5px 1px blue;
 }
 
-.nested.sel1 {
+.nested.sel1, .nested.sel-mult {
     margin-left:1.5rem;
 }
 
-.cust-sel1 {
+.cust-sel1, .cust-sel-mult {
     font-size:110%;
     text-shadow: 1.5px 1px blue;
 }

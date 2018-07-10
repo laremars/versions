@@ -33,3 +33,24 @@
 		{% endif %}
 	</div><!-- form-group -->
 {% endmacro %}
+
+{% macro render_collapsable(link_name, aria_id, collapsable_id, choices, field_type) %}
+
+  <div class="card">
+    <div class="card-header" role="tab" id="{{ aria_id }}">
+      <h5 class="mb-0">
+        <a class="collapsed text-info" data-toggle="collapse" href="#{{ collapsable_id }}" aria-expanded="true" aria-controls="{{ collapsable_id }}">
+          {{ link_name }}
+        </a>
+      </h5>
+    </div>
+    <div id="{{ collapsable_id }}" class="collapse " role="tabpanel" aria-labelledby={{ aria_id }}>
+      <div class="card-body">
+          {% for key, val in choices %}
+              <li class="list-group-item list-group-item-action text-monospace {{ field_type }} " value="{{ key }}">{{ val }}</li>
+          {% endfor %}
+      </div>
+    </div>
+  </div><!--<div class="card">-->
+
+{% endmacro %}

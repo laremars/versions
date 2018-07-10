@@ -4,17 +4,33 @@ $("document").ready(function() {
     //if ($(window).height() < 768) {
     //}
     $(function() {
-        $('input[name="daterange"]').daterangepicker({
+        /*$('input[name="daterange"]').daterangepicker({
             timePicker: true,
             timePickerIncrement: 30,
             locale: {
                 format: 'MM/DD/YYYY'
                 //format: 'MM/DD/YYYY h:mm A'
             }
+        });*/
+        $('input[name="daterange"]').daterangepicker({
+            ranges: {
+                'Today': [moment(), moment()],
+                'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                'This Month': [moment().startOf('month'), moment().endOf('month')],
+                'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
+                'Last Year': [moment().subtract(1, 'year'), moment()]
+            },
+            "startDate": "07/04/2018",
+            "endDate": "07/10/2018"
+        }, function(start, end, label) {
+          console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')');
         });
     });
 
     $('li.sel1').css('cursor', 'pointer');
+    $('li.sel-mult').css('cursor', 'pointer');
     
     console.log("Viewport Width: "+$(window).width()+", Viewport Height: "+$(window).height());
     
@@ -23,9 +39,6 @@ $("document").ready(function() {
     });
     
     $( "#name1" ).val("Larry");
-    $( "#mee" ).click( function() {
-        $( "#submit1" ).submit();
-    });
     
     $( "#rep-type" ).click( function() {
         $( "#report_type" ).val("histogram");
@@ -44,7 +57,7 @@ $("document").ready(function() {
                 opacity: 1,
                 bottom: "+=320"//Note the element cannot be moved if static
              }, 75, function() {// Effect lasts 75ms, then the next function kicks off afer a 2s delay
-                    $("#denied").delay( 2000 ).animate({// delay twwo seconds
+                    $("#denied").delay( 1000 ).animate({// delay twwo seconds
                     opacity: 0,
                     bottom: "0"
                  }, 300, function() {}
@@ -80,31 +93,41 @@ $("document").ready(function() {
             $("#name2").focus();
             console.log("Value: "+val);
         } else if (val == "Begin") {
-            //populate form plz--------------------------------------------------------------------------
-            if ($("li.cust-sel1").size() < 3) {
-                $( this ).click(function( event ) {
-                  event.preventDefault();
-                });
-            } else {
+                //populate form plz--------------------------------------------------------------------------
                 
-                $("div#new-query-cycle").find("li.cust-sel1").each(function(){
-                    if(($.trim($(this).val()).length>0)){
-                     custSel1Arr.push($(this).text());
-                     console.log($(this).parent().html());
-                    }
+                /*if ($("li.cust-sel1").size() < 3) {
+                    $( this ).click(function( event ) {
+                      event.preventDefault();
+                    });
+                  
+                } else {
                     
-                });
-                
-                /*console.log("Text item: " + custSel1Arr[0] + ", " + custSel1Arr[1] + ", " + custSel1Arr[2] + ", " + custSel1Arr[3] + ", "  );
-                var i;
-                for (i = 0; i < 8; i++) { 
-                    if (custSel1Arr[i] == undefined) {
-                        console.log("In");
+                    $("div#new-query-cycle").find("li.cust-sel1").each(function(){
+                        if(($.trim($(this).val()).length>0)){
+                         custSel1Arr.push($(this).text());
+                         console.log($(this).parent().html());
+                        }
+                        
+                    });
+                    */
+                    /*console.log("Text item: " + custSel1Arr[0] + ", " + custSel1Arr[1] + ", " + custSel1Arr[2] + ", " + custSel1Arr[3] + ", "  );
+                    var i;
+                    for (i = 0; i < 8; i++) { 
+                        if (custSel1Arr[i] == undefined) {
+                            console.log("In");
+                        }
                     }
-                }*/
-            }
+                    }*/
+                    
+                console.log("Begin");
+                
+                
+                
+                $( "#report_type" ).val("histogram");
+            
         }  else if (val == "Reset") {
             $("li.sel1").removeClass( "list-group-item-primary text-right font-weight-bold text-success shadow-lg cust-sel1" );
+            $("li.sel-mult").removeClass( "list-group-item-primary text-right font-weight-bold text-success shadow-lg cust-sel-mult" );
             $("#render-form-button").addClass("disabled");
             $("#render-icon").removeClass("fa-check");
             console.log("Value: "+val);
@@ -151,7 +174,7 @@ $("document").ready(function() {
         //$(".append").append(" "+step1 +"<br><b>Selection Criterea:</b> ");
     }));
     
-    $( "li.sel1" ).hover(
+    $( "li.sel1, .sel-mult" ).hover(
       function() {
         $( this ).append( $( '<span class="text-success"> <<<</span>' ) );
         $( this ).addClass("bg-light");
@@ -161,30 +184,48 @@ $("document").ready(function() {
       }
     );
     
-    $("li.sel1").on("click", (function(){
+    $("li.sel-mult").on("click", (function(){//Multiple Select Field Logic
         val = $(this).attr("value");
         //console.log("About to change class: "+$("li.cust-sel1").size());
         //console.log("Value: "+val);
         
         if (val == "all") {//Dynamically changes list visuals to indicate selection
-            $( this ).addClass( "list-group-item-primary font-weight-bold text-success shadow-lg cust-sel1 " );//Adds selected class to "all" field
-            $( this ).siblings().addClass( "list-group-item-primary font-weight-bold text-success shadow-lg cust-sel1 " );//Only targets immediate siblings for selection
-            console.log("About to change class: "+typeof $("li.cust-sel1").size());
+            $( this ).addClass( "list-group-item-primary font-weight-bold text-success shadow-lg cust-sel-mult " );//Adds selected class to "all" field
+            $( this ).siblings().addClass( "list-group-item-primary font-weight-bold text-success shadow-lg cust-sel-mult " );//Only targets immediate siblings for selection
+            console.log("About to change class: "+typeof $("li.cust-sel-mult").size());
         } else {//Dynamically changes list visuals to indicate selection
-            $(this).toggleClass( "list-group-item-primary font-weight-bold text-success shadow-lg cust-sel1 " );
-            $( "li[value='all']" ).removeClass("list-group-item-primary font-weight-bold text-success shadow-lg cust-sel1 " );
-            console.log("About to change classes: " + $("li.cust-sel1").length);
-        } 
+            var sibs = $( this ).siblings( "li[value!='all']" ).add( this );//this returns all elements in clocked list with exception of item with value = "all"
+            var custClassCount = 0;
+            $( this ).toggleClass( "list-group-item-primary font-weight-bold text-success shadow-lg cust-sel-mult " );//if the value isn't all, only add the classes to this item
+            
+            $( sibs ).each(function( index ) {
+              if ( $( this ).hasClass( "cust-sel-mult" ) ) {
+                  custClassCount ++;
+              }
+            });
+            
+            if ( custClassCount >= sibs.size() ) {
+                $( this ).siblings( "li[value='all']" ).addClass( "list-group-item-primary font-weight-bold text-success shadow-lg cust-sel-mult " );// all items have been chosen, so highlight all
+            } else {
+                $( this ).siblings( "li[value='all']" ).removeClass("list-group-item-primary font-weight-bold text-success shadow-lg cust-sel-mult " );// a sibling to the above item was clicked, meaning all shouldn't be selected unless all items are now highlighted
+            }
+            
+        }
         
-        if ($("li.cust-sel1").size() >= 3) {//Dynamically changes Render Form buttin according to specification
+
             $("#render-form-button").removeClass("disabled");
             $("#render-icon").addClass("fa-check");
-        } else {//Dynamically changes Render Form buttin according to specification
-            $("#render-form-button").addClass("disabled");
-            $("#render-icon").removeClass("fa-check");
-        }
+
         //console.log(typeof val);
         //$(".append").append(" "+step1 +"<br><b>Selection Criterea:</b> ");
+    }));
+
+    $("li.sel1").on("click", (function(){//Single Select Field Logic
+        val = $(this).attr("value");
+        $( this ).toggleClass( "list-group-item-primary font-weight-bold text-success shadow-lg cust-sel1 " );//if the value isn't all, only add the classes to this item
+        $( this ).siblings().removeClass( "list-group-item-primary font-weight-bold text-success shadow-lg cust-sel1" );
+        $("#render-form-button").removeClass("disabled");
+        $("#render-icon").addClass("fa-check");
     }));
     
 });//$("document").ready(function() {

@@ -76,8 +76,10 @@
         <div class="my-5 ml-3 pl-3" id="new-query-cycle" style="opacity:0; poisition: relative;">
         
             <blockquote class="blockquote">
-              <p class="mb-0">Please select all that apply:</p>
-              <footer class="blockquote-footer">Your form will be generated accordingly
+              <p class="mb-0 text-monospace">Please select all that apply:</p>
+              <footer class="blockquote-footer text-monospace">Your form will be generated accordingly
+              </footer>
+              <footer class="blockquote-footer text-monospace">Otherwise, select Default Form to skip selection
               </footer>
             </blockquote>
         
@@ -85,74 +87,10 @@
             
             
                 <div id="accordion" role="tablist">
-                
-                  <div class="card">
-                    <div class="card-header" role="tab" id="headingOne">
-                      <h5 class="mb-0">
-                        <a class="collapsed text-info" data-toggle="collapse" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                          Tester Name
-                        </a>
-                      </h5>
-                    </div>
-                    <div id="collapseOne" class="collapse " role="tabpanel" aria-labelledby="headingOne">
-                      <div class="card-body">
-                          {% for tester in form3.tester_list %}
-                              <li class="list-group-item list-group-item-action text-monospace sel1 " value="{{ tester }}">{{ tester }}</li>
-                          {% endfor %}
-                      </div>
-                    </div>
-                  </div><!--<div class="card">-->
-                  
-                  <div class="card">
-                    <div class="card-header" role="tab" id="headingTwo">
-                      <h5 class="mb-0">
-                        <a class="collapsed text-info" data-toggle="collapse" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                          Line
-                        </a>
-                      </h5>
-                    </div>
-                    <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
-                      <div class="card-body">
-                          {% for key, val in form3.line.choices %}
-                              <li class="list-group-item list-group-item-action text-monospace sel1" value="{{ key }}">{{ val }}</li>
-                          {% endfor %}
-                      </div>
-                    </div>
-                  </div><!--<div class="card">-->
-                  
-                  <div class="card">
-                    <div class="card-header" role="tab" id="headingThree">
-                      <h5 class="mb-0">
-                        <a class="collapsed text-info" data-toggle="collapse" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                          Process
-                        </a>
-                      </h5>
-                    </div>
-                    <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree">
-                      <div class="card-body">
-                          {% for key, val in form3.process_type.choices %}
-                              <li class="list-group-item list-group-item-action text-monospace sel1" value="{{ key }}">{{ val }}</li>
-                          {% endfor %}
-                      </div>
-                    </div>
-                  </div><!--<div class="card">-->
-                  
-                  <div class="card">
-                    <div class="card-header" role="tab" id="headingFour">
-                      <h5 class="mb-0">
-                        <a class="collapsed text-info" data-toggle="collapse" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                          Product
-                        </a>
-                      </h5>
-                    </div>
-                    <div id="collapseFour" class="collapse" role="tabpanel" aria-labelledby="headingFour">
-                      <div class="card-body">
-                          {% for key, val in form3.product.choices %}
-                              <li class="list-group-item list-group-item-action text-monospace sel1" value="{{ key }}">{{ val }}</li>
-                          {% endfor %}
-                      </div>
-                    </div>
-                  </div><!--<div class="card">-->
+                {{ render_collapsable("Tester Name", "heading-tester", "collapse-tester", form3.tester.choices, "sel-mult") }}
+                {{ render_collapsable("Line", "heading-line", "collapse-line", form3.line.choices, "sel1") }}
+                {{ render_collapsable("Process", "heading-process_type", "collapse-process_type", form3.process_type.choices, "sel1") }}
+                {{ render_collapsable("Product", "heading-product", "collapse-product", form3.product.choices, "sel1") }}
                   
                   <div class="card"><!--Good example of nests within nests-->
                     <div class="card-header" role="tab" id="headingFive">
@@ -192,7 +130,8 @@
 
 
                     <div class="btn-group btn-group-lg d-flex justify-content-end my-0" role="group" aria-label="Buried button group">
-                        <button id="render-form-button" type="button" class="btn btn-primary text-monospace disabled" value="Begin"><i id="render-icon" class="pr-1 fa"></i>Render Form</button>
+                        <button id="render-default-form-button" type="button" class="btn btn-dark text-monospace " value="Begin-Default"><i id="" class="pr-1 fa fa-th-list"></i>Render Default Form</button>
+                        <button id="render-form-button" type="button" class="btn btn-primary text-monospace disabled" value="Begin"><i id="render-icon" class="pr-1 fa"></i>Render Custom Form</button>
                         <button type="button" class="btn btn-danger text-monospace" value="Reset"><i class="fa fa-fast-backward pr-3"></i>Reset</button>
                     </div>
                 </li>
