@@ -35,11 +35,13 @@ def home():
             flash("Name Taken: Please Do Better", 'warning')
             return render_template('index.html', form1=form1, form2=form2, pleb=pleb)
         
+    if form3.validate_on_submit() and form3.submit3.data:
+        flash("POST", 'success')
+        return render_template('logged_in.html')
     return render_template('index.html', form1=form1, form2=form2, pleb=pleb)
 
-@app.route("/logged_in", methods=['GET', 'POST'])
+@app.route("/gen_query", methods=['GET', 'POST'])
 def logged_in():
-    name='Larry'#find name in session
     return render_template('logged_in.html')
 
 

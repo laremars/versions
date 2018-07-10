@@ -14,6 +14,7 @@ $("document").ready(function() {
         });
     });
 
+    $('li.sel1').css('cursor', 'pointer');
     
     console.log("Viewport Width: "+$(window).width()+", Viewport Height: "+$(window).height());
     
@@ -73,7 +74,6 @@ $("document").ready(function() {
         if (val == "Login") {
             $(".form1").toggleClass("invisible");
             $("#name1").focus();
-            $( "#submit1" ).submit();
             console.log("Value: "+val);            
         } else if (val == "Register") {
             $(".form2")/*.slideToggle("fast")*/.toggleClass("invisible");
@@ -90,6 +90,7 @@ $("document").ready(function() {
                 $("div#new-query-cycle").find("li.cust-sel1").each(function(){
                     if(($.trim($(this).val()).length>0)){
                      custSel1Arr.push($(this).text());
+                     console.log($(this).parent().html());
                     }
                     
                 });
@@ -126,19 +127,19 @@ $("document").ready(function() {
                 bottom: "+=200",//Note the element cannot be moved if static
                 //width: [ "toggle", "swing" ],
                 height: [ "toggle", "swing" ]
-            }, 750, function() {
+            }, 200, function() {
                     $("#archived-query-request").animate({
                         opacity: 1
-                    }, 500, function() { 
-                     $("#archived-query-request").delay(3000).animate({
+                    }, 200, function() { 
+                     $("#archived-query-request").delay(200).animate({
                          opacity: 0
-                     }, 500, function() { 
-                         $("#new-or-archive").delay(1000).animate({
+                     }, 200, function() { 
+                         $("#new-or-archive").delay(200).animate({
                             opacity: 1,
                             top: "+=200",//Note the element cannot be moved if static
                             //width: [ "toggle", "swing" ],
                             height: [ "toggle", "swing" ]
-                         }, 750
+                         }, 200
                          );
                             });
                  });
@@ -166,10 +167,12 @@ $("document").ready(function() {
         //console.log("Value: "+val);
         
         if (val == "all") {//Dynamically changes list visuals to indicate selection
-            $("li.sel1").addClass( "list-group-item-primary font-weight-bold text-success shadow-lg cust-sel1 " );
+            $( this ).addClass( "list-group-item-primary font-weight-bold text-success shadow-lg cust-sel1 " );//Adds selected class to "all" field
+            $( this ).siblings().addClass( "list-group-item-primary font-weight-bold text-success shadow-lg cust-sel1 " );//Only targets immediate siblings for selection
             console.log("About to change class: "+typeof $("li.cust-sel1").size());
         } else {//Dynamically changes list visuals to indicate selection
             $(this).toggleClass( "list-group-item-primary font-weight-bold text-success shadow-lg cust-sel1 " );
+            $( "li[value='all']" ).removeClass("list-group-item-primary font-weight-bold text-success shadow-lg cust-sel1 " );
             console.log("About to change classes: " + $("li.cust-sel1").length);
         } 
         

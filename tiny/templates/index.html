@@ -83,6 +83,7 @@
         
             <ul class="list-group shadow-lg">
             
+            
                 <div id="accordion" role="tablist">
                 
                   <div class="card">
@@ -189,6 +190,7 @@
                   
                 </div><!--<div id="accordion" role="tablist">-->
 
+
                     <div class="btn-group btn-group-lg d-flex justify-content-end my-0" role="group" aria-label="Buried button group">
                         <button id="render-form-button" type="button" class="btn btn-primary text-monospace disabled" value="Begin"><i id="render-icon" class="pr-1 fa"></i>Render Form</button>
                         <button type="button" class="btn btn-danger text-monospace" value="Reset"><i class="fa fa-fast-backward pr-3"></i>Reset</button>
@@ -200,11 +202,11 @@
         </div><!-- <div class="my-5 ml-3 pl-3" id="new-query-cycle" style="opacity:0; position: relative;"> --> 
         
 
-                    <!-- form card cc payment -->
                     <div class="card card-outline-secondary">
                         <div class="card-body">
                             <h3 id="rep-type" class="text-center">Populated Query Form</h3>
                             <hr>
+                            <form class="form3" method="POST" action="/">
                                 <div class="form-group row pt-3 mt-3">{{ form3.hidden_tag() }}
                                     {{ form3.daterange.label( class_="text-monospace col-md-12" ) }}
                                     <div class="col-md-6">
@@ -231,70 +233,36 @@
                                 </div>
                                 
                                 <div class="form-group row pb-0 mb-0 pt-3 mt-3">
-                                    <label class="col-md-4">A</label>
-                                    <label class="col-md-4">Really</label>
-                                    <label class="col-md-4">Big</label>
+                                    {{ form3.step_name.label( class_="text-monospace col-md-4" ) }}
+                                    {{ form3.part_number.label( class_="text-monospace col-md-4" ) }}
+                                    {{ form3.line.label( class_="text-monospace col-md-4" ) }}
                                 </div>
+                                
                                 <div class="form-group row">
                                     <div class="col-md-4">
-                                        <select class="form-control" name="cc_exp_mo" size="0">
-                                            <option value="01">01</option>
-                                            <option value="02">02</option>
-                                        </select>
+                                        {{ form3.step_name( class_="form-control text-monospace", placeholder="" ) }}
                                     </div>
                                     <div class="col-md-4">
-                                        <select class="form-control" name="cc_exp_yr" size="0">
-                                            <option>2018</option>
-                                            <option>2019</option>
-                                        </select>
+                                        {{ form3.part_number( class_="form-control text-monospace", placeholder="" ) }}
                                     </div>
                                     <div class="col-md-4">
-                                        <input type="text" class="form-control" title="nothing" placeholder="">
+                                        {{ form3.line( class_="form-control text-monospace", placeholder="" ) }}
                                     </div>
                                 </div>
+                                
                                 <div class="form-group row pb-0 mb-0 pt-3 mt-3">
-                                    <label class="col-md-4">A</label>
-                                    <label class="col-md-4">Really</label>
-                                    <label class="col-md-4">Big</label>
+                                    {{ form3.process_type.label( class_="text-monospace col-md-4" ) }}
+                                    {{ form3.tester.label( class_="text-monospace col-md-4" ) }}
                                 </div>
+                                
                                 <div class="form-group row">
                                     <div class="col-md-4">
-                                        <select class="form-control" name="cc_exp_mo" size="0">
-                                            <option value="01">01</option>
-                                            <option value="02">02</option>
-                                        </select>
+                                        {{ form3.process_type( class_="form-control text-monospace", placeholder="" ) }}
                                     </div>
                                     <div class="col-md-4">
-                                        <select class="form-control" name="cc_exp_yr" size="0">
-                                            <option>2018</option>
-                                            <option>2019</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <input type="text" class="form-control" title="nothing" placeholder="">
+                                        {{ form3.tester( class_="form-control text-monospace", placeholder="" ) }}
                                     </div>
                                 </div>
-                                <div class="form-group row pb-0 mb-0 pt-3 mt-3">
-                                    <label class="col-md-4">A</label>
-                                    <label class="col-md-4">Really</label>
-                                    <label class="col-md-4">Big</label>
-                                </div>
-                                <div class="form-group row">
-                                    <div class="col-md-4">
-                                        <select class="form-control" name="cc_exp_mo" size="0">
-                                            <option value="01">01</option>
-                                            <option value="02">02</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <select class="form-control" name="cc_exp_yr" size="0">
-                                            <option>2018</option>
-                                            <option>2019</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <input type="text" class="form-control" title="nothing" placeholder="">
-                                    </div>
                                 </div>
                                 <hr>
                                 <div class="form-group row">
@@ -308,7 +276,6 @@
                             </form>
                         </div>
                     </div>
-                    <!-- /form card cc payment -->
 
         
     {% endif %}
