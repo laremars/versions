@@ -56,3 +56,10 @@ def footer():
 	
 if __name__ == '__main__':
     app.run(debug=True)
+    
+'''
+
+To install all dependencies, run the below command in a virtual env
+pip install -r requirements.txt
+
+'''
