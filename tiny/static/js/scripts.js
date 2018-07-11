@@ -57,7 +57,7 @@ $("document").ready(function() {
                 opacity: 1,
                 bottom: "+=320"//Note the element cannot be moved if static
              }, 75, function() {// Effect lasts 75ms, then the next function kicks off afer a 2s delay
-                    $("#denied").delay( 1000 ).animate({// delay twwo seconds
+                    $("#denied").delay( 1000 ).animate({// delay two seconds
                     opacity: 0,
                     bottom: "0"
                  }, 300, function() {}
@@ -65,11 +65,11 @@ $("document").ready(function() {
         });
     }));
     
-    $("#login-welcome").delay( 300 ).animate({
+    $("#login-welcome").delay( 50 ).animate({
         opacity: 0,
         right: "+=1000",
         height: "toggle"
-      }, 500, function() {
+      }, 300, function() {
             $("#login-second").animate({
             opacity: 1
          }, 300, function() {
@@ -83,7 +83,8 @@ $("document").ready(function() {
                 
     $("button").on("click", (function(){
         val = $(this).attr("value");
-        var custSel1Arr = [];
+        var sel_mult = [];
+        var sel1 = [];
         if (val == "Login") {
             $(".form1").toggleClass("invisible");
             $("#name1").focus();
@@ -120,10 +121,61 @@ $("document").ready(function() {
                     }*/
                     
                 console.log("Begin");
+                var tester = [];
+                $("div#collapse-tester").find("li.cust-sel-mult").each(function() {
+                    if( ( $.trim( $( this ).val() ).length>0) ){
+                       tester.push( $( this ).text() );
+                    }
+                });
+                $( "#tester" ).val( tester );
+                //console.log( $( "#tester" ).val() );
+                
+                var line;
+                $("div#collapse-line").find("li.cust-sel1").each(function() {
+                    if( ( $.trim( $( this ).val() ).length>0) ){
+                       line = $( this ).text();
+                    }
+                });
+                $( "#line" ).val( line );
+                //console.log( $( "#line" ).val() );
+                
+                var process_type;
+                $("div#collapse-process_type").find("li.cust-sel1").each(function() {
+                    if( ( $.trim( $( this ).val() ).length>0) ){
+                       process_type = $( this ).text();
+                    }
+                });
+                $( "#process_type" ).val( process_type );
+                //console.log( $( "#process_type" ).val() );
+                
+                var output;
+                $("div#collapse-output").find("li.cust-sel1").each(function() {
+                    if( ( $.trim( $( this ).val() ).length>0) ){
+                       output = $( this ).text();//This may actually be an array coming back
+                    }
+                });
+                $( "#output" ).val( output );
+                //console.log( $( "#output" ).val() );
+                
+                var product;
+                $("div#collapse-product").find("li.cust-sel1").each(function() {
+                    if( ( $.trim( $( this ).val() ).length>0) ){
+                       product = $( this ).text();
+                    }
+                });
+                $( "#product" ).val( product );
+                //console.log( $( "#product" ).val() );
+                
+                var report_type;
+                $("div#collapse-report_type").find("li.cust-sel1").each(function() {
+                    if( ( $.trim( $( this ).val() ).length>0) ){
+                       report_type = $( this ).text();
+                    }
+                });
+                $( "#report_type" ).val( report_type );
+                //console.log( $( "#report_type" ).val() );
                 
                 
-                
-                $( "#report_type" ).val("histogram");
             
         }  else if (val == "Reset") {
             $("li.sel1").removeClass( "list-group-item-primary text-right font-weight-bold text-success shadow-lg cust-sel1" );
@@ -135,7 +187,7 @@ $("document").ready(function() {
             $("#new-or-archive").animate({// Good working example of multiple effects
                 opacity: 0,
                 bottom: "+=500",//Note the element cannot be moved if static
-                //width: [ "toggle", "swing" ],
+                //width: [ "toggle", "swing" ],//weird effect when both width and height swing are on
                 height: [ "toggle", "swing" ]
               }, 750, function() {
                     $("#new-query-cycle").removeClass("invisible")
