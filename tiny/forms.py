@@ -25,7 +25,7 @@ class QueryParams(FlaskForm):
     submit3 = SubmitField('Register')
 
 class main_form(FlaskForm):
-    report_type = SelectField(u'Report Type', choices=[('time_series', 'Time Series'), ('histogram', 'Histogram')], default='time_series')
+    report_type = SelectField(u'Report Type', choices=[('none', 'None'), ('time_series', 'Time Series'), ('histogram', 'Histogram')], default='none')
     output = SelectField('Output Type', choices=[('csv','CSV'), ('plot','Plot')], default='csv')
     product = SelectField('Product', choices=[('TX','TX')], default='TX')
     step_name = StringField('Step Name', validators=[DataRequired()])

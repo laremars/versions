@@ -30,9 +30,9 @@
     margin-bottom:.1rem;
 }
 
-.nested {
+li.nested {
     margin-left:1rem;
-    text-shadow: 1.5px 1px blue;
+    text-shadow: .5px .25px blue;
 }
 
 .nested.sel1, .nested.sel-mult {

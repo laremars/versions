@@ -9,9 +9,8 @@
         
         
         
-                <h2 id="mee" class="text-monospace my-5">Welcome, The User! </h2>
+                <h2 id="mee" class="text-monospace my-5 pb-5 text-success">Welcome! </h2>
             
-                <p class="text-monospace my-5">Please make a selection: </p>
                 <!--<a href="javascript:void(0);" onclick="$('#tog').slideToggle('fast');"> Login</a>--><!--Intresting way to use scripts-->
                 <div class="btn-group">
                   <button type="button" class="btn btn-success btn-lg" value="Login"><i class="fa fa-sign-in"></i>Login</button>
@@ -73,7 +72,7 @@
                   <h5 class="text-monospace my-5 mx-5 text-dark d-flex justify-content-center cog-left">Archived query features are currently under maintenance. Please don't cry.</h5>
             </div>
         </div>
-        <div class="my-5 ml-3 pl-3" id="new-query-cycle" style="opacity:0; poisition: relative;">
+        <div class="my-5 ml-3 pl-3" id="new-query-cycle" style="opacity:0; position: relative;">
         
             <blockquote class="blockquote">
               <p class="mb-0 text-monospace">Please select all that apply:</p>
@@ -85,63 +84,64 @@
         
             <ul class="list-group shadow-lg">
             
-            
                 <div id="accordion" role="tablist">
-                {{ render_collapsable("Tester Name", "heading-tester", "collapse-tester", form3.tester.choices, "sel-mult") }}
-                {{ render_collapsable("Line", "heading-line", "collapse-line", form3.line.choices, "sel1") }}
-                {{ render_collapsable("Process", "heading-process_type", "collapse-process_type", form3.process_type.choices, "sel1") }}
-                {{ render_collapsable("Product", "heading-product", "collapse-product", form3.product.choices, "sel1") }}
-                  
-                  <div class="card"><!--Good example of nests within nests-->
-                    <div class="card-header" role="tab" id="heading-output">
-                      <h5 class="mb-0">
-                        <a class="collapsed text-info" data-toggle="collapse" href="#collapse-output" aria-expanded="false" aria-controls="collapse-output">
-                          Desired Output
-                        </a>
-                      </h5>
-                    </div>
-                    <div id="collapse-output" class="collapse" role="tabpanel" aria-labelledby="heading-output">
-                        {% for key, val in form3.output.choices %}
-                            {% if key == "plot" %}
-                                  <div class="card">
-                                    <div class="card-header" role="tab" id="heading-{{ key }}">
-                                      <h5 class="mb-0">
-                                        <a class="collapsed text-info nested" data-toggle="collapse" href="#collapse-{{ key }}" aria-expanded="false" aria-controls="collapse-{{ key }}"><!--The nested link needs the nested class to make itself and those inheriting a proper appearance-->
-                                          {{ val }}
-                                        </a>
-                                      </h5>
+                {{ render_collapsible("Tester Name", "heading-tester", "collapse-tester", form3.tester.choices, "sel-mult") }}
+                {{ render_collapsible("Line", "heading-line", "collapse-line", form3.line.choices, "sel1") }}
+                {{ render_collapsible("Process", "heading-process_type", "collapse-process_type", form3.process_type.choices, "sel1") }}
+                {{ render_collapsible("Product", "heading-product", "collapse-product", form3.product.choices, "sel1") }}
+                  <div class="nested"><!--Good example of nests within nests-->
+                      <div class="card"><!--Probably more trouble than it was worth-->
+                        <div class="card-header" role="tab" id="heading-output">
+                          <h5 class="mb-0">
+                            <a class="collapsed text-info" data-toggle="collapse" href="#collapse-output" aria-expanded="false" aria-controls="collapse-output">
+                              Desired Output
+                            </a>
+                          </h5>
+                        </div>
+                        <div id="collapse-output" class="collapse" role="tabpanel" aria-labelledby="heading-output">
+                            {% for key, val in form3.output.choices %}
+                                  <div class="card-body">
+                                {% if key == "plot" %}
+                                      <div class="card">
+                                        <div class="card-header" role="tab" id="heading-report_type">
+                                          <h5 class="mb-0">
+                                            <a class="collapsed text-info nested" data-toggle="collapse" href="#collapse-report_type" aria-expanded="false" aria-controls="collapse-report_type"><!--The nested link needs the nested class to make itself and those inheriting a proper appearance-->
+                                              {{ val }}
+                                            </a>
+                                          </h5>
+                                        </div>
+                                        <div id="collapse-report_type" class="collapse" role="tabpanel" aria-labelledby="heading-report_type">
+                                          <div class="card-body">
+                                          {% for key, val in form3.report_type.choices %}
+                                              <li class="list-group-item list-group-item-action text-monospace sel1 nested-sib" value="{{ val }}">{{ key }}</li>
+                                          {% endfor %}
+                                      </div>
                                     </div>
-                                    <div id="collapse-{{ key }}" class="collapse" role="tabpanel" aria-labelledby="heading-{{ key }}">
-                                      <div class="card-body">
-                                      {% for key, val in form3.report_type.choices %}
-                                          <li class="list-group-item list-group-item-action text-monospace sel1" value="{{ key }}">{{ val }}</li>
-                                      {% endfor %}
-                                  </div>
-                                </div>
-                              </div><!--<div class="card">-->
+                                  </div><!--<div class="card">-->
                               {% else %}
-                              <li class="list-group-item list-group-item-action text-monospace sel1" value="{{ key }}">{{ val }}</li>
-                          {% endif %}
-                        {% endfor %}
-                    </div>
-                  </div><!--<div class="card">-->
-                  
+                                      <li class="list-group-item list-group-item-action text-monospace sel1 nested-sib" value="{{ val }}">{{ key }}</li>
+                              {% endif %}
+                                  </div>
+                            {% endfor %}
+                        </div>
+                      </div><!--<div class="card">-->
+                  </div>
+
                 </div><!--<div id="accordion" role="tablist">-->
 
 
-                    <div class="btn-group btn-group-lg d-flex justify-content-end my-0" role="group" aria-label="Buried button group">
-                        <button id="render-default-form-button" type="button" class="btn btn-dark text-monospace " value="Begin-Default"><i id="" class="pr-1 fa fa-th-list"></i>Render Default Form</button>
-                        <button id="render-form-button" type="button" class="btn btn-primary text-monospace disabled" value="Begin"><i id="render-icon" class="pr-1 fa"></i>Render Custom Form</button>
-                        <button type="button" class="btn btn-danger text-monospace" value="Reset"><i class="fa fa-fast-backward pr-3"></i>Reset</button>
-                    </div>
-                </li>
                 
             </ul>
-            
+            <div class="btn-group btn-group-lg d-flex justify-content-end my-0 rounded" role="group" aria-label="Buried button group">
+                <button id="render-default-form-button" type="button" class="btn btn-dark text-monospace " value="Begin-Default"><i id="" class="pr-1 fa fa-th-list"></i>Render Default Form</button>
+                <button id="render-form-button" type="button" class="btn btn-primary text-monospace disabled" value="Begin"><i id="render-icon" class="pr-1 fa"></i>Render Custom Form</button>
+                <button type="button" class="btn btn-danger text-monospace" value="Reset"><i class="fa fa-fast-backward pr-3"></i>Reset</button>
+            </div>
+
         </div><!-- <div class="my-5 ml-3 pl-3" id="new-query-cycle" style="opacity:0; position: relative;"> --> 
         
 
-                    <div class="card card-outline-secondary">
+                    <div id="query-form" class="card card-outline-secondary" style="opacity:0; position: relative;">
                         <div class="card-body">
                             <h3 id="rep-type" class="text-center">Populated Query Form</h3>
                             <hr>
@@ -206,7 +206,7 @@
                                 <hr>
                                 <div class="form-group row">
                                     <div class="col-md-6">
-                                        <button type="reset" class="btn btn-default btn-lg btn-block">Cancel</button>
+                                        <button type="button" class="btn btn-default btn-lg btn-block" value="Cancel">Cancel</button>
                                     </div>
                                     <div class="col-md-6">
                                         {{ form3.submit3( class_="btn btn-success btn-lg btn-block text-monospace" ) }}

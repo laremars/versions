@@ -1,4 +1,4 @@
-{% from "macros.html" import nav_link, gen_title, render_field, render_collapsable with context %}
+{% from "macros.html" import nav_link, gen_title, render_field, render_collapsible with context %}
 
 <!DOCTYPE html>
 <html>
@@ -149,13 +149,13 @@
                     <div class="page-header mx-5 pt-2 pl-3">
                         
                         {% if title %}
-                        <h2>{{ title }}</h2>
+                        <h1 id="interface-title" class="ml-3 text-primary text-monospace">{{ title }}</h2>
                         {% else %}
-                        <h2>Interface  </h2>
+                        <h1 id="interface-title" class="ml-3 text-primary text-monospace">Interface  </h2>
                         {% endif %}
                     </div>
                     {% if description %}
-                    <p class="lead">{{ description }}</p>
+                    <p class="lead ml-5 pl-5 text-primary text-monospace">{{ description }}</p>
                     {% else %}
                     <br>
                     {% endif %}
