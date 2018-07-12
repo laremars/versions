@@ -1,8 +1,5 @@
 $("document").ready(function() {
-    
 
-    //if ($(window).height() < 768) {
-    //}
     $(function() {
         /*$('input[name="daterange"]').daterangepicker({
             timePicker: true,
@@ -40,29 +37,32 @@ $("document").ready(function() {
     
     $( "#name1" ).val("Larry");
     
-    $( "#rep-type" ).click( function() {
-        $( "#report_type" ).val("histogram");
-        console.log( $( "#report_type" ).val() );
-    });
-    
-
     /*$( function() {//Test JQuery-UI functioning
         $( "#draggable" ).draggable();
     } );*/
     
     $(".flashed-message").delay(5000).slideToggle();
- 
+    
+    var secureCounter = 0;
     $(".super_secure_dropdown_text").on("click", (function(){// For future secure paths
+        secureCounter++;
+        if ( secureCounter <= 17 ) {
+            $( "#score" ).append( "<p><strong>Current Score:</strong> "+secureCounter+"</p><p><strong>High Score:</strong> 17</p>" );
+        } else {
+            $( "#score" ).append( "<p>Wow, did you... </p><p><strong>New High Score:</strong> "+secureCounter+"</p>" );
+        }
+        
         $("#denied").delay( 50 ).animate({// Good working example of multiple effects
                 opacity: 1,
                 bottom: "+=330"//Note the element cannot be moved if static
              }, 75, function() {// Effect lasts 75ms, then the next function kicks off afer a 2s delay
-                    $("#denied").delay( 1000 ).animate({// delay two seconds
+                    $("#denied").delay( 1000*secureCounter ).animate({// delay one second times the number of times the user was warned
                     opacity: 0,
                     bottom: "0"
-                 }, 300, function() {}
-                    );
-        });
+                 }, 300*secureCounter, function() {
+                             $( "#score" ).empty();
+                         });
+                    });
     }));
     
     $("#login-welcome").delay( 50 ).animate({
@@ -88,19 +88,12 @@ $("document").ready(function() {
         if (val == "Login") {
             $(".form1").toggleClass("invisible");
             $("#name1").focus();
-            //$( "#mee" ).scrollTop( 500 );
-           // $(window).scrollTop( $("#mee").offset().top );
-            $('html, body').animate({
-                scrollTop: $('#interface-description').offset().top - 25
-            }, 300);
+            autoScroll("#interface-description");
             console.log("Value: "+val);            
         } else if (val == "Register") {
             $(".form2")/*.slideToggle("fast")*/.toggleClass("invisible");
             $("#name2").focus();
-            $('html, body').animate({
-                scrollTop: $('#interface-description').offset().top
-            }, 300);
-            console.log("Value: "+val);
+            autoScroll("#interface-description");
         } else if (val == "Begin-Default") {
             $( "#step_name" ).val( "OK" ); //Set defaults
             $( "#part_number" ).val( "all" ); //Set defaults
@@ -117,16 +110,14 @@ $("document").ready(function() {
                      );
               });
               
-            $('html, body').delay(100).animate({
-                scrollTop: $('#interface-description').offset().top + 50
-            }, 200);
+            autoScroll("#interface-description");
+            
+            $( ".page-header" ).append( ' <p class="lead ml-5 pl-5 text-primary text-monospace col-9">Press <code class="text-dark">Cancel</code> to return to the selection menu. </p>' );
             
         } else if (val == "Begin") {
             //populate form plz--------------------------------------------------------------------------
                 
-            $('html, body').delay(100).animate({
-                scrollTop: $('#interface-description').offset().top + 50
-            }, 200);
+            autoScroll("#interface-description");
 
             var tester = [];
             $("div#collapse-tester").find("li.cust-sel-mult").each(function() {
@@ -209,6 +200,7 @@ $("document").ready(function() {
             $("#render-form-button").addClass("disabled");
             $("#render-icon").removeClass("fa-check");
             console.log("Value: "+val);
+            autoScroll("#interface-description");
         } else if (val == "Cancel") {
             $("#query-form").animate({// Good working example of multiple effects
                 opacity: 0
@@ -216,13 +208,12 @@ $("document").ready(function() {
                     $("#new-query-cycle").delay(250).animate({
                 opacity: 1,
                 bottom: "-=500",//Note the element cannot be moved if static
-                //width: [ "toggle", "swing" ],//weird effect when both width and height swing are on
                 height: [ "toggle", "swing" ]
                  }, 500
                      );
               });
         } else if (val == "New") {
-            $("#interface-description").text("Click on each item to items with which to prepopulate any form fields.").delay(10000).animate({
+            $("#interface-description").text("Click on any item to prepopulate form fields.").delay(5000).animate({
                 opacity: 0
             }, 200
             );
@@ -239,32 +230,26 @@ $("document").ready(function() {
                      );
               });
               
-            $('html, body').delay(1000).animate({
-                scrollTop: $('#interface-description').offset().top
-            }, 1000);
-
-        } else if (val == "Archives") {
-            $("#new-or-archive").animate({// Good working example of multiple effects
+        } else if (val == "Archives") {//will be removed once archived queries have been implemented
+            $("#new-or-archive").animate({// Good working example of multiple effects: moves current div out...
                 opacity: 0,
                 bottom: "+=200",//Note the element cannot be moved if static
-                //width: [ "toggle", "swing" ],
                 height: [ "toggle", "swing" ]
             }, 200, function() {
-                    $("#archived-query-request").animate({
+                    $("#archived-query-request").animate({//reveals warning message...
                         opacity: 1
                     }, 200, function() { 
-                     $("#archived-query-request").delay(200).animate({
-                         opacity: 0
-                     }, 200, function() { 
-                         $("#new-or-archive").delay(200).animate({
-                            opacity: 1,
-                            top: "+=200",//Note the element cannot be moved if static
-                            //width: [ "toggle", "swing" ],
-                            height: [ "toggle", "swing" ]
-                         }, 200
-                         );
-                            });
-                 });
+                            $("#archived-query-request").delay(500).animate({//hides warning message
+                                opacity: 0
+                         }, 200, function() { 
+                                 $("#new-or-archive").delay(200).animate({//moves div back in for valid selection
+                                    opacity: 1,
+                                    bottom: "0",
+                                    height: [ "toggle", "swing" ]}, 200, function(){
+                                        //additional effects can continue if desired
+                                    });
+                        });
+                  });
             });
         } else {
             console.log("Button value undefined");
@@ -346,6 +331,35 @@ $("document").ready(function() {
              $( "#output" ).val("csv");
         }
     });
+    /*
+    $("#heading-tester").on("click", (function(){
+        $('html, body').delay(10).animate({
+            scrollTop: $('#heading-tester').offset().top - 60
+        }, 350);
+    }));
+*/
+
+    autoScroll("#heading-tester", 0, 20, 300);
+    autoScroll("#heading-line");
+    autoScroll("#heading-process_type");
+    autoScroll("#heading-product");
+    autoScroll("#heading-output");
+    
+    /*Designed to scroll to the top of the element specified by the passed in identifier, which should be a string value representing the class or id*/
+    /*The second optional parameter represents additonal distance from the top of the screen: should be a positive or negative integer*/
+    /*The third optional parameter represents the delay between the click event and the beginning of the scroll animation. No supplied delay will default to near instant event triggering*/
+    /*The fourth optional parameter represents the duration of the scroll animation. no supplied duration will default animation to 300ms*/
+    function autoScroll(identifier, dist, delay, animation) {
+        dist = typeof dist=='undefined' ? 0 : dist;//dist becomes 0px if not supplied in the function call
+        delay = typeof delay=='undefined' ? 1 : delay;//delay becomes 1ms if not supplied in the function call
+        animation = typeof animation=='undefined' ? 300 : animation;//animation becomes 300ms if not supplied in the function call
+        $(identifier).on("click", (function(){
+            $('html, body').delay(delay).animate({//optional delay before animation begins
+                scrollTop: $(identifier).offset().top - 60 + dist
+            }, animation);//optional animation period
+        }));
+    }
+
     
     
 });//$("document").ready(function() {

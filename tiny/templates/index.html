@@ -50,6 +50,7 @@
                   <div class="container-fluid pt-0 pl-5 ml-5">
                     <h1 class="display-2 text-danger pt-0 pl-5 pb-3">Nope</h1>
                     <p class="display-4 lead text-info pl-3 pt-0 mt-0">Authorization Needed</p>
+                    <div id="score"></div>
                   </div>
                 </div>
             {% endif %}
@@ -232,70 +233,66 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      
-<div id="acc" role="tablist">
-  <div class="card">
-    <div class="card-header" role="tab" id="asd">
-      <h5 class="mb-0">
-        <a data-toggle="collapse" href="#asdf" aria-expanded="false" aria-controls="asdf">
-          Help Item #1
-        </a>
-      </h5>
-    </div>
-
-    <div id="asdf" class="collapse" role="tabpanel" aria-labelledby="asd">
-      <div class="card-body">
-        {{lipsum(n=2, html=True, min=4, max=32)}}
-      </div>
-    </div>
-  </div>
-  <div class="card">
-    <div class="card-header" role="tab" id="qwe">
-      <h5 class="mb-0 text-primary">
-        <a class="collapsed" data-toggle="collapse" href="#qwer" aria-expanded="false" aria-controls="qwer">
-          Help Item #2
-        </a>
-      </h5>
-    </div>
-    <div id="qwer" class="collapse" role="tabpanel" aria-labelledby="qwe">
-      <div class="card-body">
-        {{lipsum(n=2, html=True, min=4, max=32)}}
-      </div>
-    </div>
-  </div>
-  <div class="card">
-    <div class="card-header" role="tab" id="sdf">
-      <h5 class="mb-0">
-        <a data-toggle="collapse" href="#sdfg" aria-expanded="false" aria-controls="sdfg">
-          Help Item #3
-        </a>
-      </h5>
-    </div>
-
-    <div id="sdfg" class="collapse" role="tabpanel" aria-labelledby="sdf">
-      <div class="card-body">
-        {{lipsum(n=2, html=True, min=4, max=32)}}
-      </div>
-    </div>
-  </div>
-  <div class="card">
-    <div class="card-header" role="tab" id="wer">
-      <h5 class="mb-0 text-primary">
-        <a class="collapsed" data-toggle="collapse" href="#wert" aria-expanded="false" aria-controls="wert">
-          Help Item #4
-        </a>
-      </h5>
-    </div>
-    <div id="wert" class="collapse" role="tabpanel" aria-labelledby="wer">
-      <div class="card-body">
-        {{lipsum(n=2, html=True, min=4, max=32)}}
-      </div>
-    </div>
-  </div>
-</div>
-        <!--
-        {{lipsum(n=5, html=True, min=4, max=50)}}
-        -->
+        <div id="acc" role="tablist">
+          <div class="card">
+            <div class="card-header" role="tab" id="asd">
+              <h5 class="mb-0">
+                <a data-toggle="collapse" href="#asdf" aria-expanded="false" aria-controls="asdf">
+                  Help Item #1
+                </a>
+              </h5>
+            </div>
+        
+            <div id="asdf" class="collapse" role="tabpanel" aria-labelledby="asd">
+              <div class="card-body">
+                {{lipsum(n=2, html=True, min=4, max=32)}}
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header" role="tab" id="qwe">
+              <h5 class="mb-0 text-primary">
+                <a class="collapsed" data-toggle="collapse" href="#qwer" aria-expanded="false" aria-controls="qwer">
+                  Help Item #2
+                </a>
+              </h5>
+            </div>
+            <div id="qwer" class="collapse" role="tabpanel" aria-labelledby="qwe">
+              <div class="card-body">
+                {{lipsum(n=2, html=True, min=4, max=32)}}
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header" role="tab" id="sdf">
+              <h5 class="mb-0">
+                <a data-toggle="collapse" href="#sdfg" aria-expanded="false" aria-controls="sdfg">
+                  Help Item #3
+                </a>
+              </h5>
+            </div>
+        
+            <div id="sdfg" class="collapse" role="tabpanel" aria-labelledby="sdf">
+              <div class="card-body">
+                {{lipsum(n=2, html=True, min=4, max=32)}}
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header" role="tab" id="wer">
+              <h5 class="mb-0 text-primary">
+                <a class="collapsed" data-toggle="collapse" href="#wert" aria-expanded="false" aria-controls="wert">
+                  Help Item #4
+                </a>
+              </h5>
+            </div>
+            <div id="wert" class="collapse" role="tabpanel" aria-labelledby="wer">
+              <div class="card-body">
+                {{lipsum(n=2, html=True, min=4, max=32)}}
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
