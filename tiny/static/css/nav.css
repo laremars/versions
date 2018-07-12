@@ -215,17 +215,17 @@ color: #cccccc !important;
 
 
 
-a {
+a.buttrest {
   color: red;
   text-decoration: none;
 }
 
-a:hover {
+a.buttrest:hover {
   color: green;
   position: relative;
 }
 
-a[title]:hover:after {
+a.buttrest[title]:hover:after {
   content: attr(title);
   padding: 4px 8px;
   color: green;

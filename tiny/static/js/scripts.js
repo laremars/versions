@@ -1,6 +1,6 @@
 $("document").ready(function() {
     
-    
+
     //if ($(window).height() < 768) {
     //}
     $(function() {
@@ -22,8 +22,8 @@ $("document").ready(function() {
                 'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
                 'Last Year': [moment().subtract(1, 'year'), moment()]
             },
-            "startDate": "07/04/2018",
-            "endDate": "07/10/2018"
+            "startDate": moment().subtract(10, 'days'),
+            "endDate": moment()
         }, function(start, end, label) {
           console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')');
         });
@@ -55,7 +55,7 @@ $("document").ready(function() {
     $(".super_secure_dropdown_text").on("click", (function(){// For future secure paths
         $("#denied").delay( 50 ).animate({// Good working example of multiple effects
                 opacity: 1,
-                bottom: "+=320"//Note the element cannot be moved if static
+                bottom: "+=330"//Note the element cannot be moved if static
              }, 75, function() {// Effect lasts 75ms, then the next function kicks off afer a 2s delay
                     $("#denied").delay( 1000 ).animate({// delay two seconds
                     opacity: 0,
@@ -88,10 +88,18 @@ $("document").ready(function() {
         if (val == "Login") {
             $(".form1").toggleClass("invisible");
             $("#name1").focus();
+            //$( "#mee" ).scrollTop( 500 );
+           // $(window).scrollTop( $("#mee").offset().top );
+            $('html, body').animate({
+                scrollTop: $('#interface-description').offset().top - 25
+            }, 300);
             console.log("Value: "+val);            
         } else if (val == "Register") {
             $(".form2")/*.slideToggle("fast")*/.toggleClass("invisible");
             $("#name2").focus();
+            $('html, body').animate({
+                scrollTop: $('#interface-description').offset().top
+            }, 300);
             console.log("Value: "+val);
         } else if (val == "Begin-Default") {
             $( "#step_name" ).val( "OK" ); //Set defaults
@@ -108,9 +116,18 @@ $("document").ready(function() {
                  }, 500
                      );
               });
+              
+            $('html, body').delay(100).animate({
+                scrollTop: $('#interface-description').offset().top + 50
+            }, 200);
+            
         } else if (val == "Begin") {
             //populate form plz--------------------------------------------------------------------------
                 
+            $('html, body').delay(100).animate({
+                scrollTop: $('#interface-description').offset().top + 50
+            }, 200);
+
             var tester = [];
             $("div#collapse-tester").find("li.cust-sel-mult").each(function() {
                 if( ( $.trim( $( this ).val() ).length>0) ){
@@ -205,6 +222,10 @@ $("document").ready(function() {
                      );
               });
         } else if (val == "New") {
+            $("#interface-description").text("Click on each item to items with which to prepopulate any form fields.").delay(10000).animate({
+                opacity: 0
+            }, 200
+            );
             $("#new-or-archive").animate({// Good working example of multiple effects
                 opacity: 0,
                 bottom: "+=500",//Note the element cannot be moved if static
@@ -217,6 +238,11 @@ $("document").ready(function() {
                  }, 500
                      );
               });
+              
+            $('html, body').delay(1000).animate({
+                scrollTop: $('#interface-description').offset().top
+            }, 1000);
+
         } else if (val == "Archives") {
             $("#new-or-archive").animate({// Good working example of multiple effects
                 opacity: 0,
