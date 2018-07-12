@@ -1,8 +1,9 @@
 from flask import render_template, url_for, flash, redirect, request, abort, Response
 from tiny.forms import Login, Register, QueryParams, bokeh_form, main_form
 from tiny import app
+from tiny import mongofuns
+from tiny import bokehfuns
 import gc
-
 import pymongo
 import pandas as pd
 CLIENT = pymongo.MongoClient('mongodb://10.73.40.95:27017/')
