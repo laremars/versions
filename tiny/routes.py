@@ -64,6 +64,7 @@ def home():
         #flash("where: "+str(where), 'warning')
         
         unwound_data = mongofuns.query(form3.product.data, form3.step_name.data, where)
+        flash("unwound: "+str(unwound_data), 'warning')
         if not unwound_data:
             return Response('returned no records: CLIENT.' + str(form3.product.data) + '.' + str(form3.step_name.data) + 
             '.find(' + str(mongofuns.build_where(form3)) + ')')
@@ -77,7 +78,7 @@ def home():
                 script,div = bokehfuns.hist_comp(unwound_data)
             elif form3.report_type.data == 'time_series':
                 script,div = bokehfuns.time_comp(unwound_data)
-            return render_template('index.html', title='Measurement Stats', form3=form3, script=script, div=div)
+            return render_template('index.html', title='Measurement Stats', form1=form1, form2=form2, form3=form3, script=script, div=div)
         
         '''
         testers = form3.tester.data
