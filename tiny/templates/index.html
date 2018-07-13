@@ -146,10 +146,10 @@
                         <div class="card-body">
                             <h3 id="rep-type" class="text-center">Populated Query Form</h3>
                             <hr>
-                            <form class="form3" method="POST" action="/">
+                            <form class="form3" method="POST" enctype="multipart/form-data">
                                 <div class="form-group row pt-3 mt-3">{{ form3.hidden_tag() }}
                                     {{ form3.daterange.label( class_="text-monospace col-md-12" ) }}
-                                    <div class="col-md-6">
+                                    <div class="col-md-6">{{ form3.csrf_token }}
                                         {{ form3.daterange( class_="text-monospace form-control") }}
                                     </div>
                                 </div>

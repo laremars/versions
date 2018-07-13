@@ -21,6 +21,7 @@ def home():
     form1 = Login()
     form2 = Register()
     form3 = main_form()
+    
     #if request.method == "POST":
     if form1.validate_on_submit() and form1.submit1.data:
         name=form1.name1.data
@@ -61,10 +62,21 @@ def home():
         flash("process_type: "+form3.process_type.data, 'info')
         flash("tester: "+tstring, 'info')
         return render_template('logged_in.html')
+    flash(form3.errors, 'info')
     return render_template('index.html', form1=form1, form2=form2, pleb=pleb, description=description, title=title)
 
 @app.route("/gen_query", methods=['GET', 'POST'])
 def logged_in():
+    gc.collect()
+
+  
+    myquery = { 
+             "FAIL_COUNT": { "$gt": 1500 , "$lt": 1659 },
+             "LINE": "TX2" 
+    }
+
+    doc = list(CLIENT.TX.IOFF.find(myquery,{ "_id": 0, "TEST": 1 }))
+    flash(str(doc) +' The returned list omits assigned id and TEST  items, where the results are limited to two.','info')
     return render_template('logged_in.html')
 
 
