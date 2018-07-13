@@ -41,7 +41,7 @@ $("document").ready(function() {
         $( "#draggable" ).draggable();
     } );*/
     
-    $(".flashed-message").delay(5000).slideToggle();
+    //$(".flashed-message").delay(5000).slideToggle();
     
     var secureCounter = 0;
     $(".super_secure_dropdown_text").on("click", (function(){// For future secure paths

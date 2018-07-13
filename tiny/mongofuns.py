@@ -8,6 +8,7 @@ import pymongo
 import pandas as pd
 from datetime import datetime
 import re
+from flask import flash
 
 CLIENT = pymongo.MongoClient('mongodb://10.73.40.95:27017/')
 
@@ -17,16 +18,21 @@ def build_where(form, d={}):
     return mongo where dict arg
     """
     try:
+
         dr = form.daterange.data
         start_date = datetime.strptime(dr[0:10], '%m/%d/%Y')
         end_date = datetime.strptime(dr[13::], '%m/%d/%Y')
         d['DATE'] = {'$gte':start_date,'$lte':end_date}
+        #flash(d, 'success')
             
         if form.line.data != 'all':
             d['LINE'] = form.line.data
+            #flash("line", 'success')
             
         pn = form.part_number.data.lower()
+        #flash(pn, 'success')
         if pn != 'all':
+            #flash("pn", 'success')
             if 'tn' in pn:
                 pn = pn.replace('tn','')
             if 'x' in pn or len(pn.split('-')[1]) < 4:
@@ -35,14 +41,19 @@ def build_where(form, d={}):
                 d['PART_NUMBER'] = re.compile('(%s)[0-9]' % (pn))
             else:
                 d['PART_NUMBER'] = pn
+                #flash("PART_NUMBER", 'success')
                 
-        if form.process_type.data != 'all':
+        if form.process_type.data != 'all': 
             d['PROCESS'] = form.process_type.data
+            #flash("process", 'success')
             
         if str(form.tester.data)[2:-2] != 'all':    #['all'] -> all
             d['TESTER_NAME'] = form.tester.data
+            #flash("tester", 'success')
+        return d
 
     except:
+        #flash("bad data", 'danger')
         return 'bad input: ***' + str(d) + '***'
         
     try: #specific to fail_stats
@@ -55,12 +66,29 @@ def query(product, col, where, project={'_id':0}):
     """
     return list result from mongo query
     """
-    db = CLIENT[product]
-    result = list(db[col].aggregate([
+    db = CLIENT[product]#just 'TX' for now
+    result = list(db[col].aggregate([#col is step name, as defined by user text field # 
                     {'$unwind':'$TEST'},
                     {'$match': where},
                     {'$project': project}
                     ]))
+    
+    
+    '''
+    #if the pipeline stage exceeds 100Mb, the aggregate method will return an error
+    #to handle large datasets, set allowDiskUse option to true to enable writing data to temporary files
+    #the following is an example used to circumvent this potential error:
+    
+    result = list(db[col].aggregate([#col is step name, as defined by user text field # 
+                {'$unwind':'$TEST'},
+                {'$match': where},
+                {'$project': project}
+                ],
+                {allowDiskUse: true}
+                ))
+    
+    '''
+    flash(result, 'warning')
     return result
 
 def csv(unwound_data):
