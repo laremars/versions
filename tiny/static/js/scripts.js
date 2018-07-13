@@ -32,7 +32,7 @@ $("document").ready(function() {
     console.log("Viewport Width: "+$(window).width()+", Viewport Height: "+$(window).height());
     
     $( "#name1" ).autocomplete({
-      source: [ "Joshua", "Gene", "Larry", "Mo", "Cameron", "Mitch", "Robert", "Larry", "Brad", "Jerry", "Jeff", "Curly", "Glenn", "Matt" ]
+      source: [ "Joshua", "Gene", "Larry", "Mo", "Cameron", "Mitch", "Robert", "Larry", "Brad", "Jerry", "Jeff", "Curly", "Glenn", "Matt", "Pete" ]
     });
     
     $( "#name1" ).val("Larry");
