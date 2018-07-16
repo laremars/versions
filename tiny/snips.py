@@ -560,8 +560,21 @@ Position utility example demonstrating increased control of DOM items: http://js
 
 '''
 
+'''
 
+See virtual: workon
+Start virtual named rocket: workon rocket
+record dependencies to text doc: pip freeze > requirements.txt
 
+'''
 
+'''                                              #Windows Commands ctr+r
+
+msinfo32: systems name, config, specs, etc...
+mstsc: remote connection
+services.msc: list of services which can be started or stopped or configured
+compmgmt.mcs: advanced windows modules
+
+'''
 
 
