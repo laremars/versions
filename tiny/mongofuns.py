@@ -66,29 +66,22 @@ def query(product, col, where, project={'_id':0}):
     """
     return list result from mongo query
     """
+    
+    flash(product, 'warning')
+    flash(col, 'warning')
+    flash(where, 'warning')
+    flash(project, 'warning')
+    
     db = CLIENT[product]#just 'TX' for now
-    result = list(db[col].aggregate([#col is step name, as defined by user text field # 
-                    {'$unwind':'$TEST'},
-                    {'$match': where},
-                    {'$project': project}
-                    ]))
+    pipeline = [#to be passed into aggregate method
+            {'$unwind':'$TEST'},
+            {'$match': where},
+            {'$project': project}
+            ]
+    result = list(db[col].aggregate(pipeline))
+    #flash(db.command('aggregate', 'col', pipeline=pipeline, explain=True), 'success')#returns information on the query plans and execution statistics of the query plans using .command method: http://api.mongodb.com/python/current/api/pymongo/database.html#pymongo.database.Database.command
     
-    
-    '''
-    #if the pipeline stage exceeds 100Mb, the aggregate method will return an error
-    #to handle large datasets, set allowDiskUse option to true to enable writing data to temporary files
-    #the following is an example used to circumvent this potential error:
-    
-    result = list(db[col].aggregate([#col is step name, as defined by user text field # 
-                {'$unwind':'$TEST'},
-                {'$match': where},
-                {'$project': project}
-                ],
-                {allowDiskUse: true}
-                ))
-    
-    '''
-    flash(result, 'warning')
+    #flash(result, 'warning')
     return result
 
 def csv(unwound_data):

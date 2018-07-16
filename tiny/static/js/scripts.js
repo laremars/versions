@@ -19,7 +19,7 @@ $("document").ready(function() {
                 'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
                 'Last Year': [moment().subtract(1, 'year'), moment()]
             },
-            "startDate": moment().subtract(10, 'days'),
+            "startDate": moment().subtract(30, 'days'),
             "endDate": moment()
         }, function(start, end, label) {
           console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')');
@@ -97,6 +97,7 @@ $("document").ready(function() {
         } else if (val == "Begin-Default") {
             $( "#step_name" ).val( "OK" ); //Set defaults
             $( "#part_number" ).val( "all" ); //Set defaults
+            $( "#tester" ).val( "all" ); //Set defaults
             
             $("#new-query-cycle").animate({// Good working example of multiple effects
                 opacity: 0,

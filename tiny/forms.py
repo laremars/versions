@@ -25,12 +25,12 @@ class QueryParams(FlaskForm):
     submit3 = SubmitField('Register')
 
 class main_form(FlaskForm):
-    report_type = SelectField(u'Report Type', choices=[('none', 'None'), ('time_series', 'Time Series'), ('histogram', 'Histogram')], default='none', validators=[DataRequired()])
-    output = SelectField('Output Type', choices=[('csv','CSV'), ('plot','Plot')], default='csv', validators=[DataRequired()])
+    report_type = SelectField(u'Report Type', choices=[('none', 'None'), ('time_series', 'Time Series'), ('histogram', 'Histogram')], default='histogram', validators=[DataRequired()])
+    output = SelectField('Output Type', choices=[('csv','CSV'), ('plot','Plot')], default='plot', validators=[DataRequired()])
     product = SelectField('Product', choices=[('TX','TX')], default='TX', validators=[DataRequired()])
     step_name = StringField('Step Name', validators=[DataRequired()])
     part_number = StringField('Part Number', default='all', validators=[DataRequired()])    #doesn't update right without DataRequired
-    line = SelectField('Line', choices=[('all','all'), ('TX1', 'TX1'), ('TX2', 'TX2'), ('TX3', 'TX3'), ('TX4', 'TX4')], default='all', validators=[DataRequired()])
+    line = SelectField('Line', choices=[('all','all'), ('TX1', 'TX1'), ('TX2', 'TX2'), ('TX3', 'TX3'), ('TX4', 'TX4')], default='TX1', validators=[DataRequired()])
     process_type = SelectField('Process', choices=[('all','all'), ('ICC', 'ICC'), ('ECU', 'ECU')], default='TX', validators=[DataRequired()])
 
     tester_list = ['all',
@@ -42,7 +42,7 @@ class main_form(FlaskForm):
                    'T2ICC018','T2ICC023','T2ICC047',
                    'T3ICC050','T3ICC078',
                    'T4ICC039','T4ICC049']
-    tester = SelectMultipleField('Tester Name', choices=[(x,x) for x in tester_list], default='TX', validators=[DataRequired()])
+    tester = SelectMultipleField('Tester Name', choices=[(x,x) for x in tester_list], default='all', validators=[DataRequired()])
     daterange = StringField('Date Range', validators=[DataRequired()])
     
     submit3 = SubmitField('Submit')

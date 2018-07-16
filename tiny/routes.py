@@ -64,10 +64,11 @@ def home():
         #flash("where: "+str(where), 'warning')
         
         unwound_data = mongofuns.query(form3.product.data, form3.step_name.data, where)
-        flash("unwound: "+str(unwound_data), 'warning')
+        #flash("unwound: "+str(unwound_data), 'warning')
         if not unwound_data:
             return Response('returned no records: CLIENT.' + str(form3.product.data) + '.' + str(form3.step_name.data) + 
             '.find(' + str(mongofuns.build_where(form3)) + ')')
+            #flash(db.command('aggregate', 'col', pipeline=pipeline, explain=True), 'success')#returns information on the query plans and execution statistics of the query plans using .command method: http://api.mongodb.com/python/current/api/pymongo/database.html#pymongo.database.Database.command
         if form3.output.data == 'csv':
             csv_content = mongofuns.csv(unwound_data)
             return Response(csv_content,  mimetype='text/csv', headers={'Content-disposition':'attachment; filename=test.csv'})
@@ -75,7 +76,8 @@ def home():
         #http://biobits.org/bokeh-flask.html
         if form3.output.data == 'plot':
             if form3.report_type.data == 'histogram':
-                script,div = bokehfuns.hist_comp(unwound_data)
+                script,div = bokehfuns.test_histogram()#testing purposes
+                #script,div = bokehfuns.hist_comp(unwound_data)
             elif form3.report_type.data == 'time_series':
                 script,div = bokehfuns.time_comp(unwound_data)
             return render_template('index.html', title='Measurement Stats', form1=form1, form2=form2, form3=form3, script=script, div=div)
@@ -96,7 +98,8 @@ def home():
         flash("tester: "+tstring, 'info')
         '''
         return redirect(url_for(('home')))#must use redirect and url_for to run the function instead of merely rendering the provided html document
-    flash(form3.errors, 'info')
+    if form3.errors:
+        flash(form3.errors, 'info')
     return render_template('index.html', form1=form1, form2=form2, pleb=pleb, description=description, title=title)
 
 @app.route("/gen_query", methods=['GET', 'POST'])
