@@ -574,6 +574,12 @@ msinfo32: systems name, config, specs, etc...
 mstsc: remote connection
 services.msc: list of services which can be started or stopped or configured
 compmgmt.mcs: advanced windows modules
+mmc: windows manager tool
+resmon: monitored resources
+netplwiz: advanced user accounts window
+gpedit.msc: advnaced policies tool manager
+msconfig: boot options
+
 
 '''
 
