@@ -219,6 +219,10 @@
 
         
     {% endif %}
+<div>
+    {{ script|safe }}
+    {{ div|safe }}    
+</div>
     </div>
 
 
@@ -312,10 +316,7 @@
 <script src="http://cdn.pydata.org/bokeh/release/bokeh-0.13.0.min.js"></script>
 <script src="http://cdn.pydata.org/bokeh/release/bokeh-widgets-0.13.0.min.js"></script>
 
-<div>
-    {{ script|safe }}
-    {{ div|safe }}    
-</div>
+
 
     {% endblock content %}
     
