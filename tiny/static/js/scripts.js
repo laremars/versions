@@ -340,23 +340,25 @@ $("document").ready(function() {
     }));
 */
 
-    autoScroll("#heading-tester", 0, 20, 300);
+    autoScroll("#heading-tester","", 0, 20, 300);
     autoScroll("#heading-line");
     autoScroll("#heading-process_type");
     autoScroll("#heading-product");
     autoScroll("#heading-output");
+    autoScroll("#render-default-form-button", "#interface-title");
     
     /*Designed to scroll to the top of the element specified by the passed in identifier, which should be a string value representing the class or id*/
-    /*The second optional parameter represents additonal distance from the top of the screen: should be a positive or negative integer*/
+    /*The second optional parameter represents additonal distance from the top of the screen, raltive to the identifier: should be a positive or negative integer*/
     /*The third optional parameter represents the delay between the click event and the beginning of the scroll animation. No supplied delay will default to near instant event triggering*/
     /*The fourth optional parameter represents the duration of the scroll animation. no supplied duration will default animation to 300ms*/
-    function autoScroll(identifier, dist, delay, animation) {
+    function autoScroll(identifier, target, dist, delay, animation) {
+        target = typeof target=='undefined' ? identifier : target;//target becomes identifier if not supplied in the function call
         dist = typeof dist=='undefined' ? 0 : dist;//dist becomes 0px if not supplied in the function call
         delay = typeof delay=='undefined' ? 1 : delay;//delay becomes 1ms if not supplied in the function call
         animation = typeof animation=='undefined' ? 300 : animation;//animation becomes 300ms if not supplied in the function call
         $(identifier).on("click", (function(){
             $('html, body').delay(delay).animate({//optional delay before animation begins
-                scrollTop: $(identifier).offset().top - 60 + dist
+                scrollTop: $(target).offset().top - 60 + dist
             }, animation);//optional animation period
         }));
     }
