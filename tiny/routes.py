@@ -76,8 +76,8 @@ def home():
         #http://biobits.org/bokeh-flask.html
         if form3.output.data == 'plot':
             if form3.report_type.data == 'histogram':
-                script,div = bokehfuns.test_histogram()#testing purposes
-                #script,div = bokehfuns.hist_comp(unwound_data)
+                script,div = bokehfuns.hist_comp(unwound_data)
+                #script,div = bokehfuns.test_histogram()#testing purposes
             elif form3.report_type.data == 'time_series':
                 script,div = bokehfuns.time_comp(unwound_data)
             return render_template('index.html', title='Measurement Stats', form1=form1, form2=form2, form3=form3, script=script, div=div)
