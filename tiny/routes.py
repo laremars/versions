@@ -47,18 +47,7 @@ def home():
         else:
             flash("Name Taken: Please Be Original", 'warning')
             return render_template('index.html', form1=form1, form2=form2, pleb=pleb)
-        '''
-    if form1.validate_on_submit():
-    flash('Form 1 has validated','successs')
-    where = mongofuns.build_where(form1)
-    unwound_data = mongofuns.query(form1.product.data, form1.step_name.data, where)
-    if not unwound_data:
-        return Response('returned no records: CLIENT.' + str(form1.product.data) + '.' + str(form1.step_name.data) + \
-        '.find(' + str(mongofuns.build_where(form1)) + ')')
-    if form1.output.data == 'csv':
-        csv_content = mongofuns.csv(unwound_data)
-        return Response(csv_content,  mimetype='text/csv', headers={'Content-disposition':'attachment; filename=test.csv'})
-        '''
+
     if form3.validate_on_submit() and form3.submit3.data:#Query Fields
         where = mongofuns.build_where(form3)
         #flash("where: "+str(where), 'warning')
@@ -75,12 +64,15 @@ def home():
 
         #http://biobits.org/bokeh-flask.html
         if form3.output.data == 'plot':
-            if form3.report_type.data == 'histogram':
+            plot_type = form3.report_type.data
+            if plot_type == 'histogram':
                 script,div = bokehfuns.hist_comp(unwound_data)
+                title='Visualization: Histogram'
                 #script,div = bokehfuns.test_histogram()#testing purposes
-            elif form3.report_type.data == 'time_series':
+            elif plot_type == 'time_series':
                 script,div = bokehfuns.time_comp(unwound_data)
-            return render_template('index.html', title='Measurement Stats', form1=form1, form2=form2, form3=form3, script=script, div=div)
+                title='Visualization: Time Series'
+            return render_template('index.html', title=title, script=script, div=div, plot_type=plot_type)
         
         '''
         testers = form3.tester.data

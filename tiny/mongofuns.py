@@ -67,10 +67,10 @@ def query(product, col, where, project={'_id':0}):
     return list result from mongo query
     """
     
-    flash(product, 'warning')
-    flash(col, 'warning')
-    flash(where, 'warning')
-    flash(project, 'warning')
+    #flash(product, 'warning')
+    #flash(col, 'warning')
+    #flash(where, 'warning')
+    #flash(project, 'warning')
     
     db = CLIENT[product]#just 'TX' for now
     pipeline = [#to be passed into aggregate method
