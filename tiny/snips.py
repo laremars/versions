@@ -555,6 +555,7 @@ Header, aside and footer declarations in HTML: http://jsfiddle.net/tj_vantoll/59
 Flight data retrieval via API and JSON: http://jsfiddle.net/tj_vantoll/ujwWL/
 Table data entry, access and edit via JQuery: http://jsfiddle.net/tj_vantoll/tAp93/
 Position utility example demonstrating increased control of DOM items: http://jsfiddle.net/tj_vantoll/LgGQH/
+Bokeh example repository URL: https://github.com/fullstackpython/blog-code-examples
 
 
 
@@ -579,6 +580,7 @@ resmon: monitored resources
 netplwiz: advanced user accounts window
 gpedit.msc: advnaced policies tool manager
 msconfig: boot options
+
 
 
 '''
