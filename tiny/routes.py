@@ -42,17 +42,37 @@ def home():
         name_not_taken = True
         if name_not_taken:#simulates querying the db to check against existing names
             flash("Registration Successful: "+name, 'success')
-            #flash("This username, "+name+", will henceforth persist allowing cached historical queries to be more conveniently rendered.", 'info')
             return render_template('index.html', name=name, first_time=True, form3=form3, description=description, title=title)
         else:
             flash("Name Taken: Please Be Original", 'warning')
             return render_template('index.html', form1=form1, form2=form2, pleb=pleb)
 
     if form3.validate_on_submit() and form3.submit3.data:#Query Fields
+        
+        '''
+        form_data =	{
+          "report_type": form3.report_type.data,
+          "output": form3.output.data,
+          "product": form3.product.data,
+          "step_name": form3.step_name.data,
+          "part_number": form3.part_number.data,
+          "line": form3.line.data,
+          "process_type": form3.process_type.data,
+          "tester": form3.tester.data,
+          "daterange": form3.daterange.data
+        }
+        return redirect(url_for('logged_in', form_data=form_data))
+        '''
+        #import time
+        #start = time.time()
         where = mongofuns.build_where(form3)
         #flash("where: "+str(where), 'warning')
         
         unwound_data = mongofuns.query(form3.product.data, form3.step_name.data, where)
+        #end = time.time()
+        #exec_time = end - start
+        #flash('Execution Time: ' + str(exec_time),'info')
+        
         #flash("unwound: "+str(unwound_data), 'warning')
         if not unwound_data:
             return Response('returned no records: CLIENT.' + str(form3.product.data) + '.' + str(form3.step_name.data) + 
@@ -62,6 +82,17 @@ def home():
             csv_content = mongofuns.csv(unwound_data)
             return Response(csv_content,  mimetype='text/csv', headers={'Content-disposition':'attachment; filename=test.csv'})
 
+        if form3.output.data == 'plot':
+            plot_type = form3.report_type.data
+            if plot_type == 'histogram':
+                script,div = bokehfuns.hist_comp(unwound_data)
+                title='Visualization: Histogram'
+                #script,div = bokehfuns.test_histogram()#testing purposes
+            elif plot_type == 'time_series':
+                script,div = bokehfuns.time_comp(unwound_data)
+                title='Visualization: Time Series'
+            return redirect(url_for('logged_in', title=title, script=script, div=div, plot_type=plot_type))#too much code contained in script and div to successfully pass through the url
+        
         #http://biobits.org/bokeh-flask.html
         if form3.output.data == 'plot':
             plot_type = form3.report_type.data
@@ -89,7 +120,9 @@ def home():
         flash("process_type: "+form3.process_type.data, 'info')
         flash("tester: "+tstring, 'info')
         '''
+        
         return redirect(url_for(('home')))#must use redirect and url_for to run the function instead of merely rendering the provided html document
+    
     if form3.errors:
         flash(form3.errors, 'info')
     return render_template('index.html', form1=form1, form2=form2, pleb=pleb, description=description, title=title)
@@ -97,8 +130,13 @@ def home():
 @app.route("/gen_query", methods=['GET', 'POST'])
 def logged_in():
     gc.collect()
+
+    form_data = request.args.get('form_data')
+    flash(type(form_data),'success')
+    #for k,v in form_data.items():
+    #    flash('Key: '+k+', Value: '+v,'success')
     
-    
+    '''
     myquery = { 
              "FAIL_COUNT": { "$gt": 1500 , "$lt": 1659 },
              "LINE": "TX2" 
@@ -106,9 +144,9 @@ def logged_in():
 
     doc = list(CLIENT.TX.IOFF.find(myquery,{ "_id": 0, "TEST": 1 }))
     flash(str(doc) +' The returned list omits assigned id and TEST  items, where the results are limited to two.','info')
+    '''
     
-    
-    return render_template('logged_in.html')
+    return render_template('logged_in.html', plot_type='plot')
 
 
 @app.route("/macros")

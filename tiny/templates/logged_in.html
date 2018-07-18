@@ -1,6 +1,6 @@
 {% extends "layouts/dashboard.html" %}
 {% block content %}
-
+{% if plot_type %}
     <div class="container m-5">
         <h2 id="" class="">Welcome, {{ name }}! </h2>
         <p>Structure Query: </p>
@@ -25,6 +25,7 @@
         {{ script|safe }}
         {{ div|safe }}    
     </div>
+{% endif %}
 
 {% endblock content %}
     
