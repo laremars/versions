@@ -82,7 +82,7 @@ def home():
             csv_content = mongofuns.csv(unwound_data)
             return Response(csv_content,  mimetype='text/csv', headers={'Content-disposition':'attachment; filename=test.csv'})
 
-        if form3.output.data == 'plot':
+        '''if form3.output.data == 'plot':
             plot_type = form3.report_type.data
             if plot_type == 'histogram':
                 script,div = bokehfuns.hist_comp(unwound_data)
@@ -91,7 +91,7 @@ def home():
             elif plot_type == 'time_series':
                 script,div = bokehfuns.time_comp(unwound_data)
                 title='Visualization: Time Series'
-            return redirect(url_for('logged_in', title=title, script=script, div=div, plot_type=plot_type))#too much code contained in script and div to successfully pass through the url
+            return redirect(url_for('logged_in', title=title, script=script, div=div, plot_type=plot_type))#too much code contained in script and div to successfully pass through the url'''
         
         #http://biobits.org/bokeh-flask.html
         if form3.output.data == 'plot':

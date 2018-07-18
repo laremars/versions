@@ -21,8 +21,8 @@ def test_histogram():
 def hist_comp(unwound_data):
     df = pd.DataFrame(pd.io.json.json_normalize(unwound_data))
     hist, edges = np.histogram(df['TEST.VALUE'], density=True, bins=20)
-    #p = figure(plot_width=700, plot_height=700)#regular entry
-    p = figure(sizing_mode='scale_width', plot_height=700)
+    p = figure(plot_width=700, plot_height=700)#regular entry
+    #p = figure(sizing_mode='scale_width', plot_height=700)#So big!
     p.quad(top=hist, bottom=0, left=edges[:-1], right=edges[1:])  
     script, div = components(p)  
     return script, div
