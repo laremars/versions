@@ -124,7 +124,11 @@ $("document").ready(function() {
                    tester.push( $( this ).text() );
                 }
             });
-            $( "#tester" ).val( tester );
+            if (tester.length > 0) {
+                $( "#tester" ).val( tester );
+            } else {
+                $( "#tester" ).val( "all" ); //Set defaults
+            }
             //console.log( $( "#tester" ).val() );
             
             var line;
@@ -142,7 +146,11 @@ $("document").ready(function() {
                    process_type = $( this ).text();
                 }
             });
-            $( "#process_type" ).val( process_type );
+            if (process_type) {
+                $( "#process_type" ).val( process_type );
+            } else {
+                $( "#process_type" ).val( "all" ); //Set defaults
+            }
             //console.log( $( "#process_type" ).val() );
             
             
