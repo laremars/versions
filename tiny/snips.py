@@ -556,6 +556,11 @@ Flight data retrieval via API and JSON: http://jsfiddle.net/tj_vantoll/ujwWL/
 Table data entry, access and edit via JQuery: http://jsfiddle.net/tj_vantoll/tAp93/
 Position utility example demonstrating increased control of DOM items: http://jsfiddle.net/tj_vantoll/LgGQH/
 Bokeh example repository URL: https://github.com/fullstackpython/blog-code-examples
+Gentle PyMongo Cheatsheets: http://altons.github.io/python/2013/01/21/gentle-introduction-to-mongodb-using-pymongo/
+                            https://gist.github.com/barisariburnu/63302f849437a5967955509d24ce582c/
+                            https://pythonexample.com/code/pymongo/
+                            In general, google: pymongo tutorials for decent results
+
 
 
 
