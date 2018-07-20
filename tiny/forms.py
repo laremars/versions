@@ -27,13 +27,21 @@ class QueryParams(FlaskForm):
 class main_form(FlaskForm):
     report_type = SelectField(u'Report Type', choices=[('none', 'None'), ('time_series', 'Time Series'), ('histogram', 'Histogram')], default='histogram', validators=[DataRequired()])
     output = SelectField('Output Type', choices=[('csv','CSV'), ('plot','Plot')], default='plot', validators=[DataRequired()])
-    product = SelectField('Product', choices=[('TX','TX')], default='TX', validators=[DataRequired()])
+    product = SelectField('Product', choices=[('TX','TX'), ('RX','RX')], default='TX', validators=[DataRequired()])
     step_name = StringField('Step Name', validators=[DataRequired()])
     part_number = StringField('Part Number', default='all', validators=[DataRequired()])    #doesn't update right without DataRequired
-    line = SelectField('Line', choices=[('all','all'), ('TX1', 'TX1'), ('TX2', 'TX2'), ('TX3', 'TX3'), ('TX4', 'TX4')], default='TX1', validators=[DataRequired()])
-    process_type = SelectField('Process', choices=[('all','all'), ('ICC', 'ICC'), ('ECU', 'ECU')], default='TX', validators=[DataRequired()])
+    line = SelectField('Line', choices=[('all','all'), ('TX1', 'TX1'), ('TX2', 'TX2'), ('TX3', 'TX3'), ('TX4', 'TX4'), ('RX1', 'RX1'), ('RX2', 'RX2'), ('RX3', 'RX3'), ('RX4', 'RX4')], default='TX1', validators=[DataRequired()])
+    process_type = SelectField('Process', choices=[('all','all'), ('ICC', 'ICC'), ('ECU', 'ECU')], validators=[DataRequired()])
 
     tester_list = ['all',
+                   'R1ECU019','R1ECU025',
+                   'R2ECU024','R2ECU027','R2ECU034','R2ECU048',
+                   'R3ECU052','R3ECU053',
+                   'R4ECU038','R4ECU051',
+                   'R1ICC022','R1ICC026',
+                   'R2ICC018','R2ICC023','R2ICC047',
+                   'R3ICC050','R3ICC078',
+                   'R4ICC039','R4ICC049',
                    'T1ECU019','T1ECU025',
                    'T2ECU024','T2ECU027','T2ECU034','T2ECU048',
                    'T3ECU052','T3ECU053',

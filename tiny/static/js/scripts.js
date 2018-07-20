@@ -9,6 +9,11 @@ $("document").ready(function() {
                 //format: 'MM/DD/YYYY h:mm A'
             }
         });*/
+        /*
+        An excellent resource for different methods of controlling the
+            daterangepicker exists on its site:
+            http://www.daterangepicker.com/
+        */
         $('input[name="daterange"]').daterangepicker({
             ranges: {
                 'Today': [moment(), moment()],
@@ -31,8 +36,19 @@ $("document").ready(function() {
     
     console.log("Viewport Width: "+$(window).width()+", Viewport Height: "+$(window).height());
     
+    /*
+        .autocomplete is a JQuery method which allows a text input field to predict predetermined field names
+        this has two potential purposes:
+            the first purpose is largely convenience
+            the second purpose is ensuring proper input formatting, so that the value matched predetermined constraints
+    */
+    
     $( "#name1" ).autocomplete({
       source: [ "Joshua", "Gene", "Larry", "Mo", "Cameron", "Mitch", "Robert", "Larry", "Brad", "Jerry", "Jeff", "Curly", "Glenn", "Matt", "Pete" ]
+    });
+    
+    $( "#step_name" ).autocomplete({
+      source: [ "OK", "CFR", "IOPE", "WDAT0", "X-AXIS", "PWR" ]
     });
     
     $( "#name1" ).val("Larry");
@@ -117,6 +133,58 @@ $("document").ready(function() {
             //populate form plz--------------------------------------------------------------------------
                 
             autoScroll("#interface-description");
+            
+            $("div#collapse-date").find("li.cust-sel1").each(function() {
+                if( ( $.trim( $( this ).val() ).length>0) ){
+                   //console.log( $( this ).val() );
+                    switch( $( this ).text()) {
+                        case "Last Year":
+                            $('input[name="daterange"]').data('daterangepicker').setStartDate(moment().subtract(1, 'years'));
+                            $('input[name="daterange"]').data('daterangepicker').setEndDate(moment());
+                            break;
+                        case "Last 6 Months":
+                            $('input[name="daterange"]').data('daterangepicker').setStartDate(moment().subtract(6, 'months'));
+                            $('input[name="daterange"]').data('daterangepicker').setEndDate(moment());
+                            break;
+                        case "Last 90 Days":
+                            $('input[name="daterange"]').data('daterangepicker').setStartDate(moment().subtract(3, 'months'));
+                            $('input[name="daterange"]').data('daterangepicker').setEndDate(moment());
+                            break;
+                        case "Last 60 Days":
+                            $('input[name="daterange"]').data('daterangepicker').setStartDate(moment().subtract(2, 'months'));
+                            $('input[name="daterange"]').data('daterangepicker').setEndDate(moment());
+                            break;
+                        case "Last 30 Days":
+                            $('input[name="daterange"]').data('daterangepicker').setStartDate(moment().subtract(30, 'days'));
+                            $('input[name="daterange"]').data('daterangepicker').setEndDate(moment());
+                            break;
+                        case "Last 15 Days":
+                            $('input[name="daterange"]').data('daterangepicker').setStartDate(moment().subtract(15, 'days'));
+                            $('input[name="daterange"]').data('daterangepicker').setEndDate(moment());
+                            break;
+                        case "Last 7 Days":
+                            $('input[name="daterange"]').data('daterangepicker').setStartDate(moment().subtract(7, 'days'));
+                            $('input[name="daterange"]').data('daterangepicker').setEndDate(moment());
+                            break;
+                        case "Yesterday":
+                            $('input[name="daterange"]').data('daterangepicker').setStartDate(moment().subtract(1, 'days'));
+                            $('input[name="daterange"]').data('daterangepicker').setEndDate(moment().subtract(1, 'days'));
+                            break;
+                        case "Today":
+                            $('input[name="daterange"]').data('daterangepicker').setStartDate(moment());
+                            $('input[name="daterange"]').data('daterangepicker').setEndDate(moment());
+                            break;
+                        default:
+                            $('input[name="daterange"]').data('daterangepicker').setStartDate(moment());
+                            $('input[name="daterange"]').data('daterangepicker').setEndDate(moment());
+                            console.log("list item not defined")
+                    }
+                } else {
+                            $('input[name="daterange"]').data('daterangepicker').setStartDate(moment());
+                            $('input[name="daterange"]').data('daterangepicker').setEndDate(moment());
+                }
+            });
+            
 
             var tester = [];
             $("div#collapse-tester").find("li.cust-sel-mult").each(function() {
@@ -313,6 +381,13 @@ $("document").ready(function() {
     $("li.sel1").on("click", (function(){//Custom Single Select Field Logic
     
         val = $(this).attr("value");
+        /*
+        if ( val == "TX") {
+            console.log(typeof val+" : "+val);
+        }
+        */
+
+        
         
         if ( $( this ).hasClass("nested-sib") ) { //Ensures siblings can't be selected at the same time -- Depends strongly on DOM structure for traversal
             $( this ).parentsUntil(".nested").find(".nested-sib").not( $( this ) ).removeClass( "list-group-item-primary font-weight-bold text-success shadow-lg cust-sel1" );
@@ -325,7 +400,13 @@ $("document").ready(function() {
         if ( val == "CSV" && $( this ).hasClass("cust-sel1") ) {//csv and plot options shouldn't be selected at the same time
             $( this ).parentsUntil(".nested").find("li[value='None']").addClass( "list-group-item-primary font-weight-bold text-success shadow-lg cust-sel1" ); // Selects None
         }
-
+        
+        if ( $( this ).hasClass("cust-sel1") ) {//---------------------------------------------------------------------------
+            checkDependentDisplay(val, true);
+        } else {
+            checkDependentDisplay(val, false);
+        }
+        
         $("#render-form-button").removeClass("disabled");
         $("#render-icon").addClass("fa-check");
         
@@ -348,6 +429,8 @@ $("document").ready(function() {
 
     autoScroll("#heading-tester","#heading-tester", 0, 20, 300);
     autoScroll("#heading-line");
+    autoScroll("#heading-date");
+    autoScroll("#heading-step");
     autoScroll("#heading-process_type");
     autoScroll("#heading-product");
     autoScroll("#heading-output");
@@ -372,7 +455,120 @@ $("document").ready(function() {
             }, animation);//optional animation period
         }));
     }
-
+    
+    function checkDependentDisplay(value, isSelected) {
+        var dep = [];
+        $("div#collapse-tester").find("li.dependent").each(function() {
+            if( ( $.trim( $( this ).val() ).length>0) ){
+               dep.push( $( this ).text() );
+            }
+        });
+        switch( value ) {
+            case "TX":
+            case "RX":
+                if (isSelected) {
+                    $("div#collapse-process_type").find("li.dependent").each(function() {
+                        $( this ).removeAttr("style").removeClass( "list-group-item-primary font-weight-bold text-success shadow-lg cust-sel1" );
+                        //console.log("remove attr from "+ $(this).text())
+                    });
+                    $("div#collapse-line").find("li.dependent").each(function() {
+                        $( this ).attr("style", "display:none;");
+                    });
+                    $("div#collapse-tester").find("li.dependent").each(function() {
+                        $( this ).attr("style", "display:none;");
+                    });
+                } else {
+                    $("div#accordion").find("li.dependent").each(function() {
+                        $( this ).attr("style", "display:none;");
+                    });
+                }
+                break;
+                
+            case "all":
+            case "ICC":
+            case "ECU":
+            
+                if (isSelected) {
+                    $("div#collapse-product").find("li.cust-sel1").each(function() {
+                        if ( $( this ).text() == "TX" ) {
+                            $("div#collapse-line").find("li.dependent").each(function() {
+                                if ( $( this ).text().indexOf("TX") !== -1) {
+                                    $( this ).removeAttr("style");
+                                }
+                            });
+                        } else if ( $( this ).text() == "RX" ) {
+                            $("div#collapse-line").find("li.dependent").each(function() {
+                                if ( $( this ).text().indexOf("RX") !== -1) {
+                                    $( this ).removeAttr("style");
+                                }
+                            });
+                        } else {
+                            $("div#collapse-line").find("li.dependent").each(function() {
+                                $( this ).attr("style", "display:none;");
+                            });
+                        }
+                        //console.log("remove attr from "+ $(this).text())
+                    });
+                } else {
+                    $("div#collapse-line").find("li.dependent").each(function() {
+                        $( this ).attr("style", "display:none;");
+                    });
+                    $("div#collapse-tester").find("li.dependent").each(function() {
+                        $( this ).attr("style", "display:none;");
+                    });
+                }
+                /*
+                $.each(dep, function(index, value){
+                    console.log(index+" : "+value);
+                });
+                console.log(typeof dep+" : "+dep[2]);
+                */
+                break;
+                
+            case "TX1":
+            case "TX2":
+            case "TX3":
+            case "TX4":
+            case "RX1":
+            case "RX2":
+            case "RX3":
+            case "RX4":
+            
+                var product="";
+                var process="";
+                var line="";
+                
+                if (isSelected) {
+                
+                    $("div#collapse-product").find("li.cust-sel1").each(function() {
+                        product = $( this ).text();
+                        console.log(product);
+                    });
+                    $("div#collapse-process_type").find("li.cust-sel1").each(function() {
+                        process = $( this ).text();
+                        console.log(process);
+                    });
+                    $("div#collapse-line").find("li.cust-sel1").each(function() {
+                        line = $( this ).text();
+                        console.log(line);
+                    });
+                    
+                    $.each(dep, function(index, value){
+                        if ( value.charAt(0) == product.charAt(0) && value.charAt(1) == line.charAt(2) && value.includes(process) ) {
+                            $( "li[value='"+value+"']" ).removeAttr("style");
+                        } else {
+                            $( "li[value='"+value+"']" ).attr("style", "display:none;");
+                        }
+                    });
+                    
+                }
+                
+                break;
+                
+            default:
+                console.log("list item not defined inside the checkDependentDisplay function")
+        }
+    }
     
     
 });//$("document").ready(function() {
