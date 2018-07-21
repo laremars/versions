@@ -559,6 +559,7 @@ Bokeh example repository URL: https://github.com/fullstackpython/blog-code-examp
 Gentle PyMongo Cheatsheets: http://altons.github.io/python/2013/01/21/gentle-introduction-to-mongodb-using-pymongo/
                             https://gist.github.com/barisariburnu/63302f849437a5967955509d24ce582c/
                             https://pythonexample.com/code/pymongo/
+                            http://blog.pythonisito.com/2012/06/using-mongodbs-new-aggregation.html
                             In general, google: pymongo tutorials for decent results
 
 
