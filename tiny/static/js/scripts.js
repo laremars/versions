@@ -275,6 +275,9 @@ $("document").ready(function() {
             $("#render-form-button").addClass("disabled");
             $("#render-icon").removeClass("fa-check");
             console.log("Value: "+val);
+            $("div#accordion").find("li.dependent").each(function() {
+                $( this ).attr("style", "display:none;");
+            });
             autoScroll("#interface-description");
         } else if (val == "Cancel") {
             $("#query-form").animate({// Good working example of multiple effects
@@ -401,11 +404,10 @@ $("document").ready(function() {
             $( this ).parentsUntil(".nested").find("li[value='None']").addClass( "list-group-item-primary font-weight-bold text-success shadow-lg cust-sel1" ); // Selects None
         }
         
-        if ( $( this ).hasClass("cust-sel1") ) {//---------------------------------------------------------------------------
-            checkDependentDisplay(val, true);
-        } else {
-            checkDependentDisplay(val, false);
-        }
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        
+        checkDependentDisplay(val, $( this ).hasClass("cust-sel1"), $( this ).hasClass("dependent"), $( this ).prop("classList") );
+
         
         $("#render-form-button").removeClass("disabled");
         $("#render-icon").addClass("fa-check");
@@ -456,13 +458,21 @@ $("document").ready(function() {
         }));
     }
     
-    function checkDependentDisplay(value, isSelected) {
-        var dep = [];
-        $("div#collapse-tester").find("li.dependent").each(function() {
-            if( ( $.trim( $( this ).val() ).length>0) ){
-               dep.push( $( this ).text() );
-            }
-        });
+    function checkDependentDisplay(value, isSelected, isDependent, arr) {
+        //console.log(arr.toString())
+        if (value == "all" && isSelected && isDependent == false) {
+            $("div#collapse-process_type").find("li.dependent").each(function() {
+                $( this ).removeAttr("style").removeClass( "list-group-item-primary font-weight-bold text-success shadow-lg cust-sel1" );
+                //console.log("remove attr from "+ $(this).text())
+            });
+            $("div#collapse-line").find("li.dependent").each(function() {
+                $( this ).attr("style", "display:none;").removeClass( "list-group-item-primary font-weight-bold text-success shadow-lg cust-sel1" );
+            });
+            $("div#collapse-tester").find("li.dependent").each(function() {
+                $( this ).attr("style", "display:none;").removeClass( "list-group-item-primary font-weight-bold text-success shadow-lg cust-sel1" );
+            });
+        }
+        
         switch( value ) {
             case "TX":
             case "RX":
@@ -472,14 +482,14 @@ $("document").ready(function() {
                         //console.log("remove attr from "+ $(this).text())
                     });
                     $("div#collapse-line").find("li.dependent").each(function() {
-                        $( this ).attr("style", "display:none;");
+                        $( this ).attr("style", "display:none;").removeClass( "list-group-item-primary font-weight-bold text-success shadow-lg cust-sel1" );
                     });
                     $("div#collapse-tester").find("li.dependent").each(function() {
-                        $( this ).attr("style", "display:none;");
+                        $( this ).attr("style", "display:none;").removeClass( "list-group-item-primary font-weight-bold text-success shadow-lg cust-sel1" );
                     });
                 } else {
                     $("div#accordion").find("li.dependent").each(function() {
-                        $( this ).attr("style", "display:none;");
+                        $( this ).attr("style", "display:none;").removeClass( "list-group-item-primary font-weight-bold text-success shadow-lg cust-sel1" );
                     });
                 }
                 break;
@@ -487,6 +497,8 @@ $("document").ready(function() {
             case "all":
             case "ICC":
             case "ECU":
+                
+                
             
                 if (isSelected) {
                     $("div#collapse-product").find("li.cust-sel1").each(function() {
@@ -502,12 +514,22 @@ $("document").ready(function() {
                                     $( this ).removeAttr("style");
                                 }
                             });
+                        } else if ( $( this ).text() == "all" ) {
+                            $("div#collapse-line").find("li.dependent").each(function() {
+                                $( this ).removeAttr("style");
+                            });
                         } else {
                             $("div#collapse-line").find("li.dependent").each(function() {
                                 $( this ).attr("style", "display:none;");
                             });
                         }
                         //console.log("remove attr from "+ $(this).text())
+                    });
+                    $("div#collapse-tester").find("li.dependent").each(function() {
+                        $( this ).attr("style", "display:none;");
+                    });
+                    $("div#collapse-line").find("li.cust-sel1").each(function() {
+                        $( this ).removeClass( "list-group-item-primary font-weight-bold text-success shadow-lg cust-sel1" );
                     });
                 } else {
                     $("div#collapse-line").find("li.dependent").each(function() {
@@ -534,6 +556,13 @@ $("document").ready(function() {
             case "RX3":
             case "RX4":
             
+                var dep = [];
+                $("div#collapse-tester").find("li.dependent").each(function() {
+                    if( ( $.trim( $( this ).val() ).length>0) ){
+                       dep.push( $( this ).text() );
+                    }
+                });
+                
                 var product="";
                 var process="";
                 var line="";
@@ -542,27 +571,41 @@ $("document").ready(function() {
                 
                     $("div#collapse-product").find("li.cust-sel1").each(function() {
                         product = $( this ).text();
-                        console.log(product);
                     });
                     $("div#collapse-process_type").find("li.cust-sel1").each(function() {
                         process = $( this ).text();
-                        console.log(process);
                     });
                     $("div#collapse-line").find("li.cust-sel1").each(function() {
                         line = $( this ).text();
-                        console.log(line);
                     });
+                    if (process != "all"){
+                        $.each(dep, function(index, value){
+                            if ( value.charAt(0) == product.charAt(0) && value.charAt(1) == line.charAt(2) && value.includes(process) ) {
+                                $( "li[value='"+value+"']" ).removeAttr("style");
+                            } else {
+                                if ( value != "all" ) {//don't want to get rid of items matching this value
+                                    $( "li[value='"+value+"']" ).attr("style", "display:none;");
+                                }
+                            }
+                        });
+                    } else {
+                        $.each(dep, function(index, value){
+                            if ( value.charAt(0) == product.charAt(0) && value.charAt(1) == line.charAt(2) ) {
+                                $( "li[value='"+value+"']" ).removeAttr("style");
+                            } else {
+                                if ( value != "all" ) {//don't want to get rid of items matching this value
+                                    $( "li[value='"+value+"']" ).attr("style", "display:none;");
+                                }
+                            }
+                        });
+                    }
+
                     
-                    $.each(dep, function(index, value){
-                        if ( value.charAt(0) == product.charAt(0) && value.charAt(1) == line.charAt(2) && value.includes(process) ) {
-                            $( "li[value='"+value+"']" ).removeAttr("style");
-                        } else {
-                            $( "li[value='"+value+"']" ).attr("style", "display:none;");
-                        }
+                } else {
+                    $("div#collapse-tester").find("li.dependent").each(function() {
+                        $( this ).attr("style", "display:none;");
                     });
-                    
                 }
-                
                 break;
                 
             default:

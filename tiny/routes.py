@@ -51,7 +51,8 @@ def home():
         
         #import time
         #start = time.time()
-        where = mongofuns.build_where(form3)
+
+        where = mongofuns.build_where(form3, {})
         #flash("where: "+str(where), 'warning')
         
         unwound_data = mongofuns.query(form3.product.data, form3.step_name.data, where)

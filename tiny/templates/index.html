@@ -100,12 +100,12 @@
                              "OK", "CFR", "IOPE", "WDAT0", "X-AXIS", "PWR" 
                     -->
                     <div id="accordion" role="tablist">
-                    {{ render_collapsible("Date Range", "heading-date", "collapse-date", [("today","Today"), ("yesterday","Yesterday"), ("7","Last 7 Days"), ("15","Last 15 Days"), ("30","Last 30 Days"), ("60","Last 60 Days"), ("90","Last 90 Days"), ("sixMonths","Last 6 Months"), ("year","Last Year")], "sel1") }}
-                    {{ render_collapsible("Product", "heading-product", "collapse-product", form3.product.choices, "sel1") }}
-                    {{ render_collapsible("Process", "heading-process_type", "collapse-process_type", form3.process_type.choices, "sel1", dependent=true) }}
-                    {{ render_collapsible("Line", "heading-line", "collapse-line", form3.line.choices, "sel1", dependent=true) }}
-                    {{ render_collapsible("Step", "heading-step", "collapse-step", [("OK","OK"), ("CFR","CFR"), ("IOPE","IOPE"), ("WDAT0","WDAT0"), ("X-AXIS","X-AXIS"), ("PWR","PWR")], "sel1") }}
-                    {{ render_collapsible("Tester Name", "heading-tester", "collapse-tester", form3.tester.choices, "sel-mult", dependent=true) }}
+                    {{ render_collapsible("Date Range", "heading-date", "collapse-date", [("today","Today"), ("yesterday","Yesterday"), ("7","Last 7 Days"), ("15","Last 15 Days"), ("30","Last 30 Days"), ("60","Last 60 Days"), ("90","Last 90 Days"), ("sixMonths","Last 6 Months"), ("year","Last Year")], "sel1", field_for="date_range") }}
+                    {{ render_collapsible("Product", "heading-product", "collapse-product", form3.product.choices, "sel1", field_for="product") }}
+                    {{ render_collapsible("Process", "heading-process_type", "collapse-process_type", form3.process_type.choices, "sel1", dependent=true, field_for="process") }}
+                    {{ render_collapsible("Line", "heading-line", "collapse-line", form3.line.choices, "sel1", dependent=true, field_for="line") }}
+                    {{ render_collapsible("Step", "heading-step", "collapse-step", [("OK","OK"), ("CFR","CFR"), ("IOPE","IOPE"), ("WDAT0","WDAT0"), ("X-AXIS","X-AXIS"), ("PWR","PWR")], "sel1", field_for="step") }}
+                    {{ render_collapsible("Tester Name", "heading-tester", "collapse-tester", form3.tester.choices, "sel-mult", dependent=true, field_for="tester") }}
                       <div class="nested"><!--Good example of nests within nests-->
                           <div class="card"><!--Probably more trouble than it was worth-->
                             <div class="card-header" role="tab" id="heading-output">
