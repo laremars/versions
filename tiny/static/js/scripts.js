@@ -278,7 +278,7 @@ $("document").ready(function() {
             $("div#accordion").find("li.dependent").each(function() {
                 $( this ).attr("style", "display:none;");
             });
-            autoScroll("#interface-description");
+            
         } else if (val == "Cancel") {
             $("#query-form").animate({// Good working example of multiple effects
                 opacity: 0
@@ -431,7 +431,7 @@ $("document").ready(function() {
 
     autoScroll("#heading-tester","#heading-tester", 0, 20, 300);
     autoScroll("#heading-line");
-    autoScroll("#heading-date");
+    autoScroll("#heading-date","#heading-date", 0, 20, 500);
     autoScroll("#heading-step");
     autoScroll("#heading-process_type");
     autoScroll("#heading-product");
@@ -439,13 +439,17 @@ $("document").ready(function() {
     autoScroll("#render-default-form-button", "#interface-title");
     autoScroll("#login", "#mee");
     autoScroll("#register", "#mee");
+    autoScroll("#reset-button", "#heading-date", -90);
 
     
-    /*Defaults to scroll to the top of the element specified by the passed in identifier on click, which should be a string value representing the class or id*/
-    /*If there is a second optional identifier passed in, the autoScroll function will instead jump to the top of this element, which can be equal to the identifier*/
-    /*The third optional parameter represents additonal distance from the top of the screen, raltive to the identifier: should be a positive or negative integer*/
-    /*The fourth optional parameter represents the delay between the click event and the beginning of the scroll animation. No supplied delay will default to near instant event triggering*/
-    /*The fifth optional parameter represents the duration of the scroll animation. no supplied duration will default animation to 300ms*/
+    /*
+        Only requires one argument: identifier. 
+        Defaults to scroll to the top of the element specified by the passed in identifier on click, which should be a string value representing the class or id
+        If there is a second optional target passed in, the autoScroll function will instead jump to the top of this element after the passed in identifier is clicked. Target can be equal to identifier
+        The third optional parameter represents additonal distance from the top of the screen, raltive to the identifier: should be a positive or negative integer
+        The fourth optional parameter represents the delay between the click event and the beginning of the scroll animation. No supplied delay will default to near instant event triggering
+        The fifth optional parameter represents the duration of the scroll animation. no supplied duration will default animation to 300ms
+    */
     function autoScroll(identifier, target, dist, delay, animation) {
         target = typeof target=='undefined' ? identifier : target;//target becomes identifier if not supplied in the function call
         dist = typeof dist=='undefined' ? 0 : dist;//dist becomes 0px if not supplied in the function call
@@ -460,20 +464,39 @@ $("document").ready(function() {
     
     function checkDependentDisplay(value, isSelected, isDependent, arr) {
         //console.log(arr.toString())
-        if (value == "all" && isSelected && isDependent == false) {
-            $("div#collapse-process_type").find("li.dependent").each(function() {
-                $( this ).removeAttr("style").removeClass( "list-group-item-primary font-weight-bold text-success shadow-lg cust-sel1" );
-                //console.log("remove attr from "+ $(this).text())
-            });
-            $("div#collapse-line").find("li.dependent").each(function() {
-                $( this ).attr("style", "display:none;").removeClass( "list-group-item-primary font-weight-bold text-success shadow-lg cust-sel1" );
-            });
-            $("div#collapse-tester").find("li.dependent").each(function() {
-                $( this ).attr("style", "display:none;").removeClass( "list-group-item-primary font-weight-bold text-success shadow-lg cust-sel1" );
+
+        if (value == "all") {//sets "all" to unique value before switch statement
+            var thisList = "";
+            $.each( arr, function( i, list ){
+              switch(list){
+                  case "product":
+                      value = "allProduct"
+                      console.log(value);
+                      break;
+                  case "process":
+                      value = "allProcess"
+                      console.log(value);
+                      break;
+                  case "line":
+                      value = "allLine"
+                      console.log(value);
+                      break;
+                  case "step":
+                      value = "allStep"
+                      console.log(value);
+                      break;
+                  case "tester":
+                      value = "allTester"
+                      console.log(value);
+                      break;
+                  default:
+                      break;
+              }
             });
         }
-        
+
         switch( value ) {
+            case "allProduct":
             case "TX":
             case "RX":
                 if (isSelected) {
@@ -494,24 +517,29 @@ $("document").ready(function() {
                 }
                 break;
                 
-            case "all":
+            case "allProcess":
             case "ICC":
             case "ECU":
                 
                 
             
                 if (isSelected) {
+                
                     $("div#collapse-product").find("li.cust-sel1").each(function() {
                         if ( $( this ).text() == "TX" ) {
                             $("div#collapse-line").find("li.dependent").each(function() {
                                 if ( $( this ).text().indexOf("TX") !== -1) {
                                     $( this ).removeAttr("style");
+                                } else {
+                                    $( this ).attr("style", "display:none;");
                                 }
                             });
                         } else if ( $( this ).text() == "RX" ) {
                             $("div#collapse-line").find("li.dependent").each(function() {
                                 if ( $( this ).text().indexOf("RX") !== -1) {
                                     $( this ).removeAttr("style");
+                                } else {
+                                    $( this ).attr("style", "display:none;");
                                 }
                             });
                         } else if ( $( this ).text() == "all" ) {
@@ -523,30 +551,34 @@ $("document").ready(function() {
                                 $( this ).attr("style", "display:none;");
                             });
                         }
-                        //console.log("remove attr from "+ $(this).text())
                     });
+                    
                     $("div#collapse-tester").find("li.dependent").each(function() {
                         $( this ).attr("style", "display:none;");
                     });
+                    
                     $("div#collapse-line").find("li.cust-sel1").each(function() {
                         $( this ).removeClass( "list-group-item-primary font-weight-bold text-success shadow-lg cust-sel1" );
                     });
+                    
                 } else {
+                
                     $("div#collapse-line").find("li.dependent").each(function() {
                         $( this ).attr("style", "display:none;");
                     });
                     $("div#collapse-tester").find("li.dependent").each(function() {
                         $( this ).attr("style", "display:none;");
                     });
+                    
                 }
-                /*
-                $.each(dep, function(index, value){
-                    console.log(index+" : "+value);
-                });
-                console.log(typeof dep+" : "+dep[2]);
-                */
+                
                 break;
                 
+            case "allLine":
+                $( "li.tester" ).each(function() {
+                    $( this ).removeAttr("style");
+                });
+                break;
             case "TX1":
             case "TX2":
             case "TX3":
@@ -578,12 +610,20 @@ $("document").ready(function() {
                     $("div#collapse-line").find("li.cust-sel1").each(function() {
                         line = $( this ).text();
                     });
-                    if (process != "all"){
+                    $.each(dep, function(index, value){
+                        if ( ((value.charAt(0) == line.charAt(0) && value.charAt(1) == line.charAt(2)) || line == "all") && (value.includes(process) || process == "all") ) {
+                            $( "li.tester[value='"+value+"']" ).removeAttr("style");
+                        } else {
+                                $( "li.tester[value='"+value+"']" ).attr("style", "display:none;");
+                        }
+                    });
+                    
+                    /*if (process != "allProcess"){
                         $.each(dep, function(index, value){
                             if ( value.charAt(0) == product.charAt(0) && value.charAt(1) == line.charAt(2) && value.includes(process) ) {
                                 $( "li[value='"+value+"']" ).removeAttr("style");
                             } else {
-                                if ( value != "all" ) {//don't want to get rid of items matching this value
+                                if ( value != "allLine" ) {//don't want to get rid of items matching this value
                                     $( "li[value='"+value+"']" ).attr("style", "display:none;");
                                 }
                             }
@@ -598,7 +638,7 @@ $("document").ready(function() {
                                 }
                             }
                         });
-                    }
+                    }*/
 
                     
                 } else {
