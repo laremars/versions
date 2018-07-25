@@ -6,6 +6,7 @@ from tiny import bokehfuns
 import gc
 import pymongo
 import pandas as pd
+import sqlite3 as sql
 CLIENT = pymongo.MongoClient('mongodb://10.73.40.95:27017/')
 
 
@@ -36,17 +37,29 @@ def home():
         
     if form2.validate_on_submit() and form2.submit2.data:#Register
         #Register user in db
-        name=form2.name2.data
-        description = "Please choose an option to proceed:"
-        title = "New User - "+name
-        name_not_taken = True
-        if name_not_taken:#simulates querying the db to check against existing names
-            flash("Registration Successful: "+name, 'success')
-            return render_template('index.html', name=name, first_time=True, form3=form3, description=description, title=title)
-        else:
-            flash("Name Taken: Please Be Original", 'warning')
-            return render_template('index.html', form1=form1, form2=form2, pleb=pleb)
-
+        try:
+            
+            name=form2.name2.data
+            with sql.connect("lite/users.db") as con:
+                cur = con.cursor()
+                cur.execute("INSERT INTO usernames (name) VALUES (?)",(name) )
+                con.commit()
+                flash("Added User: "+name,'success')
+                description = "Please choose an option to proceed:"
+                title = "New User - "+name
+                name_not_taken = True
+                if name_not_taken:#simulates querying the db to check against existing names
+                    flash("Registration Successful: "+name, 'success')
+                    return render_template('index.html', name=name, first_time=True, form3=form3, description=description, title=title)
+                else:
+                    flash("Name Taken: Please Be Original", 'warning')
+                    return render_template('index.html', form1=form1, form2=form2, pleb=pleb)
+        except:
+            con.rollback()
+            flash("Error trying to insert",'warning')
+        
+        finally:
+            return render_template("index.html", name=name, first_time=True, form3=form3, description=description, title=title)
     if form3.validate_on_submit() and form3.submit3.data:#Query Fields
         
         #import time

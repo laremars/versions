@@ -17,6 +17,7 @@ def build_where(form, d={}):
     form: FlaskForm (forms.py) containing user input
     return mongo where dict arg
     """
+    d={}
     try:
 
         dr = form.daterange.data
@@ -71,6 +72,17 @@ def query(product, col, where, project={'_id':0}):
     #flash(col, 'warning')
     #flash(where, 'warning')
     #flash(project, 'warning')
+    '''Temporary additions:
+    
+    "myquery" "doc" and the following flash statement are temporary additions for testing purposes
+    '''
+    myquery = { 
+             "FAIL_COUNT": { "$gt": 1500 , "$lt": 1659 },
+             "LINE": "TX2" 
+    }
+
+    doc = list(CLIENT.TX.IOFF.find(myquery,{ "_id": 0, "TEST": 1 }))
+    flash(str(doc) +' The returned list omits assigned id and TEST  items, where the results are limited to two.','info')
     
     db = CLIENT[product]#just 'TX' for now
     pipeline = [#to be passed into aggregate method
@@ -81,7 +93,7 @@ def query(product, col, where, project={'_id':0}):
     result = list(db[col].aggregate(pipeline))
     #flash(db.command('aggregate', 'col', pipeline=pipeline, explain=True), 'success')#returns information on the query plans and execution statistics of the query plans using .command method: http://api.mongodb.com/python/current/api/pymongo/database.html#pymongo.database.Database.command
     
-    #flash(result, 'warning')
+    flash(result, 'warning')
     return result
 
 def csv(unwound_data):
