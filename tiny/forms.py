@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField, SelectField, DateTimeField, SelectMultipleField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
-
+#from tiny import mongofuns, routes
 
 
 class Login(FlaskForm):
@@ -64,3 +64,8 @@ class bokeh_form(FlaskForm):
                                                           ('PROCESS', 'Process'), ('LINE', 'Line')], 
                                     validators=[DataRequired()], default='line')
     submit2 = SubmitField('Update')
+'''
+class archive_form(FlaskForm):
+    choices = mongofuns.get_arch_form_sel(routes.session['username'])
+    query_select = SelectField('Query', choices=choices)
+'''

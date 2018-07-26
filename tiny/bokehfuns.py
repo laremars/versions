@@ -42,3 +42,24 @@ def time_comp(unwound_data):
         p.line(x, df['UPPER LIMIT'], line_color='red')    
     script, div = components(p)  
     return script, div
+
+def box_whisker(data):
+    """
+    data: mongo list result with fields DATE,LL,NOM,UL,Q1,Q3,MEAN,MAX,MIN
+    """
+    #https://bokeh.pydata.org/en/latest/docs/gallery/boxplot.html
+    df = pd.DataFrame(pd.io.json.json_normalize(data))
+    #somehow combine data for dates
+    p = figure()
+    x = df['DATE']
+
+    #stems
+    p.segment(x, df['MAX'], x, df['STATS']['QUARTILES'][2])
+    p.segment(x, df['MIN'], x, df['STATS']['QUARTILES'][0])
+    
+    #boxes
+    p.vbar(x, 0.7, df['STATS']['QUARTILES'][0], df['STATS']['QUARTILES'][1])
+    p.vbar(x, df['STATS']['QUARTILES'][1], df['STATS']['QUARTILES'][2])
+    
+    script, div = components(p)  
+    return script, div

@@ -1,15 +1,13 @@
-from flask import render_template, url_for, flash, redirect, request, abort, Response
+from flask import render_template, url_for, flash, redirect, request, Response, session
 from tiny.forms import Login, Register, QueryParams, bokeh_form, main_form
 from tiny import app
 from tiny import mongofuns
 from tiny import bokehfuns
 import gc
 import pymongo
-import pandas as pd
-import sqlite3 as sql
+
 CLIENT = pymongo.MongoClient('mongodb://10.73.40.95:27017/')
-
-
+app.secret_key = b'G\x03kd#,\x9f0\xe1 \x8f%G\x8d\x1b`'
 
 @app.route("/", methods=['GET', 'POST'])
 @app.route("/home", methods=['GET', 'POST'])
@@ -25,41 +23,30 @@ def home():
     
     #if request.method == "POST":
     if form1.validate_on_submit() and form1.submit1.data:#Login
-        name=form1.name1.data
-        title = "User - "+name
+        name = form1.name1.data
+        session['username'] = name #Larry can clean this mess up
+        title = "User - " + name
         description = "Please choose an option to proceed:"
         if name_exists:#simulates querying the db
-            flash("Login Successful:  "+name, 'success')
+            flash("Login Successful:  "+session['username'], 'success')
             return render_template('index.html', name=name, form3=form3, title=title, description=description)
         else:
             flash("The name, "+name+", is not reflected in the database. Please Do Better. ", 'warning')
             return render_template('index.html', form1=form1, form2=form2)
-        
+
     if form2.validate_on_submit() and form2.submit2.data:#Register
         #Register user in db
-        try:
-            
-            name=form2.name2.data
-            with sql.connect("lite/users.db") as con:
-                cur = con.cursor()
-                cur.execute("INSERT INTO usernames (name) VALUES (?)",(name) )
-                con.commit()
-                flash("Added User: "+name,'success')
-                description = "Please choose an option to proceed:"
-                title = "New User - "+name
-                name_not_taken = True
-                if name_not_taken:#simulates querying the db to check against existing names
-                    flash("Registration Successful: "+name, 'success')
-                    return render_template('index.html', name=name, first_time=True, form3=form3, description=description, title=title)
-                else:
-                    flash("Name Taken: Please Be Original", 'warning')
-                    return render_template('index.html', form1=form1, form2=form2, pleb=pleb)
-        except:
-            con.rollback()
-            flash("Error trying to insert",'warning')
-        
-        finally:
-            return render_template("index.html", name=name, first_time=True, form3=form3, description=description, title=title)
+        name=form2.name2.data
+        description = "Please choose an option to proceed:"
+        title = "New User - "+name
+        name_not_taken = True
+        if name_not_taken:#simulates querying the db to check against existing names
+            flash("Registration Successful: "+name, 'success')
+            return render_template('index.html', name=name, first_time=True, form3=form3, description=description, title=title)
+        else:
+            flash("Name Taken: Please Be Original", 'warning')
+            return render_template('index.html', form1=form1, form2=form2, pleb=pleb)
+
     if form3.validate_on_submit() and form3.submit3.data:#Query Fields
         
         #import time
@@ -78,6 +65,12 @@ def home():
             return Response('returned no records: CLIENT.' + str(form3.product.data) + '.' + str(form3.step_name.data) + 
             '.find(' + str(mongofuns.build_where(form3)) + ')')
             #flash(db.command('aggregate', 'col', pipeline=pipeline, explain=True), 'success')#returns information on the query plans and execution statistics of the query plans using .command method: http://api.mongodb.com/python/current/api/pymongo/database.html#pymongo.database.Database.command
+        else:
+            #save the form information for the user
+            arch_dict = {}
+            for elem in form3:
+                arch_dict[elem.name] = elem.data
+            mongofuns.store_form_selection(session['username'], arch_dict)
 
         if form3.output.data == 'csv':
             csv_content = mongofuns.csv(unwound_data)

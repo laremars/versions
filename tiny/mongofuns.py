@@ -8,7 +8,6 @@ import pymongo
 import pandas as pd
 from datetime import datetime
 import re
-from flask import flash
 
 CLIENT = pymongo.MongoClient('mongodb://10.73.40.95:27017/')
 
@@ -17,9 +16,7 @@ def build_where(form, d={}):
     form: FlaskForm (forms.py) containing user input
     return mongo where dict arg
     """
-    d={}
     try:
-
         dr = form.daterange.data
         start_date = datetime.strptime(dr[0:10], '%m/%d/%Y')
         end_date = datetime.strptime(dr[13::], '%m/%d/%Y')
@@ -72,17 +69,6 @@ def query(product, col, where, project={'_id':0}):
     #flash(col, 'warning')
     #flash(where, 'warning')
     #flash(project, 'warning')
-    '''Temporary additions:
-    
-    "myquery" "doc" and the following flash statement are temporary additions for testing purposes
-    '''
-    myquery = { 
-             "FAIL_COUNT": { "$gt": 1500 , "$lt": 1659 },
-             "LINE": "TX2" 
-    }
-
-    doc = list(CLIENT.TX.IOFF.find(myquery,{ "_id": 0, "TEST": 1 }))
-    flash(str(doc) +' The returned list omits assigned id and TEST  items, where the results are limited to two.','info')
     
     db = CLIENT[product]#just 'TX' for now
     pipeline = [#to be passed into aggregate method
@@ -93,8 +79,30 @@ def query(product, col, where, project={'_id':0}):
     result = list(db[col].aggregate(pipeline))
     #flash(db.command('aggregate', 'col', pipeline=pipeline, explain=True), 'success')#returns information on the query plans and execution statistics of the query plans using .command method: http://api.mongodb.com/python/current/api/pymongo/database.html#pymongo.database.Database.command
     
-    flash(result, 'warning')
+    #flash(result, 'warning')
     return result
+
+def store_form_selection(username, form_dict):
+    """
+    stores form information in userdb
+    username: name of user
+    form_dict: dictionary like {form.field.name : form.field.data}
+    """
+    
+    col = CLIENT.userdb.form_sel
+    form_dict['datetime'] = datetime.now()
+    col.update_one({'username':username}, 
+               {'$addToSet':{'form_data' : form_dict}},
+               upsert=True)
+    return
+
+def get_arch_form_sel(username):
+    """
+    returns list of unique successful queries subitted by user
+    """
+    col = CLIENT.userdb.form_sel
+    return col.find_one({'username':username},
+                        {'form_data':1, 'datetime':1})
 
 def csv(unwound_data):
     """
