@@ -110,6 +110,7 @@ $("document").ready(function() {
             $("#name2").focus();
         } else if (val == "Begin-Default") {
             $( "#step_name" ).val( "OK" ); //Set defaults
+            $( "#step_number" ).val( 14 ); //Set defaults
             $( "#part_number" ).val( "all" ); //Set defaults
             $( "#tester" ).val( "all" ); //Set defaults
             
@@ -126,8 +127,11 @@ $("document").ready(function() {
               });
               
             autoScroll("#interface-description");
+            console.log($( ".page-header" ).text().length);
             
-            $( ".page-header" ).append( ' <p class="lead ml-5 pl-5 text-primary text-monospace col-9">Press <code class="text-dark">Cancel</code> to return to the selection menu. </p>' );
+            $( ".page-header" ).append( ' <p class="lead ml-5 pl-5 text-primary text-monospace col-9 cancel-instructions">Press <code class="text-dark">Cancel</code> to return to the selection menu. </p>' );
+            
+            
             
         } else if (val == "Begin") {
             //populate form plz--------------------------------------------------------------------------
@@ -198,6 +202,18 @@ $("document").ready(function() {
                 $( "#tester" ).val( "all" ); //Set defaults
             }
             //console.log( $( "#tester" ).val() );
+
+            var by_fields = [];
+            $("div#collapse-by_fields").find("li.cust-sel-mult").each(function() {
+                if( ( $.trim( $( this ).val() ).length>0) ){
+                   by_fields.push( $( this ).text() );
+                }
+            });
+            if (by_fields.length > 0) {
+                $( "#by_fields" ).val( by_fields );
+            } else {
+                $( "#by_fields" ).val( "all" ); //Set defaults
+            }
             
             var line;
             $("div#collapse-line").find("li.cust-sel1").each(function() {
@@ -205,7 +221,12 @@ $("document").ready(function() {
                    line = $( this ).text();
                 }
             });
-            $( "#line" ).val( line );
+            if ( line ) {
+                $( "#line" ).val( line );
+            } else {
+                $( "#line" ).val( 'all' );
+            }
+            
             //console.log( $( "#line" ).val() );
             
             var process_type;
@@ -228,7 +249,11 @@ $("document").ready(function() {
                    product = $( this ).text();
                 }
             });
-            $( "#product" ).val( product );
+            if (product) {
+                $( "#product" ).val( product );
+            } else {
+                $( "#product" ).val( "all" ); //Set defaults
+            }
             //console.log( $( "#product" ).val() );
             
             var report_type;
@@ -237,22 +262,27 @@ $("document").ready(function() {
                    report_type = $( this ).text();
                 }
             });
-            $( "#report_type" ).val( report_type );
+            if (product) {
+                $( "#report_type" ).val( report_type );
+            } else {
+                $( "#report_type" ).val( "none" ); //Set defaults
+            }
             //console.log( $( "#report_type" ).val() );
             
             var output;
             $("div#collapse-output").find("li.cust-sel1").first().each(function() {
                 if( ( $.trim( $( this ).val() ).length>0) ){
-                   output = $( this ).text();//This may actually be an array coming back
+                   output = $( this ).text();
                 }
             });
-            if ( report_type == "histogram" || report_type == "time_series" ) {//They want a plot, as indicated above
+            if ( report_type == "histogram" || report_type == "time_series" || report_type == "box_whisker" ) {//They want a plot, as indicated above
                 $( "#output" ).val( "plot" );
             } else {
-                $( "#output" ).val( output );
+                $( "#output" ).val( 'csv' );
             }
             //console.log( $( "#output" ).val() );
             
+            $( "#step_number" ).val( 41 ); //Set defaults
             $( "#step_name" ).val( "OK" ); //Set defaults
             $( "#part_number" ).val( "all" ); //Set defaults
             
@@ -287,9 +317,11 @@ $("document").ready(function() {
                 opacity: 1,
                 bottom: "-=500",//Note the element cannot be moved if static
                 height: [ "toggle", "swing" ]
-                 }, 500
-                     );
+                 }, 500, function() {
+                     $( ".cancel-instructions" ).delay(100).remove();
+                 });
               });
+              
         } else if (val == "New") {
             $("#interface-description").text("Click on any item to prepopulate form fields.").delay(5000).animate({
                 opacity: 0
@@ -429,14 +461,14 @@ $("document").ready(function() {
     }));
 */
 
-    autoScroll("#heading-tester","#heading-tester", 0, 20, 300);
-    autoScroll("#heading-line");
-    autoScroll("#heading-date","#heading-date", 0, 20, 500);
-    autoScroll("#heading-step");
-    autoScroll("#heading-process_type");
-    autoScroll("#heading-product");
-    autoScroll("#heading-output");
-    autoScroll("#render-default-form-button", "#interface-title");
+    //autoScroll("#heading-tester","#heading-tester", 0, 20, 300);
+    //autoScroll("#heading-line");
+    //autoScroll("#heading-date","#heading-date", 0, 20, 500);
+    //autoScroll("#heading-step");
+    //autoScroll("#heading-process_type");
+    //autoScroll("#heading-product");
+    //autoScroll("#heading-output");
+    autoScroll("#render-default-form-button", "#interface-title", 60, 20, 1500);
     autoScroll("#login", "#mee");
     autoScroll("#register", "#mee");
     autoScroll("#reset-button", "#heading-date", -90);

@@ -50,8 +50,6 @@ def build_where(form, d={}):
             #flash("tester", 'success')
         return d
 
-        if form.step_number.data:
-            d['STEP_NUMBER'] = form.step_number.data
     except:
         #flash("bad data", 'danger')
         return 'bad input: ***' + str(d) + '***'

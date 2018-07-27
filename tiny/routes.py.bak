@@ -1,5 +1,5 @@
 from flask import render_template, url_for, flash, redirect, request, Response, session
-from tiny.forms import Login, Register, bokeh_form, main_form
+from tiny.forms import Login, Register, QueryParams, bokeh_form, main_form
 from tiny import app
 from tiny import mongofuns
 from tiny import bokehfuns
@@ -16,7 +16,7 @@ def home():
     title = "TD Data Interface"
     description = "Login or register to continue:"
     name_exists = True
-    pleb = True #future secure access hokey
+    pleb = True #future secure access implementations
     form1 = Login()
     form2 = Register()
     form3 = main_form()
@@ -88,13 +88,27 @@ def home():
             elif plot_type == 'time_series':
                 script,div = bokehfuns.time_comp(unwound_data)
                 title='Visualization: Time Series'
-            elif plot_type == 'box_whisker':
-                script,div = bokehfuns.box_whisker(unwound_data)
             #end = time.time()
             #exec_time = end - start
             #flash('Execution Time: ' + str(exec_time),'info')
             return render_template('index.html', title=title, script=script, div=div, plot_type=plot_type)
-                
+        
+        '''
+        testers = form3.tester.data
+        #",".join([str(x) for x in testers])
+        tstring = ",".join(map(str,testers))
+        flash("POST", 'success')
+        flash("daterange: "+form3.daterange.data, 'info')
+        flash("report_type: "+form3.report_type.data, 'info')
+        flash("output: "+form3.output.data, 'info')
+        flash("product: "+form3.product.data, 'info')
+        flash("step_name: "+form3.step_name.data, 'info')
+        flash("part_number: "+form3.part_number.data, 'info')
+        flash("line: "+form3.line.data, 'info')
+        flash("process_type: "+form3.process_type.data, 'info')
+        flash("tester: "+tstring, 'info')
+        '''
+        
         return redirect(url_for(('home')))#must use redirect and url_for to run the function instead of merely rendering the provided html document
     
     if form3.errors:

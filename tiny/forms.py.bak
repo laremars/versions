@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, IntegerField, SubmitField, BooleanField, SelectField, DateTimeField, SelectMultipleField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField, SelectField, DateTimeField, SelectMultipleField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 #from tiny import mongofuns, routes
 
@@ -12,19 +12,25 @@ class Register(FlaskForm):
     name2 = StringField('Username', validators=[DataRequired()], render_kw={'autofocus': True})
     submit2 = SubmitField('Register')
 
+class QueryParams(FlaskForm):
+    A = StringField('A')
+    Really = StringField('Really')
+    Big = StringField('Big')
+    List = StringField('List')
+    Of = StringField('Of')
+    Potential = StringField('Potential')
+    Query = StringField('Query')
+    Parameters = StringField('Parameters')
+    daterange = StringField('Date Range', validators=[DataRequired()])
+    submit3 = SubmitField('Register')
+
 class main_form(FlaskForm):
-    report_type = SelectField(u'Report Type',
-                              choices=[('none', 'None'), ('time_series', 'Time Series'), 
-                                       ('histogram', 'Histogram'),('box_whisker','Box and Whisker')],
-                              default='time_series', validators=[DataRequired()])
+    report_type = SelectField(u'Report Type', choices=[('none', 'None'), ('time_series', 'Time Series'), ('histogram', 'Histogram')], default='histogram', validators=[DataRequired()])
     output = SelectField('Output Type', choices=[('csv','CSV'), ('plot','Plot')], default='plot', validators=[DataRequired()])
     product = SelectField('Product', choices=[('all','all'), ('TX','TX'), ('RX','RX')], default='TX', validators=[DataRequired()])
-    step_number = IntegerField('Step Number')
     step_name = StringField('Step Name', validators=[DataRequired()])
     part_number = StringField('Part Number', default='all', validators=[DataRequired()])    #doesn't update right without DataRequired
-    line = SelectField('Line', choices=[('all','all'), ('TX1', 'TX1'), ('TX2', 'TX2'), ('TX3', 'TX3'), ('TX4', 'TX4'),
-                                        ('RX1', 'RX1'), ('RX2', 'RX2'), ('RX3', 'RX3'), ('RX4', 'RX4')],
-                       default='TX1', validators=[DataRequired()])
+    line = SelectField('Line', choices=[('all','all'), ('TX1', 'TX1'), ('TX2', 'TX2'), ('TX3', 'TX3'), ('TX4', 'TX4'), ('RX1', 'RX1'), ('RX2', 'RX2'), ('RX3', 'RX3'), ('RX4', 'RX4')], default='TX1', validators=[DataRequired()])
     process_type = SelectField('Process', choices=[('all','all'), ('ICC', 'ICC'), ('ECU', 'ECU')], validators=[DataRequired()])
 
     tester_list = ['all',
@@ -50,11 +56,11 @@ class main_form(FlaskForm):
 #class fail_form(main_form): #inherit from main_form
     #report_type = SelectField('Report Type', choices=[('fail_rate', 'Fail Rate'), ('tft', 'Total Fail Time'),
     #                                                   ('ebyi','ECU Failures by ICC Tester')], default='fail_rate')
-    by_fields_list = [('all','all'), ('Date','Date'), ('Line', 'Line'), ('Process', 'Process'), ('Tester', 'Tester'),
-                      ('PartNumber', 'PartNumber'), ('LowerLimit', 'LowerLimit'), ('Nominal', 'Nominal'),
-                      ('UpperLimit', 'UpperLimit'), ('Unit', 'Unit'), ('StepNumber', 'StepNumber'),
-                      ('PassCount', 'PassCount'), ('N', 'N'), ('FailCount', 'FailCount'), ('Stats', 'Stats'),
-                      ('DateTime', 'DateTime'), ('Value', 'Value'), ('OK', 'OK'), ('ID', 'ID')]
+    by_fields_list = [('all','all'), ('date','Date'), ('line', 'Line'), ('PROCESS', 'Process'), ('tester_name', 'Tester Name'),
+                      ('part_number', 'Part Number'), ('lower_limit', 'Lower Limit'), ('nominal', 'Nominal'),
+                      ('upper_limit', 'Upper Limit'), ('unit', 'Unit'), ('step_number', 'Step Number'),
+                      ('pass_count', 'Pass Count'), ('n', 'N'), ('fail_count', 'Fail Count'), ('stats', 'Stats'),
+                      ('datetime', 'Date Time'), ('value', 'Value'), ('ok', 'OK'), ('id', 'ID')]
     by_fields = SelectMultipleField('Fields of Interest', choices=by_fields_list, default='all', validators=[DataRequired()])
     
 class bokeh_form(FlaskForm):
